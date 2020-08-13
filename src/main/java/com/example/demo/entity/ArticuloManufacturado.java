@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -27,6 +28,8 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="rubroGeneral_id")
 	private RubroGeneral rubroGeneral;
+	
+	
 
 		
 	//Constructores
