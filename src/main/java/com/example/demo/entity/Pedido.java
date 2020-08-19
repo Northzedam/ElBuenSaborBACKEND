@@ -5,11 +5,13 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+@Entity
 public class Pedido extends EntidadGenerica implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -28,17 +30,17 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	@Column(name = "TipoDeEnvio")
 	private int tipoEnvio;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="cliente_id")
-	private Cliente cliente;
+	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JoinColumn(name="cliente_id")
+	//private Cliente cliente;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="DetallePedido")
-	private DetallePedido detallePedido;
+	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JoinColumn(name="DetallePedido")
+	//private DetallePedido detallePedido;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="Factura")
-	private Factura factura;
+	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JoinColumn(name="Factura")
+	//private Factura factura;
 
 	
 	
@@ -47,17 +49,19 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Pedido(Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, Cliente cliente) {
+	public Pedido(Date fecha, int numero, String estado, Date horaFin, int tipoEnvio) {
 		super();
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
 		this.horaFin = horaFin;
 		this.tipoEnvio = tipoEnvio;
-		this.cliente = cliente;
+		//this.cliente = cliente;
 	}
 
 
+	//SETTERS Y GETTERS
+	
 	public Date getFecha() {
 		return fecha;
 	}
@@ -108,17 +112,17 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Cliente getCliente() {
+	/*public Cliente getCliente() {
 		return cliente;
 	}
 
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
+	}*/
 	
 	
-	//SETTERS Y GETTERS
+	
 	
 	
 	

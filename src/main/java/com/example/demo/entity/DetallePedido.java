@@ -5,12 +5,14 @@ package com.example.demo.entity;
 
 	import javax.persistence.CascadeType;
 	import javax.persistence.Column;
-	import javax.persistence.FetchType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 	import javax.persistence.JoinColumn;
     import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+@Entity
 	public class DetallePedido extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
 
@@ -19,14 +21,26 @@ import javax.persistence.OneToOne;
 		
 		@Column(name = "Subtotal")
 		private double subtotal;
+
+		public DetallePedido() {
+			super();
+		}
+
+		public DetallePedido(int cantidad, double subtotal) {
+			super();
+			this.cantidad = cantidad;
+			this.subtotal = subtotal;
+		}
 		
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		@JoinColumn(name="ArticuloConsumo")
-		private ArticuloConsumo articuloConsumo;
 		
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		@JoinColumn(name="ArticuloManufacturado")
-		private ArticuloManufacturado articuloManufacturado;
+		
+		//@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		//@JoinColumn(name="ArticuloConsumo")
+		//private ArticuloConsumo articuloConsumo;
+		
+		//@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		//@JoinColumn(name="ArticuloManufacturado")
+		//private ArticuloManufacturado articuloManufacturado;
 		
 		
 		
