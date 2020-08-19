@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.service.IServicioGenerico;
 
-public class ControllerGenerico <E, S extends IServicioGenerico<E>>{
+public abstract class ControllerGenerico <E, S extends IServicioGenerico<E>>{
 	
-	@Autowired
+	@Autowired (required = true)
 	protected S service;
 	
 	//getAll-----------------------

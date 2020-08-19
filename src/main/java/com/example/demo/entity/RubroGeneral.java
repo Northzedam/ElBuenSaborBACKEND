@@ -14,7 +14,7 @@ public class RubroGeneral extends EntidadGenerica implements Serializable {
 	private String denominacion;
 
 	public RubroGeneral() {
-		super();
+		//super();
 	}
 
 	public RubroGeneral(String denominacion) {

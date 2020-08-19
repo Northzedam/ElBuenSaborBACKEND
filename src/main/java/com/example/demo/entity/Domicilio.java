@@ -20,7 +20,7 @@ public class Domicilio extends EntidadGenerica implements Serializable{
 	
 
 	public Domicilio() {
-		super();
+		//super();
 	}
 
 

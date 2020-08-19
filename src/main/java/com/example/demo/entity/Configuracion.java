@@ -18,7 +18,7 @@ public class Configuracion extends EntidadGenerica implements Serializable{
 
 	
 	public Configuracion() {
-		super();
+		//super();
 	}
 
 
