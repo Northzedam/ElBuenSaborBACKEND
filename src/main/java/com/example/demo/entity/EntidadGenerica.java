@@ -16,7 +16,7 @@ public abstract class EntidadGenerica {
 
 	
 	public EntidadGenerica() {
-		super();
+		//super();
 	}
 
 

@@ -36,7 +36,7 @@ public class Cliente extends EntidadGenerica implements Serializable{
 	//Constructores
 	
 	public Cliente() {
-		super();
+		//super();
 	}
 
 
