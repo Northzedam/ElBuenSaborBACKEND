@@ -35,7 +35,7 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	//Constructores
 	
 	public ArticuloManufacturado() {
-		super();
+		//super();
 	}
 
 

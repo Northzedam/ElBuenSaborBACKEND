@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+/*package com.example.demo.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,3 +13,4 @@ public interface ArticuloManufacturadoRepository extends JpaRepository<ArticuloM
 
 	public Page <ArticuloManufacturado> findAll(Pageable pageable);
 }
+*/

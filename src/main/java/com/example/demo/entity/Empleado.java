@@ -37,7 +37,7 @@ public class Empleado extends EntidadGenerica implements Serializable{
 	//Constructores
 	
 	public Empleado() {
-		super();
+		//super();
 	}
 
 

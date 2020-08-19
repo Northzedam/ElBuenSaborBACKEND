@@ -31,7 +31,7 @@ private static final long serialVersionUID = 1L;
 	//Contructores
 	
 	public ArticuloManufacturadoDetalle() {
-		super();
+		//super();
 	}
 
 	public ArticuloManufacturadoDetalle(double cantidad, String unidadMedida,
