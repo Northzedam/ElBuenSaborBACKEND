@@ -1,9 +1,11 @@
 package com.example.demo.entity;
 	
 	import java.io.Serializable;
-	import java.util.Date;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-	import javax.persistence.CascadeType;
+import javax.persistence.CascadeType;
 	import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,6 +35,11 @@ import javax.persistence.OneToOne;
 
 		@Column(name = "NTarjeta")
 		private String nroTarjeta;
+
+
+		@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+		@Column(name = "DetalleFactura")
+		private List<DetalleFactura> detalle = new ArrayList<DetalleFactura>();
 
 		public Factura() {
 			super();

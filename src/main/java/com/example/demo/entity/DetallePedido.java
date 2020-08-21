@@ -26,22 +26,90 @@ import javax.persistence.OneToOne;
 			super();
 		}
 
-		public DetallePedido(int cantidad, double subtotal) {
+		
+		
+		public DetallePedido(int cantidad, double subtotal, Pedido pedido) {
 			super();
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
+			this.pedido = pedido;
+			//this.articuloConsumo = articuloConsumo;
+			//this.articuloManufacturado = articuloManufacturado;
 		}
+
+
+
+		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+		@JoinColumn(name="Pedido")
+		private Pedido pedido;
 		
 		
+		/*@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+		@JoinColumn(name="ArticuloConsumo")
+		private ArticuloConsumo articuloConsumo;
 		
-		//@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		//@JoinColumn(name="ArticuloConsumo")
-		//private ArticuloConsumo articuloConsumo;
-		
-		//@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		//@JoinColumn(name="ArticuloManufacturado")
-		//private ArticuloManufacturado articuloManufacturado;
-		
+		@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+		@JoinColumn(name="ArticuloManufacturado")
+		private ArticuloManufacturado articuloManufacturado;
+*/
+		public int getCantidad() {
+			return cantidad;
+		}
+
+
+
+		public void setCantidad(int cantidad) {
+			this.cantidad = cantidad;
+		}
+
+
+
+		public double getSubtotal() {
+			return subtotal;
+		}
+
+
+
+		public void setSubtotal(double subtotal) {
+			this.subtotal = subtotal;
+		}
+
+
+
+		public Pedido getPedido() {
+			return pedido;
+		}
+
+
+
+		public void setPedido(Pedido pedido) {
+			this.pedido = pedido;
+		}
+
+
+
+		/*		public ArticuloConsumo getArticuloConsumo() {
+			return articuloConsumo;
+		}
+
+
+
+		public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
+			this.articuloConsumo = articuloConsumo;
+		}
+
+
+
+		public ArticuloManufacturado getArticuloManufacturado() {
+			return articuloManufacturado;
+		}
+
+
+
+		public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
+			this.articuloManufacturado = articuloManufacturado;
+		}
+	*/	
 		
 		
 }

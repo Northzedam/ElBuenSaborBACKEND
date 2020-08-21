@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -20,7 +21,7 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "unidadMedida")
 	private String unidadMedida;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="articuloManufacturado_id")
 	private ArticuloManufacturado articuloManufacturado;
 	
