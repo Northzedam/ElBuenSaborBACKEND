@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+@Entity
 	public class ArticuloConsumo extends EntidadGenerica implements Serializable{
 		
 	
@@ -38,13 +40,13 @@ import javax.persistence.OneToOne;
 		@Column(name = "EsInsumo")
 		private boolean esInsumo;
 		
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		@JoinColumn(name="Rubro")
-		private RubroArticulo rubroArticulo;
+		//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		//@JoinColumn(name="Rubro")
+		//private RubroArticulo rubroArticulo;
 		
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		@JoinColumn(name="ArticuloManufacturadoDetalle")
-		private ArticuloManufacturadoDetalle articuloManufacturadoDetalle;
+		//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		//@JoinColumn(name="ArticuloManufacturadoDetalle")
+		//private ArticuloManufacturadoDetalle articuloManufacturadoDetalle;
 		
 		
 
@@ -53,8 +55,7 @@ import javax.persistence.OneToOne;
 		}
 
 		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
-				double stockMinimo, String unidadMedida, boolean esInsumo, RubroArticulo rubroArticulo,
-				ArticuloManufacturadoDetalle articuloManufacturadoDetalle) {
+				double stockMinimo, String unidadMedida, boolean esInsumo) {
 			super();
 			this.denominacion = denominacion;
 			this.precioCompra = precioCompra;
@@ -63,8 +64,8 @@ import javax.persistence.OneToOne;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
-			this.rubroArticulo = rubroArticulo;
-			this.articuloManufacturadoDetalle = articuloManufacturadoDetalle;
+			/*this.rubroArticulo = rubroArticulo;
+			this.articuloManufacturadoDetalle = articuloManufacturadoDetalle;*/
 		}
 
 		public String getDenominacion() {
@@ -123,7 +124,7 @@ import javax.persistence.OneToOne;
 			this.esInsumo = esInsumo;
 		}
 
-		public RubroArticulo getRubroArticulo() {
+		/*public RubroArticulo getRubroArticulo() {
 			return rubroArticulo;
 		}
 
@@ -139,7 +140,7 @@ import javax.persistence.OneToOne;
 			this.articuloManufacturadoDetalle = articuloManufacturadoDetalle;
 		}
 		
-		
+		*/
 		
 		
 		

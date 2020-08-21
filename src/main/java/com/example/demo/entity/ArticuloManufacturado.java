@@ -25,9 +25,9 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	@Column(name = "precioVenta")
 	private double precioVenta;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	/*@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="rubroGeneral_id")
-	private RubroGeneral rubroGeneral;
+	private RubroGeneral rubroGeneral;*/
 	
 	
 
@@ -39,13 +39,12 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	}
 
 
-	public ArticuloManufacturado(int tiempoEstimadoCocina, String denominacion, double precioVenta,
-			RubroGeneral rubroGeneral) {
+	public ArticuloManufacturado(int tiempoEstimadoCocina, String denominacion, double precioVenta) {
 		super();
 		this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 		this.denominacion = denominacion;
 		this.precioVenta = precioVenta;
-		this.rubroGeneral = rubroGeneral;
+		
 	}
 
 
@@ -79,7 +78,7 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	}
 
 
-	public RubroGeneral getRubroGeneral() {
+	/*public RubroGeneral getRubroGeneral() {
 		return rubroGeneral;
 	}
 
@@ -87,9 +86,8 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	public void setRubroGeneral(RubroGeneral rubroGeneral) {
 		this.rubroGeneral = rubroGeneral;
 	}
-	
-	//Getter & Setter
-	
+	*/
+
 	
 	
 }

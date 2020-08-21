@@ -5,12 +5,14 @@ package com.example.demo.entity;
 
 	import javax.persistence.CascadeType;
 	import javax.persistence.Column;
-	import javax.persistence.FetchType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 	import javax.persistence.JoinColumn;
     import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+@Entity
 	public class DetallePedido extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
 
@@ -19,15 +21,95 @@ import javax.persistence.OneToOne;
 		
 		@Column(name = "Subtotal")
 		private double subtotal;
+
+		public DetallePedido() {
+			super();
+		}
+
 		
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		
+		public DetallePedido(int cantidad, double subtotal, Pedido pedido) {
+			super();
+			this.cantidad = cantidad;
+			this.subtotal = subtotal;
+			this.pedido = pedido;
+			//this.articuloConsumo = articuloConsumo;
+			//this.articuloManufacturado = articuloManufacturado;
+		}
+
+
+
+		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+		@JoinColumn(name="Pedido")
+		private Pedido pedido;
+		
+		
+		/*@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 		@JoinColumn(name="ArticuloConsumo")
 		private ArticuloConsumo articuloConsumo;
 		
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 		@JoinColumn(name="ArticuloManufacturado")
 		private ArticuloManufacturado articuloManufacturado;
-		
+*/
+		public int getCantidad() {
+			return cantidad;
+		}
+
+
+
+		public void setCantidad(int cantidad) {
+			this.cantidad = cantidad;
+		}
+
+
+
+		public double getSubtotal() {
+			return subtotal;
+		}
+
+
+
+		public void setSubtotal(double subtotal) {
+			this.subtotal = subtotal;
+		}
+
+
+
+		public Pedido getPedido() {
+			return pedido;
+		}
+
+
+
+		public void setPedido(Pedido pedido) {
+			this.pedido = pedido;
+		}
+
+
+
+		/*		public ArticuloConsumo getArticuloConsumo() {
+			return articuloConsumo;
+		}
+
+
+
+		public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
+			this.articuloConsumo = articuloConsumo;
+		}
+
+
+
+		public ArticuloManufacturado getArticuloManufacturado() {
+			return articuloManufacturado;
+		}
+
+
+
+		public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
+			this.articuloManufacturado = articuloManufacturado;
+		}
+	*/	
 		
 		
 }

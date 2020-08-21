@@ -1,16 +1,20 @@
 package com.example.demo.entity;
 	
 	import java.io.Serializable;
-	import java.util.Date;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-	import javax.persistence.CascadeType;
+import javax.persistence.CascadeType;
 	import javax.persistence.Column;
-	import javax.persistence.FetchType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 	import javax.persistence.JoinColumn;
     import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+@Entity
 	public class Factura extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
 
@@ -31,6 +35,11 @@ import javax.persistence.OneToOne;
 
 		@Column(name = "NTarjeta")
 		private String nroTarjeta;
+
+
+		@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+		@Column(name = "DetalleFactura")
+		private List<DetalleFactura> detalle = new ArrayList<DetalleFactura>();
 
 		public Factura() {
 			super();
