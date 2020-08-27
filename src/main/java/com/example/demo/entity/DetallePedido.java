@@ -21,37 +21,57 @@ import javax.persistence.OneToOne;
 		
 		@Column(name = "Subtotal")
 		private double subtotal;
+		
+		@ManyToOne(cascade = CascadeType.PERSIST)
+		@JoinColumn(name = "id_pedido")
+		private Pedido pedido;
+		
+		@ManyToOne(cascade = CascadeType.PERSIST)
+		@JoinColumn(name = "id_articuloConsumo")
+		private ArticuloConsumo articuloConsumo;
+		
 
 		public DetallePedido() {
 			super();
-		}
-
+		}		
 		
-		
-		public DetallePedido(int cantidad, double subtotal, Pedido pedido) {
+		public DetallePedido(int cantidad, double subtotal, Pedido pedido, ArticuloConsumo articuloConsumo) {
 			super();
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
 			this.pedido = pedido;
-			//this.articuloConsumo = articuloConsumo;
-			//this.articuloManufacturado = articuloManufacturado;
+			this.articuloConsumo = articuloConsumo;
+		}
+
+		public DetallePedido(int cantidad, double subtotal) {
+			super();
+			this.cantidad = cantidad;
+			this.subtotal = subtotal;
+		}
+
+		public DetallePedido(int cantidad, double subtotal, Pedido pedido) {
+			super();
+			this.cantidad = cantidad;
+			this.subtotal = subtotal;
+			this.pedido = pedido;	
+		}
+
+		
+		
+		//GETTERS Y SETTERS ------------------------------------------------------------------------
+		
+		public ArticuloConsumo getArticuloConsumo() {
+			return articuloConsumo;
 		}
 
 
 
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-		@JoinColumn(name="Pedido")
-		private Pedido pedido;
-		
-		
-		/*@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-		@JoinColumn(name="ArticuloConsumo")
-		private ArticuloConsumo articuloConsumo;
-		
-		@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-		@JoinColumn(name="ArticuloManufacturado")
-		private ArticuloManufacturado articuloManufacturado;
-*/
+		public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
+			this.articuloConsumo = articuloConsumo;
+		}
+
+
+
 		public int getCantidad() {
 			return cantidad;
 		}
@@ -86,30 +106,6 @@ import javax.persistence.OneToOne;
 			this.pedido = pedido;
 		}
 
-
-
-		/*		public ArticuloConsumo getArticuloConsumo() {
-			return articuloConsumo;
-		}
-
-
-
-		public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
-			this.articuloConsumo = articuloConsumo;
-		}
-
-
-
-		public ArticuloManufacturado getArticuloManufacturado() {
-			return articuloManufacturado;
-		}
-
-
-
-		public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
-			this.articuloManufacturado = articuloManufacturado;
-		}
-	*/	
 		
 		
 }

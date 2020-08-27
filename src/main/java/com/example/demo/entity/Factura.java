@@ -6,13 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-	import javax.persistence.Column;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-	import javax.persistence.JoinColumn;
-    import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 	public class Factura extends EntidadGenerica implements Serializable{
@@ -37,9 +33,9 @@ import javax.persistence.OneToOne;
 		private String nroTarjeta;
 
 
-		@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+		@OneToMany(mappedBy="factura" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "DetalleFactura")
-		private List<DetalleFactura> detalle = new ArrayList<DetalleFactura>();
+		private List<DetalleFactura> detalles = new ArrayList<DetalleFactura>();
 
 		public Factura() {
 			super();
@@ -54,6 +50,32 @@ import javax.persistence.OneToOne;
 			this.total = total;
 			this.formaDePago = formaDePago;
 			this.nroTarjeta = nroTarjeta;
+		}
+		
+		
+
+		public Factura(Date fecha, int numero, double montoDescuento, double total, String formaDePago,
+				String nroTarjeta, List<DetalleFactura> detalles) {
+			super();
+			Fecha = fecha;
+			this.numero = numero;
+			this.montoDescuento = montoDescuento;
+			this.total = total;
+			this.formaDePago = formaDePago;
+			this.nroTarjeta = nroTarjeta;
+			this.detalles = detalles;
+		}
+		
+		
+
+		//GETTERS Y SETTERS ------------------------------------------------------------------------
+		
+		public List<DetalleFactura> getDetalles() {
+			return detalles;
+		}
+
+		public void setDetalles(List<DetalleFactura> detalles) {
+			this.detalles = detalles;
 		}
 
 		public Date getFecha() {

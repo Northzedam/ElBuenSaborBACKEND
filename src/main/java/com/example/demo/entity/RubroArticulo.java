@@ -1,7 +1,9 @@
 package com.example.demo.entity;
 	
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -23,10 +26,23 @@ import javax.persistence.OneToOne;
 		
 		@Column(name = "Rubro")
 		private RubroArticulo rubroArticulo;
+		
+		@OneToMany(mappedBy="rubroArticulo" ,cascade = CascadeType.ALL, orphanRemoval=true)
+		@Column(name = "articulo_consumo")
+		private List<ArticuloConsumo> articuloConsumoList = new ArrayList<ArticuloConsumo>();
 
 		public RubroArticulo() {
 			super();
 		}
+
+		public RubroArticulo(String denominacion, RubroArticulo rubroArticulo, List<ArticuloConsumo> articuloConsumoList) {
+			super();
+			this.denominacion = denominacion;
+			this.rubroArticulo = rubroArticulo;
+			this.articuloConsumoList = articuloConsumoList;
+		}
+
+
 
 		public RubroArticulo(String denominacion, RubroArticulo rubroArticulo) {
 			super();
@@ -34,11 +50,18 @@ import javax.persistence.OneToOne;
 			this.rubroArticulo = rubroArticulo;
 		}
 
-		
-		
-		
+	
 		//GETTERS AND SETTERS
 		
+
+		public List<ArticuloConsumo> getArticuloConsumoList() {
+			return articuloConsumoList;
+		}
+
+		public void setArticuloConsumoList(List<ArticuloConsumo> articuloConsumoList) {
+			this.articuloConsumoList = articuloConsumoList;
+		}
+
 		public String getDenominacion() {
 			return denominacion;
 		}

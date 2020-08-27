@@ -1,7 +1,9 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,14 +32,9 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	@Column(name = "TipoDeEnvio")
 	private int tipoEnvio;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="cliente_id")
-	private Cliente cliente;
-
-	
-	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name="Factura_id")
-	private Factura factura;
+	@OneToMany(mappedBy="pedido" ,cascade = CascadeType.ALL, orphanRemoval=true)
+	@Column(name = "DetallePedido")
+	private List<DetallePedido> detalles = new ArrayList<DetallePedido>();
 
 	
 	
@@ -46,32 +43,46 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Pedido(Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, Cliente cliente, Factura factura) {
+	public Pedido(Date fecha, int numero, String estado, Date horaFin, int tipoEnvio) {
 		super();
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
 		this.horaFin = horaFin;
 		this.tipoEnvio = tipoEnvio;
-		this.cliente = cliente;
-		this.factura = factura;
+	}
+	
+	
+
+
+	public Pedido(Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, List<DetallePedido> detalles) {
+		super();
+		this.fecha = fecha;
+		this.numero = numero;
+		this.estado = estado;
+		this.horaFin = horaFin;
+		this.tipoEnvio = tipoEnvio;
+		this.detalles = detalles;
 	}
 
 
 	//SETTERS Y GETTERS
+
+
 	
-	public Factura getFactura() {
-		return factura;
-	}
-
-
-	public void setFactura(Factura factura) {
-		this.factura = factura;
-	}
-
-
+	
 	public Date getFecha() {
 		return fecha;
+	}
+
+
+	public List<DetallePedido> getDetalles() {
+		return detalles;
+	}
+
+
+	public void setDetalles(List<DetallePedido> detalles) {
+		this.detalles = detalles;
 	}
 
 
@@ -120,14 +131,7 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+	
 	
 	
 	
