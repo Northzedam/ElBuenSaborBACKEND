@@ -1,7 +1,9 @@
 package com.example.demo.entity;
 	
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,19 +42,59 @@ import javax.persistence.OneToOne;
 		@Column(name = "EsInsumo")
 		private boolean esInsumo;
 		
-		//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		//@JoinColumn(name="Rubro")
-		//private RubroArticulo rubroArticulo;
+		@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
+		@Column(name = "detalle_factura")
+		private List<DetalleFactura> detallesFactura = new ArrayList<DetalleFactura>();
 		
-		//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		//@JoinColumn(name="ArticuloManufacturadoDetalle")
-		//private ArticuloManufacturadoDetalle articuloManufacturadoDetalle;
+		@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
+		@Column(name = "detalle_pedido")
+		private List<DetallePedido> detallesPedido = new ArrayList<DetallePedido>();
 		
+		@ManyToOne(cascade = CascadeType.PERSIST)
+		@JoinColumn(name = "id_rubroArticulo")
+		private RubroArticulo rubroArticulo;
 		
 
 		public ArticuloConsumo() {
 			super();
 		}
+		
+
+		
+		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
+				double stockMinimo, String unidadMedida, boolean esInsumo, List<DetalleFactura> detallesFactura,
+				List<DetallePedido> detallesPedido, RubroArticulo rubroArticulo) {
+			super();
+			this.denominacion = denominacion;
+			this.precioCompra = precioCompra;
+			this.precioVenta = precioVenta;
+			this.stockActual = stockActual;
+			this.stockMinimo = stockMinimo;
+			this.unidadMedida = unidadMedida;
+			this.esInsumo = esInsumo;
+			this.detallesFactura = detallesFactura;
+			this.detallesPedido = detallesPedido;
+			this.rubroArticulo = rubroArticulo;
+		}
+
+
+
+		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
+				double stockMinimo, String unidadMedida, boolean esInsumo, List<DetalleFactura> detallesFactura,
+				List<DetallePedido> detallesPedido) {
+			super();
+			this.denominacion = denominacion;
+			this.precioCompra = precioCompra;
+			this.precioVenta = precioVenta;
+			this.stockActual = stockActual;
+			this.stockMinimo = stockMinimo;
+			this.unidadMedida = unidadMedida;
+			this.esInsumo = esInsumo;
+			this.detallesFactura = detallesFactura;
+			this.detallesPedido = detallesPedido;
+		}
+
+
 
 		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo) {
@@ -64,9 +106,43 @@ import javax.persistence.OneToOne;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
-			/*this.rubroArticulo = rubroArticulo;
-			this.articuloManufacturadoDetalle = articuloManufacturadoDetalle;*/
+			
 		}
+
+		
+		//GETTERS Y SETTERS ------------------------------------------------------------------------
+		
+		
+		
+
+
+		public RubroArticulo getRubroArticulo() {
+			return rubroArticulo;
+		}
+
+		public void setRubroArticulo(RubroArticulo rubroArticulo) {
+			this.rubroArticulo = rubroArticulo;
+		}
+
+
+		public List<DetalleFactura> getDetallesFactura() {
+			return detallesFactura;
+		}
+
+		public void setDetallesFactura(List<DetalleFactura> detallesFactura) {
+			this.detallesFactura = detallesFactura;
+		}
+
+
+		public List<DetallePedido> getDetallesPedido() {
+			return detallesPedido;
+		}
+
+
+		public void setDetallesPedido(List<DetallePedido> detallesPedido) {
+			this.detallesPedido = detallesPedido;
+		}
+
 
 		public String getDenominacion() {
 			return denominacion;
@@ -123,25 +199,6 @@ import javax.persistence.OneToOne;
 		public void setEsInsumo(boolean esInsumo) {
 			this.esInsumo = esInsumo;
 		}
-
-		/*public RubroArticulo getRubroArticulo() {
-			return rubroArticulo;
-		}
-
-		public void setRubroArticulo(RubroArticulo rubroArticulo) {
-			this.rubroArticulo = rubroArticulo;
-		}
-
-		public ArticuloManufacturadoDetalle getArticuloManufacturadoDetalle() {
-			return articuloManufacturadoDetalle;
-		}
-
-		public void setArticuloManufacturadoDetalle(ArticuloManufacturadoDetalle articuloManufacturadoDetalle) {
-			this.articuloManufacturadoDetalle = articuloManufacturadoDetalle;
-		}
-		
-		*/
-		
 		
 		
    }	

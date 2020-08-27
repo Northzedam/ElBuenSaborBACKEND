@@ -22,15 +22,66 @@ import javax.persistence.OneToOne;
 		
 		@Column(name = "Subtotal")
 		private int subtotal;
-
+		
+		@ManyToOne(cascade = CascadeType.PERSIST)
+		@JoinColumn(name = "id_factura")
+		private Factura factura;
+		
+		@ManyToOne(cascade = CascadeType.PERSIST)
+		@JoinColumn(name = "id_articuloConsumo")
+		private ArticuloConsumo articuloConsumo;
+		
 		public DetalleFactura() {
 			super();
 		}
+
+		
+		
+		public DetalleFactura(int cantidad, int subtotal, Factura factura, ArticuloConsumo articuloConsumo) {
+			super();
+			this.cantidad = cantidad;
+			this.subtotal = subtotal;
+			this.factura = factura;
+			this.articuloConsumo = articuloConsumo;
+		}
+
+
 
 		public DetalleFactura(int cantidad, int subtotal) {
 			super();
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
+		}
+		
+		public DetalleFactura(int cantidad, int subtotal, Factura factura) {
+			super();
+			this.cantidad = cantidad;
+			this.subtotal = subtotal;
+			this.factura = factura;
+		}
+
+		
+		
+		//GETTERS Y SETTERS ------------------------------------------------------------------------
+		
+		public ArticuloConsumo getArticuloConsumo() {
+			return articuloConsumo;
+		}
+
+
+
+		public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
+			this.articuloConsumo = articuloConsumo;
+		}
+
+
+
+		public Factura getFactura() {
+			return factura;
+		}
+
+		public void setFactura(Factura factura) {
+			this.factura = factura;
 		}
 
 		public int getCantidad() {

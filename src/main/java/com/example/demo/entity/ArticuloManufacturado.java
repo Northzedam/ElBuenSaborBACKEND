@@ -47,6 +47,8 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 		
 	}
 
+	
+	//GETTERS Y SETTERS ------------------------------------------------------------------------
 
 	public int getTiempoEstimadoCocina() {
 		return tiempoEstimadoCocina;
