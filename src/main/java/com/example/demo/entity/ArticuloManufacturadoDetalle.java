@@ -25,11 +25,13 @@ private static final long serialVersionUID = 1L;
 	@JoinColumn(name="articuloManufacturado_id")
 	private ArticuloManufacturado articuloManufacturado;
 	
-	/*@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="articuloConsumo_id")
-	private ArticuloConsumo articuloConsumo;*/
+	private ArticuloConsumo articuloConsumo;
+	
+	
 
-	//Contructores
+	//Constructores
 	
 	public ArticuloManufacturadoDetalle() {
 		//super();

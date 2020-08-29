@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -36,7 +37,13 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	@Column(name = "DetallePedido")
 	private List<DetallePedido> detalles = new ArrayList<DetallePedido>();
 
+	@ManyToOne (cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "id_cliente")
+	private Cliente cliente;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name= "fk_factura")
+	private Factura factura;
 	
 	public Pedido() {
 		super();

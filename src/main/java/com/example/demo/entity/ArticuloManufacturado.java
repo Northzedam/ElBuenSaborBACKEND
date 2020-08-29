@@ -2,12 +2,15 @@ package com.example.demo.entity;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -25,12 +28,21 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	@Column(name = "precioVenta")
 	private double precioVenta;
 	
-	/*@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="rubroGeneral_id")
-	private RubroGeneral rubroGeneral;*/
+	private RubroGeneral rubroGeneral;
 	
+	@OneToMany(mappedBy="articuloManufacturado", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Column(name = "detallePedido")
+	private List<DetallePedido> detallePedido = new ArrayList<DetallePedido>();
 	
-
+	@OneToMany(mappedBy="articuloManufacturado", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Column(name = "detalleFactura")
+	private List<DetalleFactura> detalleFactura = new ArrayList<DetalleFactura>();
+    
+	@OneToMany(mappedBy="articuloManufacturado", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Column(name = "detalleFactura")
+	private List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalle = new ArrayList<ArticuloManufacturadoDetalle>();
 		
 	//Constructores
 	

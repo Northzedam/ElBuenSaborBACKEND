@@ -1,4 +1,4 @@
-package com.example.demo.service;
+/*package com.example.demo.service;
 
 
 import org.springframework.stereotype.Service;
@@ -9,3 +9,4 @@ import com.example.demo.repository.DetallePedidoRepository;
 public class DetallePedidoServicio  extends ServicioGenerico<DetallePedido, DetallePedidoRepository> {
 
 }
+*/

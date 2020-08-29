@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 	public class Factura extends EntidadGenerica implements Serializable{
@@ -37,6 +38,9 @@ import javax.persistence.OneToMany;
 		@Column(name = "DetalleFactura")
 		private List<DetalleFactura> detalles = new ArrayList<DetalleFactura>();
 
+		@OneToOne(mappedBy="factura")
+		private Pedido pedido;
+		
 		public Factura() {
 			super();
 		}

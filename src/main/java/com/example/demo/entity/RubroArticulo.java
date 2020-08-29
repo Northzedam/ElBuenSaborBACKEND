@@ -30,7 +30,11 @@ import javax.persistence.OneToOne;
 		@OneToMany(mappedBy="rubroArticulo" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "articulo_consumo")
 		private List<ArticuloConsumo> articuloConsumoList = new ArrayList<ArticuloConsumo>();
-
+		
+		
+		
+		
+		
 		public RubroArticulo() {
 			super();
 		}
