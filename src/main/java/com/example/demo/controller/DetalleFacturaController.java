@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+/*package com.example.demo.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,4 +14,4 @@ import com.example.demo.service.DetalleFacturaServicio;
 @RequestMapping(path = "api/v1/cliente")
 public class DetalleFacturaController extends ControllerGenerico<DetalleFactura, DetalleFacturaServicio>{
 
-}
+}*/

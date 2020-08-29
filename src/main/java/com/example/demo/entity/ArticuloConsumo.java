@@ -54,6 +54,9 @@ import javax.persistence.OneToOne;
 		@JoinColumn(name = "id_rubroArticulo")
 		private RubroArticulo rubroArticulo;
 		
+		@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
+		@Column(name = "artManufDetalle")
+		private List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalle= new ArrayList<ArticuloManufacturadoDetalle>();
 
 		public ArticuloConsumo() {
 			super();
