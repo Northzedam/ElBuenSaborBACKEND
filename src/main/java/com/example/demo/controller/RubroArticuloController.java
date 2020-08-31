@@ -11,7 +11,7 @@ import com.example.demo.service.RubroArticuloServicio;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
-@RequestMapping(path = "api/v1/cliente")
+@RequestMapping(path = "api/v1/rubroArticulo")
 public class RubroArticuloController extends ControllerGenerico<RubroArticulo, RubroArticuloServicio>{
 
 }

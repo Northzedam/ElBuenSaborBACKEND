@@ -1,4 +1,4 @@
-/*package com.example.demo.repository;
+package com.example.demo.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,4 +11,4 @@ import com.example.demo.entity.ArticuloConsumo;
 public interface ArticuloConsumoRepository extends JpaRepository<ArticuloConsumo, Long> {
 
 	public Page <ArticuloConsumo> findAll(Pageable pageable);
-}*/
+}

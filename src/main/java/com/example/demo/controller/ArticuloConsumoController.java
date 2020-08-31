@@ -1,4 +1,4 @@
-/*package com.example.demo.controller;
+package com.example.demo.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +11,7 @@ import com.example.demo.service.ArticuloConsumoServicio;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
-@RequestMapping(path = "api/v1/articuloconsumo")
+@RequestMapping(path = "api/v1/articuloConsumo")
 public class ArticuloConsumoController extends ControllerGenerico<ArticuloConsumo, ArticuloConsumoServicio>{
 
-}*/
+}
