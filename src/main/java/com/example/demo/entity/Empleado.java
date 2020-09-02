@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 public class Empleado extends EntidadGenerica implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	@Column(name = "Id")
+	private long id;
 	
 	@Column(name = "nombre")
 	private String nombre;
@@ -41,8 +43,9 @@ public class Empleado extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Empleado(String nombre, String apellido, String cuil, int telefono, String email, Domicilio domicilio) {
+	public Empleado(long id, String nombre, String apellido, String cuil, int telefono, String email, Domicilio domicilio) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.cuil = cuil;
@@ -52,7 +55,10 @@ public class Empleado extends EntidadGenerica implements Serializable{
 	}
 
 	//Getter&Setters
-
+	public long getId() {
+		return id;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

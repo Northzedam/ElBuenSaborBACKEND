@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 public class Domicilio extends EntidadGenerica implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	private long id;
 	
 	private String calle;
 	
@@ -24,15 +25,19 @@ public class Domicilio extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Domicilio(String calle, int numero, String localidad, String departamento) {
+	public Domicilio(long id, String calle, int numero, String localidad, String departamento) {
 		super();
+		this.id = id;
 		this.calle = calle;
 		this.numero = numero;
 		this.localidad = localidad;
 		this.departamento = departamento;
 	}
 
-
+	public long getId() {
+		return id;
+	}
+	
 	public String getCalle() {
 		return calle;
 	}

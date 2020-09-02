@@ -15,6 +15,9 @@ public class ArticuloManufacturadoDetalle extends EntidadGenerica implements Ser
 
 private static final long serialVersionUID = 1L;
 	
+	@Column(name = "Id")
+	private long id;
+
 	@Column(name = "cantidad")
 	private double cantidad;
 	
@@ -37,11 +40,12 @@ private static final long serialVersionUID = 1L;
 		//super();
 	}
 
-	public ArticuloManufacturadoDetalle(double cantidad, String unidadMedida,
+	public ArticuloManufacturadoDetalle(long id,double cantidad, String unidadMedida,
 			ArticuloManufacturado articuloManufacturado 
 			//,ArticuloConsumo articuloConsumo
 			) {
 		super();
+		this.id = id;
 		this.cantidad = cantidad;
 		this.unidadMedida = unidadMedida;
 		this.articuloManufacturado = articuloManufacturado;
@@ -49,6 +53,10 @@ private static final long serialVersionUID = 1L;
 	}
 
 	//Getter & Setters
+	public long getId() {
+		return id;
+	}
+	
 	public double getCantidad() {
 		return cantidad;
 	}

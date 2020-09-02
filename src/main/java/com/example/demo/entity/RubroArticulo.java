@@ -20,6 +20,8 @@ import javax.persistence.OneToOne;
 		
 	
 		private static final long serialVersionUID = 1L;
+		@Column(name = "Id")
+		private long id;
 		
 		@Column(name = "Denominacion")
 		private String denominacion;
@@ -39,8 +41,9 @@ import javax.persistence.OneToOne;
 			super();
 		}
 
-		public RubroArticulo(String denominacion, RubroArticulo rubroArticulo, List<ArticuloConsumo> articuloConsumoList) {
+		public RubroArticulo(long id, String denominacion, RubroArticulo rubroArticulo, List<ArticuloConsumo> articuloConsumoList) {
 			super();
+			this.id = id;
 			this.denominacion = denominacion;
 			this.rubroArticulo = rubroArticulo;
 			this.articuloConsumoList = articuloConsumoList;
@@ -48,15 +51,18 @@ import javax.persistence.OneToOne;
 
 
 
-		public RubroArticulo(String denominacion, RubroArticulo rubroArticulo) {
+		public RubroArticulo(long id, String denominacion, RubroArticulo rubroArticulo) {
 			super();
+			this.id = id;
 			this.denominacion = denominacion;
 			this.rubroArticulo = rubroArticulo;
 		}
 
 	
 		//GETTERS AND SETTERS
-		
+		public long getId () {
+			return id;
+		}
 
 		public List<ArticuloConsumo> getArticuloConsumoList() {
 			return articuloConsumoList;
