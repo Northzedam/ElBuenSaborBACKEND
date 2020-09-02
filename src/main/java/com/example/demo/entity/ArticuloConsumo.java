@@ -20,7 +20,10 @@ import javax.persistence.OneToOne;
 		
 	
 		private static final long serialVersionUID = 1L;
-
+		
+		@Column(name = "Id")
+		private long id;
+		
 		@Column(name = "Denominacion")
 		private String denominacion;
 		
@@ -64,10 +67,11 @@ import javax.persistence.OneToOne;
 		
 
 		
-		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
+		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo, List<DetalleFactura> detallesFactura,
 				List<DetallePedido> detallesPedido, RubroArticulo rubroArticulo) {
 			super();
+			this.id = id;
 			this.denominacion = denominacion;
 			this.precioCompra = precioCompra;
 			this.precioVenta = precioVenta;
@@ -82,10 +86,11 @@ import javax.persistence.OneToOne;
 
 
 
-		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
+		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo, List<DetalleFactura> detallesFactura,
 				List<DetallePedido> detallesPedido) {
 			super();
+			this.id = id;
 			this.denominacion = denominacion;
 			this.precioCompra = precioCompra;
 			this.precioVenta = precioVenta;
@@ -99,9 +104,10 @@ import javax.persistence.OneToOne;
 
 
 
-		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
+		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo) {
 			super();
+			this.id = id;
 			this.denominacion = denominacion;
 			this.precioCompra = precioCompra;
 			this.precioVenta = precioVenta;
@@ -117,10 +123,14 @@ import javax.persistence.OneToOne;
 		
 		
 		
-
+		
 
 		public RubroArticulo getRubroArticulo() {
 			return rubroArticulo;
+		}
+
+		public long getId() {
+			return id;
 		}
 
 		public void setRubroArticulo(RubroArticulo rubroArticulo) {
