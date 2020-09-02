@@ -10,6 +10,9 @@ public class Configuracion extends EntidadGenerica implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@Column(name = "Id")
+	private long id;
+	
 	@Column(name = "emailEmpresa")
 	private String emailEmpresa;
 	
@@ -22,13 +25,16 @@ public class Configuracion extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Configuracion(String emailEmpresa, int cantidadCocinero) {
+	public Configuracion(long id,String emailEmpresa, int cantidadCocinero) {
 		super();
 		this.emailEmpresa = emailEmpresa;
 		this.cantidadCocinero = cantidadCocinero;
 	}
 
-
+	public long getId() {
+		return id;
+	}
+	
 	public String getEmailEmpresa() {
 		return emailEmpresa;
 	}

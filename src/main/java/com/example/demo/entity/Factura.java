@@ -14,7 +14,9 @@ import javax.persistence.OneToOne;
 @Entity
 	public class Factura extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
-
+		@Column(name = "Id")
+		private long id;
+		
 		@Column(name = "Fecha")
 		private Date Fecha;
 		
@@ -45,9 +47,10 @@ import javax.persistence.OneToOne;
 			super();
 		}
 
-		public Factura(Date fecha, int numero, double montoDescuento, double total, String formaDePago,
+		public Factura(long id, Date fecha, int numero, double montoDescuento, double total, String formaDePago,
 				String nroTarjeta) {
 			super();
+			this.id = id;
 			Fecha = fecha;
 			this.numero = numero;
 			this.montoDescuento = montoDescuento;
@@ -58,9 +61,10 @@ import javax.persistence.OneToOne;
 		
 		
 
-		public Factura(Date fecha, int numero, double montoDescuento, double total, String formaDePago,
+		public Factura(long id, Date fecha, int numero, double montoDescuento, double total, String formaDePago,
 				String nroTarjeta, List<DetalleFactura> detalles) {
 			super();
+			this.id = id;
 			Fecha = fecha;
 			this.numero = numero;
 			this.montoDescuento = montoDescuento;
@@ -73,6 +77,9 @@ import javax.persistence.OneToOne;
 		
 
 		//GETTERS Y SETTERS ------------------------------------------------------------------------
+		public long getId() {
+			return id;
+		}
 		
 		public List<DetalleFactura> getDetalles() {
 			return detalles;

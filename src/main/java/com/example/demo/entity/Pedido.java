@@ -17,6 +17,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Pedido extends EntidadGenerica implements Serializable{
 	private static final long serialVersionUID = 1L;
+	@Column(name = "Id")
+	private long id;
 	
 	@Column(name = "Fecha")
 	private Date fecha;
@@ -50,8 +52,9 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Pedido(Date fecha, int numero, String estado, Date horaFin, int tipoEnvio) {
+	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio) {
 		super();
+		this.id = id;
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
@@ -62,8 +65,9 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	
 
 
-	public Pedido(Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, List<DetallePedido> detalles) {
+	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, List<DetallePedido> detalles) {
 		super();
+		this.id = id;
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
@@ -76,7 +80,9 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	//SETTERS Y GETTERS
 
 
-	
+	public long getId() {
+		return id;
+	}
 	
 	public Date getFecha() {
 		return fecha;

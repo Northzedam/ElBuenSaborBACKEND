@@ -16,7 +16,10 @@ import javax.persistence.OneToOne;
 @Entity
 	public class DetalleFactura extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
-
+		
+		@Column(name = "Id")
+		private long id;
+		
 		@Column(name = "Cantidad")
 		private int cantidad;
 		
@@ -41,7 +44,7 @@ import javax.persistence.OneToOne;
 
 		
 		
-		public DetalleFactura(int cantidad, int subtotal, Factura factura, ArticuloConsumo articuloConsumo) {
+		public DetalleFactura(long id, int cantidad, int subtotal, Factura factura, ArticuloConsumo articuloConsumo) {
 			super();
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
@@ -50,7 +53,7 @@ import javax.persistence.OneToOne;
 		}
 
 
-
+		
 		public DetalleFactura(int cantidad, int subtotal) {
 			super();
 			this.cantidad = cantidad;
@@ -67,6 +70,9 @@ import javax.persistence.OneToOne;
 		
 		
 		//GETTERS Y SETTERS ------------------------------------------------------------------------
+		public long getId() {
+			return id;
+		}
 		
 		public ArticuloConsumo getArticuloConsumo() {
 			return articuloConsumo;

@@ -19,6 +19,9 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "Id")
+	private long id;
+	
 	@Column(name = "tiempoEstimadoCocina")
 	private int tiempoEstimadoCocina;
 	
@@ -51,8 +54,9 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	}
 
 
-	public ArticuloManufacturado(int tiempoEstimadoCocina, String denominacion, double precioVenta) {
+	public ArticuloManufacturado(long id, int tiempoEstimadoCocina, String denominacion, double precioVenta) {
 		super();
+		this.id = id;
 		this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 		this.denominacion = denominacion;
 		this.precioVenta = precioVenta;
@@ -62,6 +66,9 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	
 	//GETTERS Y SETTERS ------------------------------------------------------------------------
 
+	public long getId() {
+		return id;
+	}
 	public int getTiempoEstimadoCocina() {
 		return tiempoEstimadoCocina;
 	}

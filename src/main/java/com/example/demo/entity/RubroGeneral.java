@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 public class RubroGeneral extends EntidadGenerica implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Column(name = "Id")
+	private long id;
 	
 	@Column(name = "denominacion")
 	private String denominacion;
@@ -24,11 +26,15 @@ public class RubroGeneral extends EntidadGenerica implements Serializable {
 		//super();
 	}
 
-	public RubroGeneral(String denominacion) {
+	public RubroGeneral(long id, String denominacion) {
 		super();
+		this.id = id;
 		this.denominacion = denominacion;
 	}
-
+	
+	public long getIt () {
+		return id;
+	}
 	public String getDenominacion() {
 		return denominacion;
 	}
