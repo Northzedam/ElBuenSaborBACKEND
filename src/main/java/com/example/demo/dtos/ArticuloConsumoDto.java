@@ -1,9 +1,9 @@
-package com.example.dtos;
+package com.example.demo.dtos;
 
 public class ArticuloConsumoDto {
-
-	private long id;
 	
+	private long id;
+
 	private String denominacion;
 	
 	private double precioCompra;
@@ -13,7 +13,7 @@ public class ArticuloConsumoDto {
 	private double stockActual;
 	
 	private double stockMinimo;
-
+	
 	private String unidadMedida;
 	
 	private boolean esInsumo;
@@ -98,8 +98,6 @@ public class ArticuloConsumoDto {
 	public void setEsInsumo(boolean esInsumo) {
 		this.esInsumo = esInsumo;
 	}
-	
-	
 	
 	
 }

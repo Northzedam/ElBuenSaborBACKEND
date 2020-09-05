@@ -1,5 +1,5 @@
 
-package com.example.dtos;
+package com.example.demo.dtos;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -28,7 +28,7 @@ private static final long serialVersionUID = 1L;
 	private ArticuloManufacturadoDto articuloManufacturado;
 	
 	
-	private ArticuloConsumoDto articuloConsumo;
+	//private ArticuloConsumoDto articuloConsumo;
 	
 	
 

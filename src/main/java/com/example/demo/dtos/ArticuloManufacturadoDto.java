@@ -1,5 +1,5 @@
 
-package com.example.dtos;
+package com.example.demo.dtos;
 
 import java.util.ArrayList;
 import java.util.List;

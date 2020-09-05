@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.dtos.ArticuloManufacturadoDetalleDto;
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloManufacturadoDetalleDto;
 import com.example.demo.entity.ArticuloManufacturadoDetalle;
 import com.example.demo.service.ArticuloManufacturadoDetalleServicio;
-import com.example.dtos.ArticuloConsumoDto;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})

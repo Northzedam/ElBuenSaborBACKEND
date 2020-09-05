@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.dtos.ArticuloManufacturadoDto;
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloManufacturadoDto;
 import com.example.demo.entity.ArticuloManufacturado;
 import com.example.demo.service.ArticuloManufacturadoServicio;
-import com.example.dtos.ArticuloConsumoDto;
 
 
 @RestController
