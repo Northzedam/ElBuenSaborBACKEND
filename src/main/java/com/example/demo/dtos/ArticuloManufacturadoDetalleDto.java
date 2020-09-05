@@ -10,10 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-@Entity
+
 public class ArticuloManufacturadoDetalleDto  {
 
-private static final long serialVersionUID = 1L;
+
 	
 	
 	private long id;

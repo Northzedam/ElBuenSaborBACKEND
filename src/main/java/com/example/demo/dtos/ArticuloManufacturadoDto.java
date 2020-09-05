@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ArticuloManufacturadoDto  {
 
-	private static final long serialVersionUID = 1L;
+	
 
 	
 	private long id;
