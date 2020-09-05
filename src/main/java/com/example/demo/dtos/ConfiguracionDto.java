@@ -3,7 +3,7 @@ package com.example.demo.dtos;
 
 public class ConfiguracionDto {
 
-	private static final long serialVersionUID = 1L;
+	
 	
 	
 	private long id;
