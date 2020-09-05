@@ -1,5 +1,5 @@
 
-package com.example.dtos;
+package com.example.demo.dtos;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
