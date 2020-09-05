@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.dtos.RubroGeneralDto;
+import com.example.demo.dtos.RubroGeneralDto;
 import com.example.demo.entity.RubroGeneral;
 import com.example.demo.service.RubroGeneralServicio;
 
