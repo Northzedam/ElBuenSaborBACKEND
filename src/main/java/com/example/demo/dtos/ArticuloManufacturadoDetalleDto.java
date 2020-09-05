@@ -28,7 +28,7 @@ public class ArticuloManufacturadoDetalleDto  {
 	private ArticuloManufacturadoDto articuloManufacturado;
 	
 	
-	private ArticuloConsumoDto articuloConsumo;
+	//private ArticuloConsumoDto articuloConsumo;
 	
 	
 
