@@ -1,6 +1,10 @@
 package com.example.demo.service;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.ArticuloConsumo;
 import com.example.demo.repository.ArticuloConsumoRepository;
@@ -19,15 +23,19 @@ public class ArticuloConsumoServicio {
 	public List<ArticuloConsumoDto> findAll() throws Exception {
 		
 		List<ArticuloConsumo>entities = repository.findAll();
-		List<MutantDto>dtos = new ArrayList<MutantDto>();
+		List<ArticuloConsumoDto>dtos = new ArrayList<ArticuloConsumoDto>();
 		try {
 			
 			for(ArticuloConsumo i : entities) {
-				MutantDto dto = new MutantDto();
+				ArticuloConsumoDto dto = new ArticuloConsumoDto();
 				dto.setId(i.getId());
-				dto.setIndividuo(i.getIndividuo());
-				dto.setAdn(i.getAdn());
-				dto.setEstado(i.getEstado());
+				dto.setDenominacion(i.getDenominacion());
+				dto.setPrecioCompra(i.getPrecioCompra());
+				dto.setPrecioVenta(i.getPrecioVenta());
+				dto.setStockActual(i.getStockActual());
+				dto.setStockMinimo(i.getStockMinimo());
+				dto.setUnidadMedida(i.getUnidadMedida());
+				dto.setEsInsumo(i.isEsInsumo());
 				dtos.add(dto);
 			}
 			
@@ -38,18 +46,23 @@ public class ArticuloConsumoServicio {
 		}
 	}
 	
-	public MutantDto findById(int id) throws Exception{
+	public ArticuloConsumoDto findById(int id) throws Exception{
 		
-		Optional<ArticuloConsumo>entityOptional = repository.findById(id);
+		Optional<ArticuloConsumo>entityOptional = repository.findById((long) id);
 		
-		MutantDto dto = new MutantDto();
+		ArticuloConsumoDto dto = new ArticuloConsumoDto();
 		
 		try {
-			 ArticuloConsumo articuloConsumo = entityOptional.get();
-			 dto.setId(articuloConsumo.getId());
-			 dto.setIndividuo(articuloConsumo.getArticuloConsumo());
-			 dto.setAdn(articuloConsumo.getAdn());
-			 dto.setEstado(articuloConsumo.getEstado());
+			 ArticuloConsumo i = entityOptional.get();
+			
+				dto.setId(i.getId());
+				dto.setDenominacion(i.getDenominacion());
+				dto.setPrecioCompra(i.getPrecioCompra());
+				dto.setPrecioVenta(i.getPrecioVenta());
+				dto.setStockActual(i.getStockActual());
+				dto.setStockMinimo(i.getStockMinimo());
+				dto.setUnidadMedida(i.getUnidadMedida());
+				dto.setEsInsumo(i.isEsInsumo());
 		} catch (Exception e) {
 			throw new Exception();
 		}
@@ -58,22 +71,21 @@ public class ArticuloConsumoServicio {
 	}
 	
 		
-    public MutantDto save(MutantDto dto, boolean estado) throws Exception {
+    public ArticuloConsumoDto save(ArticuloConsumoDto dto, boolean estado) throws Exception {
 		
-		Mutant articuloConsumo = new Mutant();
+		ArticuloConsumo articuloConsumo = new ArticuloConsumo();
 		
-		articuloConsumo.setIndividuo(dto.getIndividuo());
-		articuloConsumo.setAdn(dto.getAdn());
-		if(estado) {
-			articuloConsumo.setEstado("mutante");
-		}else {
-			mutante.setEstado("humano");
-		}
+		articuloConsumo.setDenominacion(dto.getDenominacion());
+		articuloConsumo.setPrecioCompra(dto.getPrecioCompra());
+		articuloConsumo.setPrecioVenta(dto.getPrecioVenta());
+		articuloConsumo.setStockActual(dto.getStockActual());
+		articuloConsumo.setStockMinimo(dto.getStockMinimo());
+		articuloConsumo.setUnidadMedida(dto.getUnidadMedida());
+		articuloConsumo.setEsInsumo(dto.isEsInsumo());
 		
 		try {
-			mutante = repository.save(mutante);
-			dto.setId(mutante.getId());
-			dto.setEstado(mutante.getEstado());
+			articuloConsumo = repository.save(articuloConsumo);
+			dto.setId(articuloConsumo.getId());
 			return dto;
 		} catch (Exception e) {
 			throw new Exception();	
@@ -82,23 +94,21 @@ public class ArticuloConsumoServicio {
 			
 	}
 	
-	public MutantDto update(int id, MutantDto dto, boolean estado) throws Exception {
-		Optional<Mutant> mutante = repository.findById(id);
+	public ArticuloConsumoDto update(int id, ArticuloConsumoDto dto, boolean estado) throws Exception {
+		Optional<ArticuloConsumo> optionalEntity = repository.findById((long) id);
 		
 		try {
-			 Mutant entity = mutante.get();
-			 entity.setId(id);
-			 entity.setIndividuo(dto.getIndividuo());
-			 entity.setAdn(dto.getAdn());
-			 if(estado) {
-				 entity.setEstado("mutante");
-			 }else {
-				 entity.setEstado("humano");
-			 }
+			 ArticuloConsumo articuloConsumo = optionalEntity.get();
+			 articuloConsumo.setDenominacion(dto.getDenominacion());
+				articuloConsumo.setPrecioCompra(dto.getPrecioCompra());
+				articuloConsumo.setPrecioVenta(dto.getPrecioVenta());
+				articuloConsumo.setStockActual(dto.getStockActual());
+				articuloConsumo.setStockMinimo(dto.getStockMinimo());
+				articuloConsumo.setUnidadMedida(dto.getUnidadMedida());
+				articuloConsumo.setEsInsumo(dto.isEsInsumo());
 			 
-			 repository.save(entity);
-			 dto.setId(entity.getId());
-			 dto.setEstado(entity.getEstado());
+			 repository.save(articuloConsumo);
+			 dto.setId(articuloConsumo.getId());
 			 return dto;
 			 
 		} catch (Exception e) {
@@ -109,8 +119,8 @@ public class ArticuloConsumoServicio {
 			
 	public boolean delete(int id) throws Exception {
 		try {
-			if(repository.existsById(id)) {
-				repository.deleteById(id);
+			if(repository.existsById((long) id)) {
+				repository.deleteById((long) id);
 				return true;
 			}else {
 				throw new Exception();
@@ -122,7 +132,7 @@ public class ArticuloConsumoServicio {
 	}
 	
 	
-	}
+	
 	
 	
 }
