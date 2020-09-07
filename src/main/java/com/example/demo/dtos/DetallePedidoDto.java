@@ -1,9 +1,6 @@
 package com.example.demo.dtos;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 
 import com.example.demo.entity.ArticuloConsumo;
 import com.example.demo.entity.ArticuloManufacturado;
