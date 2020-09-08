@@ -3,6 +3,8 @@ package com.example.demo.dtos;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.entity.Domicilio;
+
 public class ClienteDto {
 	
 	
@@ -50,6 +52,10 @@ public class ClienteDto {
 
 	public long getId() {
 		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public String getNombre() {
@@ -109,9 +115,9 @@ public class ClienteDto {
 	public void setDomicilio(DomicilioDto domicilio) {
 		this.domicilio = domicilio;
 	}
-	
-		
-	
+
+
+
 	
 	
 

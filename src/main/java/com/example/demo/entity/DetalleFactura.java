@@ -109,6 +109,19 @@ import javax.persistence.OneToOne;
 		public void setSubtotal(int subtotal) {
 			this.subtotal = subtotal;
 		}
+
+
+
+		public ArticuloManufacturado getArticuloManufacturado() {
+			return articuloManufacturado;
+		}
+
+
+
+		public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
+			this.articuloManufacturado = articuloManufacturado;
+		}
+		
 		
 		
 }	

@@ -67,6 +67,11 @@ public class Cliente extends EntidadGenerica implements Serializable{
 		return id;
 	}
 	
+		
+	
+
+
+
 	public String getNombre() {
 		return nombre;
 	}
