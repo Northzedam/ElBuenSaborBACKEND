@@ -102,4 +102,5 @@ public class DetallePedidoDto {
 		this.articuloManufacturado = articuloManufacturado;
 	}
 
+	
 }

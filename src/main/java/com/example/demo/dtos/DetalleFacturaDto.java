@@ -63,6 +63,15 @@ public class DetalleFacturaDto {
 		return id;
 	}
 	
+	
+	
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+
 	public ArticuloConsumo getArticuloConsumo() {
 		return articuloConsumo;
 	}
@@ -98,4 +107,18 @@ public class DetalleFacturaDto {
 	public void setSubtotal(int subtotal) {
 		this.subtotal = subtotal;
 	}
+
+
+
+	public ArticuloManufacturado getArticuloManufacturado() {
+		return articuloManufacturado;
+	}
+
+
+
+	public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
+		this.articuloManufacturado = articuloManufacturado;
+	}
+	
+	
 }
