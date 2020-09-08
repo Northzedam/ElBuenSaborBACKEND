@@ -26,16 +26,16 @@ public class ArticuloConsumoServicio {
 		List<ArticuloConsumoDto>dtos = new ArrayList<ArticuloConsumoDto>();
 		try {
 			
-			for(ArticuloConsumo i : entities) {
+			for(ArticuloConsumo entity : entities) {
 				ArticuloConsumoDto dto = new ArticuloConsumoDto();
-				dto.setId(i.getId());
-				dto.setDenominacion(i.getDenominacion());
-				dto.setPrecioCompra(i.getPrecioCompra());
-				dto.setPrecioVenta(i.getPrecioVenta());
-				dto.setStockActual(i.getStockActual());
-				dto.setStockMinimo(i.getStockMinimo());
-				dto.setUnidadMedida(i.getUnidadMedida());
-				dto.setEsInsumo(i.isEsInsumo());
+				dto.setId(entity.getId());
+				dto.setDenominacion(entity.getDenominacion());
+				dto.setPrecioCompra(entity.getPrecioCompra());
+				dto.setPrecioVenta(entity.getPrecioVenta());
+				dto.setStockActual(entity.getStockActual());
+				dto.setStockMinimo(entity.getStockMinimo());
+				dto.setUnidadMedida(entity.getUnidadMedida());
+				dto.setEsInsumo(entity.isEsInsumo());
 				dtos.add(dto);
 			}
 			
@@ -53,16 +53,16 @@ public class ArticuloConsumoServicio {
 		ArticuloConsumoDto dto = new ArticuloConsumoDto();
 		
 		try {
-			 ArticuloConsumo i = entityOptional.get();
+			 ArticuloConsumo entity = entityOptional.get();
 			
-				dto.setId(i.getId());
-				dto.setDenominacion(i.getDenominacion());
-				dto.setPrecioCompra(i.getPrecioCompra());
-				dto.setPrecioVenta(i.getPrecioVenta());
-				dto.setStockActual(i.getStockActual());
-				dto.setStockMinimo(i.getStockMinimo());
-				dto.setUnidadMedida(i.getUnidadMedida());
-				dto.setEsInsumo(i.isEsInsumo());
+				dto.setId(entity.getId());
+				dto.setDenominacion(entity.getDenominacion());
+				dto.setPrecioCompra(entity.getPrecioCompra());
+				dto.setPrecioVenta(entity.getPrecioVenta());
+				dto.setStockActual(entity.getStockActual());
+				dto.setStockMinimo(entity.getStockMinimo());
+				dto.setUnidadMedida(entity.getUnidadMedida());
+				dto.setEsInsumo(entity.isEsInsumo());
 		} catch (Exception e) {
 			throw new Exception();
 		}
@@ -73,19 +73,19 @@ public class ArticuloConsumoServicio {
 		
     public ArticuloConsumoDto save(ArticuloConsumoDto dto, boolean estado) throws Exception {
 		
-		ArticuloConsumo articuloConsumo = new ArticuloConsumo();
+		ArticuloConsumo entity = new ArticuloConsumo();
 		
-		articuloConsumo.setDenominacion(dto.getDenominacion());
-		articuloConsumo.setPrecioCompra(dto.getPrecioCompra());
-		articuloConsumo.setPrecioVenta(dto.getPrecioVenta());
-		articuloConsumo.setStockActual(dto.getStockActual());
-		articuloConsumo.setStockMinimo(dto.getStockMinimo());
-		articuloConsumo.setUnidadMedida(dto.getUnidadMedida());
-		articuloConsumo.setEsInsumo(dto.isEsInsumo());
+		entity.setDenominacion(dto.getDenominacion());
+		entity.setPrecioCompra(dto.getPrecioCompra());
+		entity.setPrecioVenta(dto.getPrecioVenta());
+		entity.setStockActual(dto.getStockActual());
+		entity.setStockMinimo(dto.getStockMinimo());
+		entity.setUnidadMedida(dto.getUnidadMedida());
+		entity.setEsInsumo(dto.isEsInsumo());
 		
 		try {
-			articuloConsumo = repository.save(articuloConsumo);
-			dto.setId(articuloConsumo.getId());
+			entity = repository.save(entity);
+			dto.setId(entity.getId());
 			return dto;
 		} catch (Exception e) {
 			throw new Exception();	
@@ -98,17 +98,18 @@ public class ArticuloConsumoServicio {
 		Optional<ArticuloConsumo> optionalEntity = repository.findById((long) id);
 		
 		try {
-			 ArticuloConsumo articuloConsumo = optionalEntity.get();
-			 articuloConsumo.setDenominacion(dto.getDenominacion());
-				articuloConsumo.setPrecioCompra(dto.getPrecioCompra());
-				articuloConsumo.setPrecioVenta(dto.getPrecioVenta());
-				articuloConsumo.setStockActual(dto.getStockActual());
-				articuloConsumo.setStockMinimo(dto.getStockMinimo());
-				articuloConsumo.setUnidadMedida(dto.getUnidadMedida());
-				articuloConsumo.setEsInsumo(dto.isEsInsumo());
+			 ArticuloConsumo entity = optionalEntity.get();
+			    entity.setId(id);
+			 	entity.setDenominacion(dto.getDenominacion());
+				entity.setPrecioCompra(dto.getPrecioCompra());
+				entity.setPrecioVenta(dto.getPrecioVenta());
+				entity.setStockActual(dto.getStockActual());
+				entity.setStockMinimo(dto.getStockMinimo());
+				entity.setUnidadMedida(dto.getUnidadMedida());
+				entity.setEsInsumo(dto.isEsInsumo());
 			 
-			 repository.save(articuloConsumo);
-			 dto.setId(articuloConsumo.getId());
+			 repository.save(entity);
+			 dto.setId(entity.getId());
 			 return dto;
 			 
 		} catch (Exception e) {
