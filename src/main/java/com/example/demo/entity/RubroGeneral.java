@@ -32,7 +32,7 @@ public class RubroGeneral extends EntidadGenerica implements Serializable {
 		this.denominacion = denominacion;
 	}
 	
-	public long getIt () {
+	public long getId () {
 		return id;
 	}
 	public String getDenominacion() {
