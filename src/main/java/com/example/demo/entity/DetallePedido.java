@@ -116,6 +116,14 @@ import javax.persistence.OneToOne;
 			this.pedido = pedido;
 		}
 
+		public ArticuloManufacturado getArticuloManufacturado() {
+			return articuloManufacturado;
+		}
+
+		public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
+			this.articuloManufacturado = articuloManufacturado;
+		}
+
 		
 		
 }

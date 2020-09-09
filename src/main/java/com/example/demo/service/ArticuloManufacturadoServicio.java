@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.ArticuloManufacturadoDto;
@@ -116,7 +118,15 @@ public class ArticuloManufacturadoServicio {
 		
 	}
 	
-	
+	public int countPages(int size) throws Exception {
+		try {
+			Pageable pageable = PageRequest.of(0, size);
+			return repository.findAll(pageable).getTotalPages();			
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
 	
 	
 	
