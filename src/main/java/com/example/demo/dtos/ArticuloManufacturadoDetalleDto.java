@@ -47,9 +47,14 @@ public class ArticuloManufacturadoDetalleDto  {
 		return id;
 	}
 	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public double getCantidad() {
 		return cantidad;
 	}
+	
 
 	public void setCantidad(double cantidad) {
 		this.cantidad = cantidad;

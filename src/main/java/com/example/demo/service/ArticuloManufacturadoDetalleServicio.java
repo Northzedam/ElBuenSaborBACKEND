@@ -69,9 +69,8 @@ public class ArticuloManufacturadoDetalleServicio {
 		
 		ArticuloManufacturadoDetalle entity = new ArticuloManufacturadoDetalle();
 		
-		dto.setId(entity.getId());
-		dto.setCantidad(entity.getCantidad());
-		dto.setUnidadMedida(entity.getUnidadMedida());
+		entity.setCantidad(dto.getCantidad());
+		entity.setUnidadMedida(dto.getUnidadMedida());
 		
 		try {
 			entity = repository.save(entity);
@@ -89,9 +88,9 @@ public class ArticuloManufacturadoDetalleServicio {
 		
 		try {
 			 ArticuloManufacturadoDetalle entity = optionalEntity.get();
-			 dto.setId(entity.getId());
-		     dto.setCantidad(entity.getCantidad());
-			 dto.setUnidadMedida(entity.getUnidadMedida());			 
+			 entity.setId(id);
+			 entity.setCantidad(dto.getCantidad());
+			 entity.setUnidadMedida(dto.getUnidadMedida());			 
 			 repository.save(entity);
 			 return dto;
 			 
