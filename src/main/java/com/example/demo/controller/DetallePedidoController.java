@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.service.DetallePedidoServicio;
 
@@ -33,9 +34,9 @@ public class DetallePedidoController{
 	
 	@GetMapping("/")
 	@Transactional
-	public ResponseEntity<?> getAll (@RequestParam(value="page",defaultValue = "0") int page, @RequestParam(value="size", defaultValue = "10") int size){
+	public ResponseEntity getAll (){
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(service.findAll(page, size));
+			return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 			
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
@@ -46,7 +47,7 @@ public class DetallePedidoController{
 	
 	@GetMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> getOne(@PathVariable int id) {
+	public ResponseEntity getOne(@PathVariable int id) {
 
 		try {
 
@@ -66,11 +67,11 @@ public class DetallePedidoController{
 	
 	@PostMapping("/")
 	@Transactional
-	public ResponseEntity<?> post(@RequestBody DetallePedidoDto dto) {
+	public ResponseEntity post(@RequestBody DetallePedidoDto dto) {
 
 		try {
 
-			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(personaForm));
+			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto, true));
 
 		} catch (Exception e) {
 
@@ -85,11 +86,11 @@ public class DetallePedidoController{
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> put(@PathVariable int id, @RequestBody DetallePedidoDto dto) {
+	public ResponseEntity put(@PathVariable int id, @RequestBody DetallePedidoDto dto) {
 
 		try {
 
-			return ResponseEntity.status(HttpStatus.OK).body(service.update(id, personaForm));
+			return ResponseEntity.status(HttpStatus.OK).body(service.update(id, dto, true));
 
 		} catch (Exception e) {
 
@@ -103,7 +104,7 @@ public class DetallePedidoController{
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> delete(@PathVariable int id) {
+	public ResponseEntity delete(@PathVariable int id) {
 
 		try {
 
@@ -121,7 +122,7 @@ public class DetallePedidoController{
 	
 	@GetMapping("/count")
 	@Transactional
-	public ResponseEntity<?> getCount(@RequestParam(value =  "size", defaultValue = "10") int size) {
+	public ResponseEntity getCount(@RequestParam(value =  "size", defaultValue = "10") int size) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body("{\"pages\": "+service.countPages(size)+"}");
 		} catch (Exception e) {

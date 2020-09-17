@@ -34,9 +34,9 @@ public class ArticuloManufacturadoDetalleController{
 	
 	@GetMapping("/")
 	@Transactional
-	public ResponseEntity<?> getAll (@RequestParam(value="page",defaultValue = "0") int page, @RequestParam(value="size", defaultValue = "10") int size){
+	public ResponseEntity getAll (){
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(service.findAll(page, size));
+			return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 			
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
@@ -47,7 +47,7 @@ public class ArticuloManufacturadoDetalleController{
 	
 	@GetMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> getOne(@PathVariable int id) {
+	public ResponseEntity getOne(@PathVariable int id) {
 
 		try {
 
@@ -67,11 +67,11 @@ public class ArticuloManufacturadoDetalleController{
 	
 	@PostMapping("/")
 	@Transactional
-	public ResponseEntity<?> post(@RequestBody ArticuloManufacturadoDetalleDto dto) {
+	public ResponseEntity post(@RequestBody ArticuloManufacturadoDetalleDto dto) {
 
 		try {
 
-			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(personaForm));
+			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto, true));
 
 		} catch (Exception e) {
 
@@ -86,11 +86,11 @@ public class ArticuloManufacturadoDetalleController{
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> put(@PathVariable int id, @RequestBody ArticuloManufacturadoDetalleDto dto) {
+	public ResponseEntity put(@PathVariable int id, @RequestBody ArticuloManufacturadoDetalleDto dto) {
 
 		try {
 
-			return ResponseEntity.status(HttpStatus.OK).body(service.update(id, personaForm));
+			return ResponseEntity.status(HttpStatus.OK).body(service.update(id, dto, true));
 
 		} catch (Exception e) {
 
@@ -104,7 +104,7 @@ public class ArticuloManufacturadoDetalleController{
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> delete(@PathVariable int id) {
+	public ResponseEntity delete(@PathVariable int id) {
 
 		try {
 
@@ -122,7 +122,7 @@ public class ArticuloManufacturadoDetalleController{
 	
 	@GetMapping("/count")
 	@Transactional
-	public ResponseEntity<?> getCount(@RequestParam(value =  "size", defaultValue = "10") int size) {
+	public ResponseEntity getCount(@RequestParam(value =  "size", defaultValue = "10") int size) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body("{\"pages\": "+service.countPages(size)+"}");
 		} catch (Exception e) {
