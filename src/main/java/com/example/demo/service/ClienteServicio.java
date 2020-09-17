@@ -37,8 +37,7 @@ public List<ClienteDto> findAll() throws Exception {
 				dto.setApellido(entity.getApellido());
 				dto.setTelefono(entity.getTelefono());
 				dto.setEmail(entity.getEmail());
-				dto.setDomicilio(entity.getDomicilio());
-				dtos.add(dto);
+			    dtos.add(dto);
 			}
 			
 			return dtos;
@@ -63,7 +62,7 @@ public ClienteDto findById(int id) throws Exception{
 			dto.setApellido(entity.getApellido());
 			dto.setTelefono(entity.getTelefono());
 			dto.setEmail(entity.getEmail());
-			dto.setDomicilio(entity.getDomicilio());
+			
 					
 	} catch (Exception e) {
 		throw new Exception();
@@ -80,7 +79,7 @@ public ClienteDto save(ClienteDto dto, boolean estado) throws Exception {
 	entity.setApellido(dto.getApellido());
 	entity.setTelefono(dto.getTelefono());
 	entity.setEmail(dto.getEmail());
-	entity.setDomicilio(dto.getDomicilio());
+	
 		
 	try {
 		entity = repository.save(entity);
@@ -103,7 +102,7 @@ public ClienteDto update(int id, ClienteDto dto, boolean estado) throws Exceptio
 			entity.setApellido(dto.getApellido());
 			entity.setTelefono(dto.getTelefono());
 			entity.setEmail(dto.getEmail());
-			entity.setDomicilio(dto.getDomicilio());
+			
 		 
 		 repository.save(entity);
 		 dto.setId(entity.getId());
