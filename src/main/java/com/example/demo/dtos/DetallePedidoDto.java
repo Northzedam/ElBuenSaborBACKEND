@@ -17,9 +17,6 @@ public class DetallePedidoDto {
 	private double subtotal;
 	
 	
-	private Pedido pedido;
-	
-	
 	private ArticuloConsumo articuloConsumo;
 	
 	
@@ -31,13 +28,12 @@ public class DetallePedidoDto {
 	}
 
 
-	public DetallePedidoDto(long id, int cantidad, double subtotal, Pedido pedido, ArticuloConsumo articuloConsumo,
+	public DetallePedidoDto(long id, int cantidad, double subtotal, ArticuloConsumo articuloConsumo,
 			ArticuloManufacturado articuloManufacturado) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
-		this.pedido = pedido;
 		this.articuloConsumo = articuloConsumo;
 		this.articuloManufacturado = articuloManufacturado;
 	}
@@ -70,16 +66,6 @@ public class DetallePedidoDto {
 
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
-	}
-
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
 	}
 
 
