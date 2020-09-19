@@ -30,7 +30,7 @@ public class PedidoDto {
 	private int tipoEnvio;
 
 	
-	private List<DetallePedido> detalles = new ArrayList<DetallePedido>();
+	private List<DetallePedidoDto> detalles = new ArrayList<DetallePedidoDto>();
 
 	
 	private Cliente cliente;
@@ -45,7 +45,7 @@ public class PedidoDto {
 
 
 	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio,
-			List<DetallePedido> detalles, Cliente cliente, Factura factura) {
+			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -119,12 +119,12 @@ public class PedidoDto {
 	}
 
 
-	public List<DetallePedido> getDetalles() {
+	public List<DetallePedidoDto> getDetalles() {
 		return detalles;
 	}
 
 
-	public void setDetalles(List<DetallePedido> detalles) {
+	public void setDetalles(List<DetallePedidoDto> detalles) {
 		this.detalles = detalles;
 	}
 

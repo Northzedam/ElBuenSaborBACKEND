@@ -8,8 +8,11 @@ import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.PedidoRepository;
+import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.PedidoDto;
 
 @Service
@@ -26,6 +29,7 @@ public class PedidoServicio {
 		
 		List<Pedido>entities = repository.findAll();
 		List<PedidoDto>dtos = new ArrayList<PedidoDto>();
+		List<DetallePedidoDto>detalles = new ArrayList<DetallePedidoDto>();
 		try {
 			
 			for(Pedido entity : entities) {
@@ -36,9 +40,20 @@ public class PedidoServicio {
 				dto.setEstado(entity.getEstado());
 				dto.setHoraFin(entity.getHoraFin());
 				dto.setTipoEnvio(entity.getTipoEnvio());
-
+				
+				for(DetallePedido entityDetalle : entity.getDetalles()) {
+					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+					dtoDetalle.setId(entityDetalle.getId());
+					dtoDetalle.setCantidad(entityDetalle.getCantidad());
+					dtoDetalle.setArticuloConsumo(entityDetalle.getArticuloConsumo());
+					
+					dto.getDetalles().add(dtoDetalle);
+				}
 				dtos.add(dto);
 			}
+
+				
+			
 			
 			return dtos;
 			
@@ -81,6 +96,8 @@ public class PedidoServicio {
 		entity.setEstado(dto.getEstado());
 		entity.setHoraFin(dto.getHoraFin());
 		entity.setTipoEnvio(dto.getTipoEnvio());
+		
+		
 
 
 

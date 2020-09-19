@@ -45,14 +45,14 @@ import javax.persistence.OneToOne;
 		@Column(name = "EsInsumo")
 		private boolean esInsumo;
 		
-		@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
+		/*@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "detalle_factura")
 		private List<DetalleFactura> detallesFactura = new ArrayList<DetalleFactura>();
 		
 		@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "detalle_pedido")
 		private List<DetallePedido> detallesPedido = new ArrayList<DetallePedido>();
-		
+		*/
 		@ManyToOne(cascade = CascadeType.PERSIST)
 		@JoinColumn(name = "id_rubroArticulo")
 		private RubroArticulo rubroArticulo;
@@ -79,8 +79,8 @@ import javax.persistence.OneToOne;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
-			this.detallesFactura = detallesFactura;
-			this.detallesPedido = detallesPedido;
+			/*this.detallesFactura = detallesFactura;
+			this.detallesPedido = detallesPedido;*/
 			this.rubroArticulo = rubroArticulo;
 		}
 
@@ -98,8 +98,8 @@ import javax.persistence.OneToOne;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
-			this.detallesFactura = detallesFactura;
-			this.detallesPedido = detallesPedido;
+			/*this.detallesFactura = detallesFactura;
+			this.detallesPedido = detallesPedido;*/
 		}
 
 
@@ -137,7 +137,7 @@ import javax.persistence.OneToOne;
 			this.rubroArticulo = rubroArticulo;
 		}
 
-
+/*
 		public List<DetalleFactura> getDetallesFactura() {
 			return detallesFactura;
 		}
@@ -155,7 +155,7 @@ import javax.persistence.OneToOne;
 		public void setDetallesPedido(List<DetallePedido> detallesPedido) {
 			this.detallesPedido = detallesPedido;
 		}
-
+*/
 
 		public String getDenominacion() {
 			return denominacion;

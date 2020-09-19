@@ -33,7 +33,7 @@ import javax.persistence.OneToOne;
 		private ArticuloConsumo articuloConsumo;
 		
 		@ManyToOne(cascade = CascadeType.PERSIST)
-		@JoinColumn(name ="detallePedido")
+		@JoinColumn(name ="id_articuloManufacturado")
 		private ArticuloManufacturado articuloManufacturado;
 
 		public DetallePedido() {
