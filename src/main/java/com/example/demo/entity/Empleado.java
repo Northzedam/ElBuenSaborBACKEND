@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Empleado extends EntidadGenerica implements Serializable{
+public class Empleado  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Column(name = "Id")
@@ -55,9 +55,16 @@ public class Empleado extends EntidadGenerica implements Serializable{
 	}
 
 	//Getter&Setters
+	
 	public long getId() {
 		return id;
 	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	
 	public String getNombre() {
 		return nombre;

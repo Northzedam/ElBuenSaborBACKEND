@@ -2,9 +2,9 @@ package com.example.demo.dtos;
 
 
 
-import com.example.demo.entity.ArticuloConsumo;
-import com.example.demo.entity.ArticuloManufacturado;
-import com.example.demo.entity.Factura;
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloManufacturadoDto;
+import com.example.demo.dtos.FacturaDto;
 
 public class DetalleFacturaDto {
 	
@@ -19,13 +19,13 @@ public class DetalleFacturaDto {
 	private int subtotal;
 	
 	
-	private Factura factura;
+	private FacturaDto factura;
 	
 	
-	private ArticuloConsumo articuloConsumo;
+	private ArticuloConsumoDto articuloConsumo;
 	
 	
-	private ArticuloManufacturado articuloManufacturado;
+	private ArticuloManufacturadoDto articuloManufacturado;
 	
 	public DetalleFacturaDto() {
 		super();
@@ -33,7 +33,7 @@ public class DetalleFacturaDto {
 
 	
 	
-	public DetalleFacturaDto(long id, int cantidad, int subtotal, Factura factura, ArticuloConsumo articuloConsumo) {
+	public DetalleFacturaDto(long id, int cantidad, int subtotal, FacturaDto factura, ArticuloConsumoDto articuloConsumo) {
 		super();
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
@@ -49,7 +49,7 @@ public class DetalleFacturaDto {
 		this.subtotal = subtotal;
 	}
 	
-	public DetalleFacturaDto(int cantidad, int subtotal, Factura factura) {
+	public DetalleFacturaDto(int cantidad, int subtotal, FacturaDto factura) {
 		super();
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
@@ -70,28 +70,6 @@ public class DetalleFacturaDto {
 		this.id = id;
 	}
 
-
-
-	public ArticuloConsumo getArticuloConsumo() {
-		return articuloConsumo;
-	}
-
-
-
-	public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
-		this.articuloConsumo = articuloConsumo;
-	}
-
-
-
-	public Factura getFactura() {
-		return factura;
-	}
-
-	public void setFactura(Factura factura) {
-		this.factura = factura;
-	}
-
 	public int getCantidad() {
 		return cantidad;
 	}
@@ -110,15 +88,41 @@ public class DetalleFacturaDto {
 
 
 
-	public ArticuloManufacturado getArticuloManufacturado() {
+	public FacturaDto getFactura() {
+		return factura;
+	}
+
+
+
+	public void setFactura(FacturaDto factura) {
+		this.factura = factura;
+	}
+
+
+
+	public ArticuloConsumoDto getArticuloConsumo() {
+		return articuloConsumo;
+	}
+
+
+
+	public void setArticuloConsumo(ArticuloConsumoDto articuloConsumo) {
+		this.articuloConsumo = articuloConsumo;
+	}
+
+
+
+	public ArticuloManufacturadoDto getArticuloManufacturado() {
 		return articuloManufacturado;
 	}
 
 
 
-	public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
+	public void setArticuloManufacturado(ArticuloManufacturadoDto articuloManufacturado) {
 		this.articuloManufacturado = articuloManufacturado;
 	}
-	
+
+
+
 	
 }

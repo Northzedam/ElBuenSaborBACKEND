@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 @Entity
-public class RubroGeneral extends EntidadGenerica implements Serializable {
+public class RubroGeneral implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Column(name = "Id")
@@ -32,9 +32,25 @@ public class RubroGeneral extends EntidadGenerica implements Serializable {
 		this.denominacion = denominacion;
 	}
 	
-	public long getId () {
+	
+	
+	
+	public long getId() {
 		return id;
 	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<ArticuloManufacturado> getArticuloManufacturadoList() {
+		return articuloManufacturadoList;
+	}
+
+	public void setArticuloManufacturadoList(List<ArticuloManufacturado> articuloManufacturadoList) {
+		this.articuloManufacturadoList = articuloManufacturadoList;
+	}
+
 	public String getDenominacion() {
 		return denominacion;
 	}

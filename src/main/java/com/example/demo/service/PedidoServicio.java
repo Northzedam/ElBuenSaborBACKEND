@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Pedido;
+import com.example.demo.entity.ArticuloConsumo;
 import com.example.demo.repository.PedidoRepository;
 import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.PedidoDto;
+import com.example.demo.dtos.ArticuloConsumoDto;
 
 @Service
 public class PedidoServicio {
@@ -47,7 +49,7 @@ public class PedidoServicio {
 					dtoDetalle.setCantidad(entityDetalle.getCantidad());
 					dtoDetalle.setArticuloConsumo(entityDetalle.getArticuloConsumo());
 					
-					dto.getDetalles().add(dtoDetalle);
+					dto.getDetallePedidos().add(dtoDetalle);
 				}
 				dtos.add(dto);
 			}
@@ -99,9 +101,6 @@ public class PedidoServicio {
 		
 		
 
-
-
-		
 		
 		try {
 			entity = repository.save(entity);
@@ -119,7 +118,7 @@ public class PedidoServicio {
 		
 		try {
 			 Pedido entity = optionalEntity.get();
-			    entity.setId(id);
+			    entity.setId(dto.getId());
 			    entity.setFecha(dto.getFecha());
 				entity.setNumero(dto.getNumero());
 				entity.setEstado(dto.getEstado());
