@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Cascade;
 
 @Entity
-public class Cliente extends EntidadGenerica implements Serializable{
+public class Cliente  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Column(name = "Id")
@@ -63,20 +63,35 @@ public class Cliente extends EntidadGenerica implements Serializable{
 
 	//Getter&Setters
 
+	
+
+
 	public long getId() {
 		return id;
 	}
-	
-		
-	
 
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+
+	public List<Pedido> getPedidoList() {
+		return pedidoList;
+	}
+
+
+
+	public void setPedidoList(List<Pedido> pedidoList) {
+		this.pedidoList = pedidoList;
+	}
 
 
 	public String getNombre() {
 		return nombre;
 	}
-
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;

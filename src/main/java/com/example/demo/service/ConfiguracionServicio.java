@@ -86,7 +86,7 @@ public ConfiguracionDto update(int id, ConfiguracionDto dto, boolean estado) thr
 	
 	try {
 		 Configuracion entity = optionalEntity.get();
-		    entity.setId(id);
+		    entity.setId(dto.getId());
 		    entity.setEmailEmpresa(dto.getEmailEmpresa());
 			entity.setCantidadCocinero(dto.getCantidadCocinero());
 		 

@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-	public class RubroArticulo extends EntidadGenerica implements Serializable{
+	public class RubroArticulo implements Serializable{
 		
 	
 		private static final long serialVersionUID = 1L;
@@ -60,8 +60,13 @@ import javax.persistence.OneToOne;
 
 	
 		//GETTERS AND SETTERS
-		public long getId () {
+	
+		public long getId() {
 			return id;
+		}
+
+		public void setId(long id) {
+			this.id = id;
 		}
 
 		public List<ArticuloConsumo> getArticuloConsumoList() {

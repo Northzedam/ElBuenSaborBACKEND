@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-	public class DetallePedido extends EntidadGenerica implements Serializable{
+	public class DetallePedido implements Serializable{
 		private static final long serialVersionUID = 1L;
 		@Column(name = "Id")
 		private long id;
@@ -67,15 +67,22 @@ import javax.persistence.OneToOne;
 		
 		
 		//GETTERS Y SETTERS ------------------------------------------------------------------------
+
 		public long getId() {
 			return id;
 		}
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
+		
+		
 		public ArticuloConsumo getArticuloConsumo() {
 			return articuloConsumo;
 		}
 
-
-
+	
 		public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
 			this.articuloConsumo = articuloConsumo;
 		}

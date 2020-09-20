@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-	public class ArticuloConsumo extends EntidadGenerica implements Serializable{
+	public class ArticuloConsumo implements Serializable{
 		
 	
 		private static final long serialVersionUID = 1L;
@@ -45,14 +45,14 @@ import javax.persistence.OneToOne;
 		@Column(name = "EsInsumo")
 		private boolean esInsumo;
 		
-		/*@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
+		@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "detalle_factura")
 		private List<DetalleFactura> detallesFactura = new ArrayList<DetalleFactura>();
 		
 		@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "detalle_pedido")
 		private List<DetallePedido> detallesPedido = new ArrayList<DetallePedido>();
-		*/
+		
 		@ManyToOne(cascade = CascadeType.PERSIST)
 		@JoinColumn(name = "id_rubroArticulo")
 		private RubroArticulo rubroArticulo;
@@ -79,8 +79,8 @@ import javax.persistence.OneToOne;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
-			/*this.detallesFactura = detallesFactura;
-			this.detallesPedido = detallesPedido;*/
+			this.detallesFactura = detallesFactura;
+			this.detallesPedido = detallesPedido;
 			this.rubroArticulo = rubroArticulo;
 		}
 
@@ -98,8 +98,8 @@ import javax.persistence.OneToOne;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
-			/*this.detallesFactura = detallesFactura;
-			this.detallesPedido = detallesPedido;*/
+			this.detallesFactura = detallesFactura;
+			this.detallesPedido = detallesPedido;
 		}
 
 
@@ -121,23 +121,39 @@ import javax.persistence.OneToOne;
 		
 		//GETTERS Y SETTERS ------------------------------------------------------------------------
 		
-		
-		
-		
+	
+		public long getId() {
+			return id;
+		}
+
+
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
+
+		public List<ArticuloManufacturadoDetalle> getArticuloManufacturadoDetalle() {
+			return articuloManufacturadoDetalle;
+		}
+
+
+
+		public void setArticuloManufacturadoDetalle(List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalle) {
+			this.articuloManufacturadoDetalle = articuloManufacturadoDetalle;
+		}
+
 
 		public RubroArticulo getRubroArticulo() {
 			return rubroArticulo;
 		}
 
-		public long getId() {
-			return id;
-		}
 
 		public void setRubroArticulo(RubroArticulo rubroArticulo) {
 			this.rubroArticulo = rubroArticulo;
 		}
 
-/*
+
 		public List<DetalleFactura> getDetallesFactura() {
 			return detallesFactura;
 		}
@@ -155,7 +171,6 @@ import javax.persistence.OneToOne;
 		public void setDetallesPedido(List<DetallePedido> detallesPedido) {
 			this.detallesPedido = detallesPedido;
 		}
-*/
 
 		public String getDenominacion() {
 			return denominacion;

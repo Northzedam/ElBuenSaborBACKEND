@@ -101,7 +101,7 @@ public class ArticuloConsumoServicio {
 		
 		try {
 			 ArticuloConsumo entity = optionalEntity.get();
-			    entity.setId(id);
+			    entity.setId(dto.getId());
 			 	entity.setDenominacion(dto.getDenominacion());
 				entity.setPrecioCompra(dto.getPrecioCompra());
 				entity.setPrecioVenta(dto.getPrecioVenta());

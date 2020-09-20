@@ -97,7 +97,7 @@ public ClienteDto update(int id, ClienteDto dto, boolean estado) throws Exceptio
 	
 	try {
 		 Cliente entity = optionalEntity.get();
-		    entity.setId(id);
+		    entity.setId(dto.getId());
 		    entity.setNombre(dto.getNombre());
 			entity.setApellido(dto.getApellido());
 			entity.setTelefono(dto.getTelefono());

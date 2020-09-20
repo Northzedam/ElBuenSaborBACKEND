@@ -98,7 +98,7 @@ public DetalleFacturaDto update(int id, DetalleFacturaDto dto, boolean estado) t
 	
 	try {
 		 DetalleFactura entity = optionalEntity.get();
-		    entity.setId(id);
+		    entity.setId(dto.getId());
 		    entity.setCantidad(dto.getCantidad());
 			entity.setSubtotal(dto.getSubtotal());
 			entity.setFactura(dto.getFactura());
