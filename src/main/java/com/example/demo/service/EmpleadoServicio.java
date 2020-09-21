@@ -100,7 +100,7 @@ public class EmpleadoServicio {
 		
 		try {
 			 Empleado entity = optionalEntity.get();
-			    entity.setId(dto.getId());
+			    entity.setId(id);
 			    entity.setNombre(dto.getNombre());
 				entity.setApellido(dto.getApellido());
 				entity.setTelefono(dto.getTelefono());

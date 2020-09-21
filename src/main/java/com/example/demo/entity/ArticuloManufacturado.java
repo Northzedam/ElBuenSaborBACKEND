@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ArticuloManufacturado implements Serializable {
+public class ArticuloManufacturado extends EntidadGenerica implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -66,51 +66,14 @@ public class ArticuloManufacturado implements Serializable {
 	
 	//GETTERS Y SETTERS ------------------------------------------------------------------------
 
-
 	public long getId() {
 		return id;
 	}
-
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
-	public List<DetallePedido> getDetallePedido() {
-		return detallePedido;
-	}
-
-
-	public void setDetallePedido(List<DetallePedido> detallePedido) {
-		this.detallePedido = detallePedido;
-	}
-
-
-	public List<DetalleFactura> getDetalleFactura() {
-		return detalleFactura;
-	}
-
-
-	public void setDetalleFactura(List<DetalleFactura> detalleFactura) {
-		this.detalleFactura = detalleFactura;
-	}
-
-
-	public List<ArticuloManufacturadoDetalle> getArticuloManufacturadoDetalle() {
-		return articuloManufacturadoDetalle;
-	}
-
-
-	public void setArticuloManufacturadoDetalle(List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalle) {
-		this.articuloManufacturadoDetalle = articuloManufacturadoDetalle;
-	}
-
-
-
 	public int getTiempoEstimadoCocina() {
 		return tiempoEstimadoCocina;
 	}
+
+
 	public void setTiempoEstimadoCocina(int tiempoEstimadoCocina) {
 		this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 	}
@@ -136,7 +99,7 @@ public class ArticuloManufacturado implements Serializable {
 	}
 
 
-	public RubroGeneral getRubroGeneral() {
+	/*public RubroGeneral getRubroGeneral() {
 		return rubroGeneral;
 	}
 
@@ -144,7 +107,7 @@ public class ArticuloManufacturado implements Serializable {
 	public void setRubroGeneral(RubroGeneral rubroGeneral) {
 		this.rubroGeneral = rubroGeneral;
 	}
-	
+	*/
 
 	
 	

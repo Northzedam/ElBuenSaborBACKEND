@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class Configuracion  implements Serializable{
+public class Configuracion extends EntidadGenerica implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,21 +31,10 @@ public class Configuracion  implements Serializable{
 		this.cantidadCocinero = cantidadCocinero;
 	}
 
-
-
-	
-	
-	
 	public long getId() {
 		return id;
 	}
-
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
+	
 	public String getEmailEmpresa() {
 		return emailEmpresa;
 	}

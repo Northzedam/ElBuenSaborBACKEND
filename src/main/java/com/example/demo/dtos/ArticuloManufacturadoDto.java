@@ -89,47 +89,15 @@ public class ArticuloManufacturadoDto  {
 	}
 
 
-	public RubroGeneralDto getRubroGeneral() {
+	/*public RubroGeneral getRubroGeneral() {
 		return rubroGeneral;
 	}
 
 
-	public void setRubroGeneral(RubroGeneralDto rubroGeneral) {
+	public void setRubroGeneral(RubroGeneral rubroGeneral) {
 		this.rubroGeneral = rubroGeneral;
 	}
-
-
-	public List<DetallePedidoDto> getDetallePedido() {
-		return detallePedido;
-	}
-
-
-	public void setDetallePedido(List<DetallePedidoDto> detallePedido) {
-		this.detallePedido = detallePedido;
-	}
-
-
-	public List<DetalleFacturaDto> getDetalleFactura() {
-		return detalleFactura;
-	}
-
-
-	public void setDetalleFactura(List<DetalleFacturaDto> detalleFactura) {
-		this.detalleFactura = detalleFactura;
-	}
-
-
-	public List<ArticuloManufacturadoDetalleDto> getArticuloManufacturadoDetalle() {
-		return articuloManufacturadoDetalle;
-	}
-
-
-	public void setArticuloManufacturadoDetalle(List<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalle) {
-		this.articuloManufacturadoDetalle = articuloManufacturadoDetalle;
-	}
-
-
-	
+	*/
 
 	
 	

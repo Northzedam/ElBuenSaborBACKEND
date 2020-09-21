@@ -2,9 +2,9 @@ package com.example.demo.dtos;
 
 
 
-import com.example.demo.dtos.ArticuloConsumoDto;
-import com.example.demo.dtos.ArticuloManufacturadoDto;
-import com.example.demo.dtos.PedidoDto;
+import com.example.demo.entity.ArticuloConsumo;
+import com.example.demo.entity.ArticuloManufacturado;
+import com.example.demo.entity.Pedido;
 
 public class DetallePedidoDto {
 	
@@ -17,10 +17,10 @@ public class DetallePedidoDto {
 	private double subtotal;
 	
 	
-	private ArticuloConsumoDto articuloConsumo;
+	private ArticuloConsumo articuloConsumo;
 	
 	
-	private ArticuloManufacturadoDto articuloManufacturado;
+	private ArticuloManufacturado articuloManufacturado;
 
 
 	public DetallePedidoDto() {
@@ -28,8 +28,8 @@ public class DetallePedidoDto {
 	}
 
 
-	public DetallePedidoDto(long id, int cantidad, double subtotal, ArticuloConsumoDto articuloConsumo,
-			ArticuloManufacturadoDto articuloManufacturado) {
+	public DetallePedidoDto(long id, int cantidad, double subtotal, ArticuloConsumo articuloConsumo,
+			ArticuloManufacturado articuloManufacturado) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
@@ -69,25 +69,24 @@ public class DetallePedidoDto {
 	}
 
 
-	public ArticuloConsumoDto getArticuloConsumo() {
+	public ArticuloConsumo getArticuloConsumo() {
 		return articuloConsumo;
 	}
 
 
-	public void setArticuloConsumo(ArticuloConsumoDto articuloConsumo) {
+	public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
 		this.articuloConsumo = articuloConsumo;
 	}
 
 
-	public ArticuloManufacturadoDto getArticuloManufacturado() {
+	public ArticuloManufacturado getArticuloManufacturado() {
 		return articuloManufacturado;
 	}
 
 
-	public void setArticuloManufacturado(ArticuloManufacturadoDto articuloManufacturado) {
+	public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
 		this.articuloManufacturado = articuloManufacturado;
 	}
-
 
 	
 }

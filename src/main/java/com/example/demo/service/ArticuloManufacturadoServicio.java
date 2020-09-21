@@ -91,7 +91,7 @@ public class ArticuloManufacturadoServicio {
 		
 		try {
 			 ArticuloManufacturado entity = optionalEntity.get();
-			 entity.setId(dto.getId());
+			 entity.setId(id);
 			 entity.setTiempoEstimadoCocina(dto.getTiempoEstimadoCocina());
              entity.setDenominacion(dto.getDenominacion());
              entity.setPrecioVenta(dto.getPrecioVenta());		 

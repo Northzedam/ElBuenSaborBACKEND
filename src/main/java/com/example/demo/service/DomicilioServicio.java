@@ -90,7 +90,7 @@ public class DomicilioServicio {
 		
 		try {
 			 Domicilio entity = optionalEntity.get();
-			    entity.setId(dto.getId());
+			    entity.setId(id);
 			    entity.setCalle(dto.getCalle());
 				entity.setNumero(dto.getNumero());
 				entity.setLocalidad(dto.getLocalidad());

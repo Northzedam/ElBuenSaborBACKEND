@@ -6,8 +6,8 @@ import java.util.List;
 
 
 
-import com.example.demo.dtos.DetalleFacturaDto;
-import com.example.demo.dtos.PedidoDto;
+import com.example.demo.entity.DetalleFactura;
+import com.example.demo.entity.Pedido;
 
 public class FacturaDto {
 	
@@ -33,10 +33,10 @@ public class FacturaDto {
 
 
 	
-	private List<DetalleFacturaDto> detalleFactura = new ArrayList<DetalleFacturaDto>();
+	private List<DetalleFactura> detalles = new ArrayList<DetalleFactura>();
 
 	
-	private PedidoDto pedido;
+	private Pedido pedido;
 
 
 	public FacturaDto() {
@@ -45,7 +45,7 @@ public class FacturaDto {
 
 
 	public FacturaDto(long id, Date fecha, int numero, double montoDescuento, double total, String formaDePago,
-			String nroTarjeta, List<DetalleFacturaDto> detalleFactura, PedidoDto pedido) {
+			String nroTarjeta, List<DetalleFactura> detalles, Pedido pedido) {
 		super();
 		this.id = id;
 		Fecha = fecha;
@@ -54,7 +54,7 @@ public class FacturaDto {
 		this.total = total;
 		this.formaDePago = formaDePago;
 		this.nroTarjeta = nroTarjeta;
-		this.detalleFactura = detalleFactura;
+		this.detalles = detalles;
 		this.pedido = pedido;
 	}
 
@@ -129,26 +129,24 @@ public class FacturaDto {
 	}
 
 
-	public List<DetalleFacturaDto> getDetalleFactura() {
-		return detalleFactura;
+	public List<DetalleFactura> getDetalles() {
+		return detalles;
 	}
 
 
-	public void setDetalleFactura(List<DetalleFacturaDto> detalleFactura) {
-		this.detalleFactura = detalleFactura;
+	public void setDetalles(List<DetalleFactura> detalles) {
+		this.detalles = detalles;
 	}
 
 
-	public PedidoDto getPedido() {
+	public Pedido getPedido() {
 		return pedido;
 	}
 
 
-	public void setPedido(PedidoDto pedido) {
+	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-
-
 	
 	
 	

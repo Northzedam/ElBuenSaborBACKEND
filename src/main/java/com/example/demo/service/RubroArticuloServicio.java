@@ -89,7 +89,7 @@ public class RubroArticuloServicio {
 		
 		try {
 			 RubroArticulo entity = optionalEntity.get();
-			    entity.setId(dto.getId());
+			    entity.setId(id);
 			    entity.setDenominacion(dto.getDenominacion());
 				entity.setRubroArticulo(dto.getRubroArticulo());
 						 
