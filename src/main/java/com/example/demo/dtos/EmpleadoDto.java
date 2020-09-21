@@ -2,7 +2,7 @@ package com.example.demo.dtos;
 
 
 
-import com.example.demo.dtos.DomicilioDto;
+import com.example.demo.entity.Domicilio;
 
 public class EmpleadoDto {
 private long id;
@@ -24,7 +24,7 @@ private long id;
 	private String email;
 
 	
-	private DomicilioDto domicilio;
+	private Domicilio domicilio;
 
 
 	public EmpleadoDto() {
@@ -33,7 +33,7 @@ private long id;
 
 
 	public EmpleadoDto(long id, String nombre, String apellido, String cuil, int telefono, String email,
-			DomicilioDto domicilio) {
+			Domicilio domicilio) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -105,17 +105,16 @@ private long id;
 	}
 
 
-	public DomicilioDto getDomicilio() {
+	public Domicilio getDomicilio() {
 		return domicilio;
 	}
 
 
-	public void setDomicilio(DomicilioDto domicilio) {
+	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;
 	}
-
-
-
+	
+	
 	
 	
 	

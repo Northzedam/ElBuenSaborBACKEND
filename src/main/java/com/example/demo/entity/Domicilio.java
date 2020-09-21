@@ -6,7 +6,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 @Entity
-public class Domicilio implements Serializable{
+public class Domicilio extends EntidadGenerica implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private long id;
@@ -34,18 +34,10 @@ public class Domicilio implements Serializable{
 		this.departamento = departamento;
 	}
 
-
-	
 	public long getId() {
 		return id;
 	}
-
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
+	
 	public String getCalle() {
 		return calle;
 	}

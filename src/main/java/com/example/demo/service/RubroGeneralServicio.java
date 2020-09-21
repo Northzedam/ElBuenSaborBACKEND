@@ -85,7 +85,7 @@ public class RubroGeneralServicio {
 		
 		try {
 			 RubroGeneral entity = optionalEntity.get();
-			    entity.setId(dto.getId());
+			    entity.setId(id);
 			    entity.setDenominacion(dto.getDenominacion());
 	
 			 repository.save(entity);

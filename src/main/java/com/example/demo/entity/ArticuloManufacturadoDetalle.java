@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ArticuloManufacturadoDetalle  implements Serializable {
+public class ArticuloManufacturadoDetalle extends EntidadGenerica implements Serializable {
 
 private static final long serialVersionUID = 1L;
 	
@@ -42,31 +42,25 @@ private static final long serialVersionUID = 1L;
 
 	public ArticuloManufacturadoDetalle(long id,double cantidad, String unidadMedida,
 			ArticuloManufacturado articuloManufacturado 
-			,ArticuloConsumo articuloConsumo
+			//,ArticuloConsumo articuloConsumo
 			) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
 		this.unidadMedida = unidadMedida;
 		this.articuloManufacturado = articuloManufacturado;
-		this.articuloConsumo = articuloConsumo;
+		//this.articuloConsumo = articuloConsumo;
 	}
 
 	//Getter & Setters
-	
 	public long getId() {
 		return id;
 	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
+	
 	public double getCantidad() {
 		return cantidad;
 	}
 
-	
 	public void setCantidad(double cantidad) {
 		this.cantidad = cantidad;
 	}
@@ -87,13 +81,13 @@ private static final long serialVersionUID = 1L;
 		this.articuloManufacturado = articuloManufacturado;
 	}
 
-	public ArticuloConsumo getArticuloConsumo() {
+	/*public ArticuloConsumo getArticuloConsumo() {
 		return articuloConsumo;
 	}
 
 	public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
 		this.articuloConsumo = articuloConsumo;
-	}
+	}*/
 	
 	
 	

@@ -6,9 +6,9 @@ import java.util.List;
 
 
 
-import com.example.demo.dtos.ClienteDto;
-import com.example.demo.dtos.DetallePedidoDto;
-import com.example.demo.dtos.FacturaDto;
+import com.example.demo.entity.Cliente;
+import com.example.demo.entity.DetallePedido;
+import com.example.demo.entity.Factura;
 
 public class PedidoDto {
 	
@@ -30,13 +30,13 @@ public class PedidoDto {
 	private int tipoEnvio;
 
 	
-	private List<DetallePedidoDto> detallePedidos = new ArrayList<DetallePedidoDto>();
+	private List<DetallePedidoDto> detalles = new ArrayList<DetallePedidoDto>();
 
 	
-	private ClienteDto cliente;
+	private Cliente cliente;
 	
 	
-	private FacturaDto factura;
+	private Factura factura;
 
 
 	public PedidoDto() {
@@ -45,7 +45,7 @@ public class PedidoDto {
 
 
 	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio,
-			List<DetallePedidoDto> detallePedidos, ClienteDto cliente, FacturaDto factura) {
+			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -53,7 +53,7 @@ public class PedidoDto {
 		this.estado = estado;
 		this.horaFin = horaFin;
 		this.tipoEnvio = tipoEnvio;
-		this.detallePedidos = detallePedidos;
+		this.detalles = detalles;
 		this.cliente = cliente;
 		this.factura = factura;
 	}
@@ -119,37 +119,36 @@ public class PedidoDto {
 	}
 
 
-	public List<DetallePedidoDto> getDetallePedidos() {
-		return detallePedidos;
+	public List<DetallePedidoDto> getDetalles() {
+		return detalles;
 	}
 
 
-	public void setDetallePedidos(List<DetallePedidoDto> detallePedidos) {
-		this.detallePedidos = detallePedidos;
+	public void setDetalles(List<DetallePedidoDto> detalles) {
+		this.detalles = detalles;
 	}
 
 
-	public ClienteDto getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
 
-	public void setCliente(ClienteDto cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
 
-	public FacturaDto getFactura() {
+	public Factura getFactura() {
 		return factura;
 	}
 
 
-	public void setFactura(FacturaDto factura) {
+	public void setFactura(Factura factura) {
 		this.factura = factura;
 	}
-
-
-
+	
+	
 	
 	
 }

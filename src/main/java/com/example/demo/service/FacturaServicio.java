@@ -105,7 +105,7 @@ public class FacturaServicio {
 		
 		try {
 			 Factura entity = optionalEntity.get();
-			    entity.setId(dto.getId());
+			    entity.setId(id);
 			    entity.setFecha(dto.getFecha());
 				entity.setNumero(dto.getNumero());
 				entity.setMontoDescuento(dto.getMontoDescuento());

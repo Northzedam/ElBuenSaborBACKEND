@@ -94,10 +94,10 @@ public DetallePedidoDto update(int id, DetallePedidoDto dto, boolean estado) thr
 	
 	try {
 		 DetallePedido entity = optionalEntity.get();
-		    entity.setId(dto.getId());
+		    entity.setId(id);
 		    entity.setCantidad(dto.getCantidad());
 			entity.setSubtotal(dto.getSubtotal());
-			entity.setPedidoDto(dto.getPedido());
+			entity.setPedido(dto.getPedido());
 			entity.setArticuloConsumo(dto.getArticuloConsumo());
 			entity.setArticuloManufacturado(dto.getArticuloManufacturado());
 		 
