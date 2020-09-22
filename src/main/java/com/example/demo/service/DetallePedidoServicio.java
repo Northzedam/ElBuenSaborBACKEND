@@ -33,7 +33,6 @@ public List<DetallePedidoDto> findAll() throws Exception {
 				dto.setId(entity.getId());
 				dto.setCantidad(entity.getCantidad());
 				dto.setSubtotal(entity.getSubtotal());
-				dto.setPedido(entity.getPedido());
 				dto.setArticuloConsumo(entity.getArticuloConsumo());
 				dto.setArticuloManufacturado(entity.getArticuloManufacturado());
 				dtos.add(dto);
@@ -58,7 +57,6 @@ public DetallePedidoDto findById(int id) throws Exception{
 			dto.setId(entity.getId());
 			dto.setCantidad(entity.getCantidad());
 			dto.setSubtotal(entity.getSubtotal());
-			dto.setPedido(entity.getPedido());
 			dto.setArticuloConsumo(entity.getArticuloConsumo());
 			dto.setArticuloManufacturado(entity.getArticuloManufacturado());
 	} catch (Exception e) {
@@ -74,7 +72,6 @@ public DetallePedidoDto save(DetallePedidoDto dto, boolean estado) throws Except
 	
 	entity.setCantidad(dto.getCantidad());
 	entity.setSubtotal(dto.getSubtotal());
-	entity.setPedido(dto.getPedido());
 	entity.setArticuloConsumo(dto.getArticuloConsumo());
 	entity.setArticuloManufacturado(dto.getArticuloManufacturado());
 		
@@ -97,7 +94,6 @@ public DetallePedidoDto update(int id, DetallePedidoDto dto, boolean estado) thr
 		    entity.setId(id);
 		    entity.setCantidad(dto.getCantidad());
 			entity.setSubtotal(dto.getSubtotal());
-			entity.setPedido(dto.getPedido());
 			entity.setArticuloConsumo(dto.getArticuloConsumo());
 			entity.setArticuloManufacturado(dto.getArticuloManufacturado());
 		 

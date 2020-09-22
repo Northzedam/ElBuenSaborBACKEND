@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.PedidoRepository;
+import com.example.demo.dtos.ArticuloConsumoDto;
 import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.PedidoDto;
 
@@ -45,7 +46,17 @@ public class PedidoServicio {
 					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
 					dtoDetalle.setId(entityDetalle.getId());
 					dtoDetalle.setCantidad(entityDetalle.getCantidad());
-					dtoDetalle.setArticuloConsumo(entityDetalle.getArticuloConsumo());
+					ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
+					articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
+					articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
+					articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
+					articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
+					articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
+
+
+
+
+				//	dtoDetalle.setArticuloConsumoDto();
 					
 					dto.getDetalles().add(dtoDetalle);
 				}
@@ -77,7 +88,14 @@ public class PedidoServicio {
 				dto.setEstado(entity.getEstado());
 				dto.setHoraFin(entity.getHoraFin());
 				dto.setTipoEnvio(entity.getTipoEnvio());
-
+				for(DetallePedido entityDetalle : entity.getDetalles()) {
+					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+					dtoDetalle.setId(entityDetalle.getId());
+					dtoDetalle.setCantidad(entityDetalle.getCantidad());
+					//dtoDetalle.setArticuloConsumo(entityDetalle.getArticuloConsumo());
+					
+					dto.getDetalles().add(dtoDetalle);
+				}
 
 		} catch (Exception e) {
 			throw new Exception();
@@ -95,13 +113,7 @@ public class PedidoServicio {
 		entity.setNumero(dto.getNumero());
 		entity.setEstado(dto.getEstado());
 		entity.setHoraFin(dto.getHoraFin());
-		entity.setTipoEnvio(dto.getTipoEnvio());
-		
-		
-
-
-
-		
+		entity.setTipoEnvio(dto.getTipoEnvio());		
 		
 		try {
 			entity = repository.save(entity);
