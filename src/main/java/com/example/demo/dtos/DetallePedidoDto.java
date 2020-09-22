@@ -2,9 +2,8 @@ package com.example.demo.dtos;
 
 
 
-import com.example.demo.entity.ArticuloConsumo;
-import com.example.demo.entity.ArticuloManufacturado;
-import com.example.demo.entity.Pedido;
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloManufacturadoDto;
 
 public class DetallePedidoDto {
 	
@@ -17,10 +16,10 @@ public class DetallePedidoDto {
 	private double subtotal;
 	
 	
-	private ArticuloConsumo articuloConsumo;
+	private ArticuloConsumoDto articuloConsumoDto;
 	
 	
-	private ArticuloManufacturado articuloManufacturado;
+	private ArticuloManufacturadoDto articuloManufacturadoDto;
 
 
 	public DetallePedidoDto() {
@@ -28,14 +27,14 @@ public class DetallePedidoDto {
 	}
 
 
-	public DetallePedidoDto(long id, int cantidad, double subtotal, ArticuloConsumo articuloConsumo,
-			ArticuloManufacturado articuloManufacturado) {
+	public DetallePedidoDto(long id, int cantidad, double subtotal, ArticuloConsumoDto articuloConsumoDto,
+			ArticuloManufacturadoDto articuloManufacturadoDto) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
-		this.articuloConsumo = articuloConsumo;
-		this.articuloManufacturado = articuloManufacturado;
+		this.articuloConsumoDto = articuloConsumoDto;
+		this.articuloManufacturadoDto = articuloManufacturadoDto;
 	}
 
 
@@ -69,23 +68,23 @@ public class DetallePedidoDto {
 	}
 
 
-	public ArticuloConsumo getArticuloConsumo() {
-		return articuloConsumo;
+	public ArticuloConsumoDto getArticuloConsumoDto() {
+		return articuloConsumoDto;
 	}
 
 
-	public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
-		this.articuloConsumo = articuloConsumo;
+	public void setArticuloConsumoDto(ArticuloConsumoDto articuloConsumoDto) {
+		this.articuloConsumoDto = articuloConsumoDto;
 	}
 
 
-	public ArticuloManufacturado getArticuloManufacturado() {
-		return articuloManufacturado;
+	public ArticuloManufacturadoDto getArticuloManufacturadoDto() {
+		return articuloManufacturadoDto;
 	}
 
 
-	public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
-		this.articuloManufacturado = articuloManufacturado;
+	public void setArticuloManufacturadoDto(ArticuloManufacturadoDto articuloManufacturadoDto) {
+		this.articuloManufacturadoDto = articuloManufacturadoDto;
 	}
 
 	
