@@ -5,6 +5,7 @@ package com.example.demo.dtos;
 import com.example.demo.dtos.ArticuloConsumoDto;
 import com.example.demo.dtos.ArticuloManufacturadoDto;
 
+
 public class DetallePedidoDto {
 	
 	private long id;
