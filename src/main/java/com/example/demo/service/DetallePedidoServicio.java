@@ -9,7 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloManufacturadoDto;
 import com.example.demo.dtos.DetallePedidoDto;
+import com.example.demo.entity.ArticuloConsumo;
+import com.example.demo.entity.ArticuloManufacturado;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.repository.DetallePedidoRepository;
 
@@ -33,8 +37,25 @@ public List<DetallePedidoDto> findAll() throws Exception {
 				dto.setId(entity.getId());
 				dto.setCantidad(entity.getCantidad());
 				dto.setSubtotal(entity.getSubtotal());
-				dto.setArticuloConsumo(entity.getArticuloConsumo());
-				dto.setArticuloManufacturado(entity.getArticuloManufacturado());
+
+				ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();   // CREO EL ARTICULOCONSUMODTO QUE VOY A ASIGNARLE AL DETALLEPEDIDO
+				ArticuloConsumo articuloConsumoEntity = entity.getArticuloConsumo();// CREO UN ENTITY QUE CON EL QUE VOY A SETEAR ARTICULOCONSUMODTO
+				articuloConsumoDto.setDenominacion(articuloConsumoEntity.getDenominacion());
+				articuloConsumoDto.setPrecioCompra(articuloConsumoEntity.getPrecioCompra());
+				articuloConsumoDto.setPrecioVenta(articuloConsumoEntity.getPrecioVenta());
+				articuloConsumoDto.setStockActual(articuloConsumoEntity.getStockActual());
+				articuloConsumoDto.setStockMinimo(articuloConsumoEntity.getStockMinimo());
+				articuloConsumoDto.setUnidadMedida(articuloConsumoEntity.getUnidadMedida());
+				dto.setArticuloConsumoDto(articuloConsumoDto);
+				if(entity.getArticuloManufacturado()!=null) {
+					ArticuloManufacturadoDto articuloManufacturadoDto = new ArticuloManufacturadoDto();
+					ArticuloManufacturado articuloManufacturadoEntity = entity.getArticuloManufacturado();
+					articuloManufacturadoDto.setId(articuloManufacturadoEntity.getId());
+					articuloManufacturadoDto.setDenominacion(articuloManufacturadoEntity.getDenominacion());
+					articuloManufacturadoDto.setPrecioVenta(articuloManufacturadoEntity.getPrecioVenta());
+					articuloManufacturadoDto.setTiempoEstimadoCocina(articuloManufacturadoEntity.getTiempoEstimadoCocina());
+					dto.setArticuloManufacturadoDto(articuloManufacturadoDto);
+				}
 				dtos.add(dto);
 			}
 			
@@ -54,11 +75,27 @@ public DetallePedidoDto findById(int id) throws Exception{
 	try {
 		 DetallePedido entity = entityOptional.get();
 		
-			dto.setId(entity.getId());
+		    dto.setId(entity.getId());
 			dto.setCantidad(entity.getCantidad());
 			dto.setSubtotal(entity.getSubtotal());
-			dto.setArticuloConsumo(entity.getArticuloConsumo());
-			dto.setArticuloManufacturado(entity.getArticuloManufacturado());
+
+			ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();   // CREO EL ARTICULOCONSUMODTO QUE VOY A ASIGNARLE AL DETALLEPEDIDO
+			ArticuloConsumo articuloConsumoEntity = entity.getArticuloConsumo();// CREO UN ENTITY QUE CON EL QUE VOY A SETEAR ARTICULOCONSUMODTO
+			articuloConsumoDto.setDenominacion(articuloConsumoEntity.getDenominacion());
+			articuloConsumoDto.setPrecioCompra(articuloConsumoEntity.getPrecioCompra());
+			articuloConsumoDto.setPrecioVenta(articuloConsumoEntity.getPrecioVenta());
+			articuloConsumoDto.setStockActual(articuloConsumoEntity.getStockActual());
+			articuloConsumoDto.setStockMinimo(articuloConsumoEntity.getStockMinimo());
+			articuloConsumoDto.setUnidadMedida(articuloConsumoEntity.getUnidadMedida());
+			
+			ArticuloManufacturadoDto articuloManufacturadoDto = new ArticuloManufacturadoDto();
+			ArticuloManufacturado articuloManufacturadoEntity = entity.getArticuloManufacturado();
+			articuloManufacturadoDto.setId(articuloManufacturadoEntity.getId());
+			articuloManufacturadoDto.setDenominacion(articuloManufacturadoEntity.getDenominacion());
+			articuloManufacturadoDto.setPrecioVenta(articuloManufacturadoEntity.getPrecioVenta());
+			articuloManufacturadoDto.setTiempoEstimadoCocina(articuloManufacturadoEntity.getTiempoEstimadoCocina());
+			dto.setArticuloConsumoDto(articuloConsumoDto);
+			dto.setArticuloManufacturadoDto(articuloManufacturadoDto);
 	} catch (Exception e) {
 		throw new Exception();
 	}
@@ -72,8 +109,8 @@ public DetallePedidoDto save(DetallePedidoDto dto, boolean estado) throws Except
 	
 	entity.setCantidad(dto.getCantidad());
 	entity.setSubtotal(dto.getSubtotal());
-	entity.setArticuloConsumo(dto.getArticuloConsumo());
-	entity.setArticuloManufacturado(dto.getArticuloManufacturado());
+//	entity.setArticuloConsumo(dto.getArticuloConsumo());
+//	entity.setArticuloManufacturado(dto.getArticuloManufacturado());
 		
 	try {
 		entity = repository.save(entity);
@@ -94,8 +131,8 @@ public DetallePedidoDto update(int id, DetallePedidoDto dto, boolean estado) thr
 		    entity.setId(id);
 		    entity.setCantidad(dto.getCantidad());
 			entity.setSubtotal(dto.getSubtotal());
-			entity.setArticuloConsumo(dto.getArticuloConsumo());
-			entity.setArticuloManufacturado(dto.getArticuloManufacturado());
+	//		entity.setArticuloConsumo(dto.getArticuloConsumo());
+		//	entity.setArticuloManufacturado(dto.getArticuloManufacturado());
 		 
 		 repository.save(entity);
 		 dto.setId(entity.getId());

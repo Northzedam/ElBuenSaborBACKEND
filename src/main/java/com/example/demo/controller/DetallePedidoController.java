@@ -34,7 +34,7 @@ public class DetallePedidoController{
 	
 	@GetMapping("/")
 	@Transactional
-	public ResponseEntity getAll (){
+	public ResponseEntity getAll(){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 			
