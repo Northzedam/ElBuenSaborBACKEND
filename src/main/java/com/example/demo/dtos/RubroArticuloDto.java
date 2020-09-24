@@ -7,8 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 
-import com.example.demo.entity.ArticuloConsumo;
-import com.example.demo.entity.RubroArticulo;
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.RubroArticuloDto;
 
 public class RubroArticuloDto {
 	
@@ -18,10 +18,10 @@ public class RubroArticuloDto {
 	private String denominacion;
 	
 	
-	private RubroArticulo rubroArticulo;
+	private RubroArticuloDto rubroArticuloDto;
 	
 	
-	private List<ArticuloConsumo> articuloConsumoList = new ArrayList<ArticuloConsumo>();
+	private List<ArticuloConsumoDto> articuloConsumoListDto = new ArrayList<ArticuloConsumoDto>();
 
 
 	public RubroArticuloDto() {
@@ -29,13 +29,13 @@ public class RubroArticuloDto {
 	}
 
 
-	public RubroArticuloDto(long id, String denominacion, RubroArticulo rubroArticulo,
-			List<ArticuloConsumo> articuloConsumoList) {
+	public RubroArticuloDto(long id, String denominacion, RubroArticuloDto rubroArticuloDto,
+			List<ArticuloConsumoDto> articuloConsumoListDto) {
 		super();
 		this.id = id;
 		this.denominacion = denominacion;
-		this.rubroArticulo = rubroArticulo;
-		this.articuloConsumoList = articuloConsumoList;
+		this.rubroArticuloDto = rubroArticuloDto;
+		this.articuloConsumoListDto = articuloConsumoListDto;
 	}
 
 
@@ -59,24 +59,24 @@ public class RubroArticuloDto {
 	}
 
 
-	public RubroArticulo getRubroArticulo() {
-		return rubroArticulo;
+	public RubroArticuloDto getRubroArticuloDto() {
+		return rubroArticuloDto;
 	}
 
 
-	public void setRubroArticulo(RubroArticulo rubroArticulo) {
-		this.rubroArticulo = rubroArticulo;
+	public void setRubroArticuloDto(RubroArticuloDto rubroArticuloDto) {
+		this.rubroArticuloDto = rubroArticuloDto;
 	}
 
 
-	public List<ArticuloConsumo> getArticuloConsumoList() {
-		return articuloConsumoList;
+	public List<ArticuloConsumoDto> getArticuloConsumoListDto() {
+		return articuloConsumoListDto;
 	}
 
 
-	public void setArticuloConsumoList(List<ArticuloConsumo> articuloConsumoList) {
-		this.articuloConsumoList = articuloConsumoList;
+	public void setArticuloConsumoListDto(List<ArticuloConsumoDto> articuloConsumoListDto) {
+		this.articuloConsumoListDto = articuloConsumoListDto;
 	}
-	
-	
+
+
 }

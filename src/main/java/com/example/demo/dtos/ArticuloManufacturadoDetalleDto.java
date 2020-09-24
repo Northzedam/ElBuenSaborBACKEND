@@ -17,7 +17,7 @@ public class ArticuloManufacturadoDetalleDto  {
 	private String unidadMedida;
 	
 	
-	private ArticuloManufacturadoDto articuloManufacturado;
+	private ArticuloManufacturadoDto articuloManufacturadoDto;
 	
 	
 	//private ArticuloConsumoDto articuloConsumo;
@@ -31,14 +31,14 @@ public class ArticuloManufacturadoDetalleDto  {
 	}
 
 	public ArticuloManufacturadoDetalleDto(long id,double cantidad, String unidadMedida,
-			ArticuloManufacturadoDto articuloManufacturado 
+			ArticuloManufacturadoDto articuloManufacturadoDto 
 			//,ArticuloConsumo articuloConsumo
 			) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
 		this.unidadMedida = unidadMedida;
-		this.articuloManufacturado = articuloManufacturado;
+		this.articuloManufacturadoDto = articuloManufacturadoDto;
 		//this.articuloConsumo = articuloConsumo;
 	}
 
@@ -68,13 +68,15 @@ public class ArticuloManufacturadoDetalleDto  {
 		this.unidadMedida = unidadMedida;
 	}
 
-	public ArticuloManufacturadoDto getArticuloManufacturado() {
-		return articuloManufacturado;
+	public ArticuloManufacturadoDto getArticuloManufacturadoDto() {
+		return articuloManufacturadoDto;
 	}
 
-	public void setArticuloManufacturado(ArticuloManufacturadoDto articuloManufacturado) {
-		this.articuloManufacturado = articuloManufacturado;
+	public void setArticuloManufacturadoDto(ArticuloManufacturadoDto articuloManufacturadoDto) {
+		this.articuloManufacturadoDto = articuloManufacturadoDto;
 	}
+
+
 
 	/*public ArticuloConsumo getArticuloConsumo() {
 		return articuloConsumo;

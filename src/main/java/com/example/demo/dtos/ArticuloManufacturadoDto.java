@@ -21,16 +21,16 @@ public class ArticuloManufacturadoDto  {
 	private double precioVenta;
 	
 	
-	private RubroGeneralDto rubroGeneral;
+	private RubroGeneralDto rubroGeneralDto;
 	
 	
-	private List<DetallePedidoDto> detallePedido = new ArrayList<DetallePedidoDto>();
+	private List<DetallePedidoDto> detallePedidoDto = new ArrayList<DetallePedidoDto>();
 	
 
-	private List<DetalleFacturaDto> detalleFactura = new ArrayList<DetalleFacturaDto>();
+	private List<DetalleFacturaDto> detalleFacturaDto = new ArrayList<DetalleFacturaDto>();
     
 	
-	private List<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalle = new ArrayList<ArticuloManufacturadoDetalleDto>();
+	private List<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalleDto = new ArrayList<ArticuloManufacturadoDetalleDto>();
 		
 	//Constructores
 	
