@@ -2,9 +2,9 @@ package com.example.demo.dtos;
 
 
 
-import com.example.demo.entity.ArticuloConsumo;
-import com.example.demo.entity.ArticuloManufacturado;
-import com.example.demo.entity.Factura;
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloManufacturadoDto;
+import com.example.demo.dtos.FacturaDto;
 
 public class DetalleFacturaDto {
 	
@@ -19,13 +19,13 @@ public class DetalleFacturaDto {
 	private int subtotal;
 	
 	
-	private Factura factura;
+	private FacturaDto facturaDto;
 	
 	
-	private ArticuloConsumo articuloConsumo;
+	private ArticuloConsumoDto articuloConsumoDto;
 	
 	
-	private ArticuloManufacturado articuloManufacturado;
+	private ArticuloManufacturadoDto articuloManufacturadoDto;
 	
 	public DetalleFacturaDto() {
 		super();
@@ -33,12 +33,12 @@ public class DetalleFacturaDto {
 
 	
 	
-	public DetalleFacturaDto(long id, int cantidad, int subtotal, Factura factura, ArticuloConsumo articuloConsumo) {
+	public DetalleFacturaDto(long id, int cantidad, int subtotal, FacturaDto facturaDto, ArticuloConsumoDto articuloConsumoDto) {
 		super();
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
-		this.factura = factura;
-		this.articuloConsumo = articuloConsumo;
+		this.facturaDto = facturaDto;
+		this.articuloConsumoDto = articuloConsumoDto;
 	}
 
 
@@ -49,13 +49,15 @@ public class DetalleFacturaDto {
 		this.subtotal = subtotal;
 	}
 	
-	public DetalleFacturaDto(int cantidad, int subtotal, Factura factura) {
+	public DetalleFacturaDto(int cantidad, int subtotal, FacturaDto facturaDto) {
 		super();
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
-		this.factura = factura;
+		this.facturaDto = facturaDto;
 	}
 
+	
+	
 	
 	
 	//GETTERS Y SETTERS ------------------------------------------------------------------------
@@ -63,33 +65,9 @@ public class DetalleFacturaDto {
 		return id;
 	}
 	
-	
-	
-	
+
 	public void setId(long id) {
 		this.id = id;
-	}
-
-
-
-	public ArticuloConsumo getArticuloConsumo() {
-		return articuloConsumo;
-	}
-
-
-
-	public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
-		this.articuloConsumo = articuloConsumo;
-	}
-
-
-
-	public Factura getFactura() {
-		return factura;
-	}
-
-	public void setFactura(Factura factura) {
-		this.factura = factura;
 	}
 
 	public int getCantidad() {
@@ -110,15 +88,39 @@ public class DetalleFacturaDto {
 
 
 
-	public ArticuloManufacturado getArticuloManufacturado() {
-		return articuloManufacturado;
+	public FacturaDto getFacturaDto() {
+		return facturaDto;
 	}
 
 
 
-	public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
-		this.articuloManufacturado = articuloManufacturado;
+	public void setFacturaDto(FacturaDto facturaDto) {
+		this.facturaDto = facturaDto;
 	}
-	
-	
+
+
+
+	public ArticuloConsumoDto getArticuloConsumoDto() {
+		return articuloConsumoDto;
+	}
+
+
+
+	public void setArticuloConsumoDto(ArticuloConsumoDto articuloConsumoDto) {
+		this.articuloConsumoDto = articuloConsumoDto;
+	}
+
+
+
+	public ArticuloManufacturadoDto getArticuloManufacturadoDto() {
+		return articuloManufacturadoDto;
+	}
+
+
+
+	public void setArticuloManufacturadoDto(ArticuloManufacturadoDto articuloManufacturadoDto) {
+		this.articuloManufacturadoDto = articuloManufacturadoDto;
+	}
+
+
 }

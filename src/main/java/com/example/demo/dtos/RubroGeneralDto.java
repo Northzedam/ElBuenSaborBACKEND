@@ -7,7 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 
-import com.example.demo.entity.ArticuloManufacturado;
+import com.example.demo.dtos.ArticuloManufacturadoDto;
 
 public class RubroGeneralDto {
 	
@@ -17,7 +17,7 @@ public class RubroGeneralDto {
 	private String denominacion;
 
 	
-	private List<ArticuloManufacturado> articuloManufacturadoList = new ArrayList<ArticuloManufacturado>();
+	private List<ArticuloManufacturadoDto> articuloManufacturadoListDto = new ArrayList<ArticuloManufacturadoDto>();
 
 
 	public RubroGeneralDto() {
@@ -25,11 +25,11 @@ public class RubroGeneralDto {
 	}
 
 
-	public RubroGeneralDto(long id, String denominacion, List<ArticuloManufacturado> articuloManufacturadoList) {
+	public RubroGeneralDto(long id, String denominacion, List<ArticuloManufacturadoDto> articuloManufacturadoListDto) {
 		super();
 		this.id = id;
 		this.denominacion = denominacion;
-		this.articuloManufacturadoList = articuloManufacturadoList;
+		this.articuloManufacturadoListDto = articuloManufacturadoListDto;
 	}
 
 
@@ -53,14 +53,16 @@ public class RubroGeneralDto {
 	}
 
 
-	public List<ArticuloManufacturado> getArticuloManufacturadoList() {
-		return articuloManufacturadoList;
+	public List<ArticuloManufacturadoDto> getArticuloManufacturadoListDto() {
+		return articuloManufacturadoListDto;
 	}
 
 
-	public void setArticuloManufacturadoList(List<ArticuloManufacturado> articuloManufacturadoList) {
-		this.articuloManufacturadoList = articuloManufacturadoList;
+	public void setArticuloManufacturadoListDto(List<ArticuloManufacturadoDto> articuloManufacturadoListDto) {
+		this.articuloManufacturadoListDto = articuloManufacturadoListDto;
 	}
+
+
 	
 	
 	

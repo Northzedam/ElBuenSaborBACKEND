@@ -3,7 +3,9 @@ package com.example.demo.dtos;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.entity.Domicilio;
+import com.example.demo.dtos.DomicilioDto;
+import com.example.demo.dtos.PedidoDto;
+
 
 public class ClienteDto {
 	
@@ -24,10 +26,10 @@ public class ClienteDto {
 	private String email;
 
 	
-	private DomicilioDto domicilio;
+	private DomicilioDto domicilioDto;
 
 	
-	private List<PedidoDto> pedidoList = new ArrayList<PedidoDto>();
+	private List<PedidoDto> pedidoListDto = new ArrayList<PedidoDto>();
 
 
 	//Constructores
@@ -38,14 +40,14 @@ public class ClienteDto {
 
 
 
-	public ClienteDto(long id,String nombre, String apellido, int telefono, String email, DomicilioDto domicilio) {
+	public ClienteDto(long id,String nombre, String apellido, int telefono, String email, DomicilioDto domicilioDto) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.email = email;
-		this.domicilio = domicilio;
+		this.domicilioDto = domicilioDto;
 	}
 
 	//Getter&Setters
@@ -106,15 +108,30 @@ public class ClienteDto {
 
 
 
-	public DomicilioDto getDomicilio() {
-		return domicilio;
+	public DomicilioDto getDomicilioDto() {
+		return domicilioDto;
 	}
 
 
 
-	public void setDomicilio(DomicilioDto domicilio) {
-		this.domicilio = domicilio;
+	public void setDomicilioDto(DomicilioDto domicilioDto) {
+		this.domicilioDto = domicilioDto;
 	}
+
+
+
+	public List<PedidoDto> getPedidoListDto() {
+		return pedidoListDto;
+	}
+
+
+
+	public void setPedidoListDto(List<PedidoDto> pedidoListDto) {
+		this.pedidoListDto = pedidoListDto;
+	}
+
+
+
 
 
 
