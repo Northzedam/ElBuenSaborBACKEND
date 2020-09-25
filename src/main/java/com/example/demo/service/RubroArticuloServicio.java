@@ -32,7 +32,7 @@ public class RubroArticuloServicio {
 				RubroArticuloDto dto = new RubroArticuloDto();
 				dto.setId(entity.getId());
 				dto.setDenominacion(entity.getDenominacion());
-				dto.setRubroArticulo(entity.getRubroArticulo());
+			//	dto.setRubroArticulo(entity.getRubroArticulo());
 			
 				dtos.add(dto);
 			}
@@ -55,7 +55,7 @@ public class RubroArticuloServicio {
 			
 				dto.setId(entity.getId());
 				dto.setDenominacion(entity.getDenominacion());
-				dto.setRubroArticulo(entity.getRubroArticulo());
+				//dto.setRubroArticulo(entity.getRubroArticulo());
 		
 		} catch (Exception e) {
 			throw new Exception();
@@ -70,7 +70,7 @@ public class RubroArticuloServicio {
 		RubroArticulo entity = new RubroArticulo();
 		
 		entity.setDenominacion(dto.getDenominacion());
-		entity.setRubroArticulo(dto.getRubroArticulo());
+		//entity.setRubroArticulo(dto.getRubroArticulo());
 	
 		
 		try {
@@ -91,7 +91,7 @@ public class RubroArticuloServicio {
 			 RubroArticulo entity = optionalEntity.get();
 			    entity.setId(id);
 			    entity.setDenominacion(dto.getDenominacion());
-				entity.setRubroArticulo(dto.getRubroArticulo());
+				//entity.setRubroArticulo(dto.getRubroArticulo());
 						 
 			 repository.save(entity);
 			 dto.setId(entity.getId());
