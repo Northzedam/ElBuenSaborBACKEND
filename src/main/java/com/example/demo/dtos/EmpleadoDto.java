@@ -5,7 +5,8 @@ package com.example.demo.dtos;
 import com.example.demo.dtos.DomicilioDto;
 
 public class EmpleadoDto {
-private long id;
+    
+    private long id;
 	
 	
 	private String nombre;
