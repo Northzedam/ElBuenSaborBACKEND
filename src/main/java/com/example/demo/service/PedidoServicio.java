@@ -48,6 +48,7 @@ public class PedidoServicio {
 					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
 					dtoDetalle.setId(entityDetalle.getId());
 					dtoDetalle.setCantidad(entityDetalle.getCantidad());
+					
 					ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
 					articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
 					articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
@@ -64,17 +65,11 @@ public class PedidoServicio {
 					dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
 					dtoDetalle.setArticuloManufacturadoDto(articuloManufacturadoDto);
 
-
-				
-					
 					dto.getDetalles().add(dtoDetalle);
 				}
 				dtos.add(dto);
 			}
-
-				
-			
-			
+						
 			return dtos;
 			
 		} catch (Exception e) {
