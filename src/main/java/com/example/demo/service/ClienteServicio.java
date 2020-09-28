@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 
 import com.example.demo.dtos.ClienteDto;
+import com.example.demo.dtos.DomicilioDto;
+import com.example.demo.dtos.PedidoDto;
 import com.example.demo.entity.Cliente;
-
+import com.example.demo.entity.Domicilio;
 import com.example.demo.repository.ClienteRepository;
 
 @Service
@@ -28,6 +30,7 @@ public List<ClienteDto> findAll() throws Exception {
 		
 		List<Cliente>entities = repository.findAll();
 		List<ClienteDto>dtos = new ArrayList<ClienteDto>();
+		List<PedidoDto> pedidos = new ArrayList<PedidoDto>();
 		try {
 			
 			for(Cliente entity : entities) {
@@ -37,6 +40,16 @@ public List<ClienteDto> findAll() throws Exception {
 				dto.setApellido(entity.getApellido());
 				dto.setTelefono(entity.getTelefono());
 				dto.setEmail(entity.getEmail());
+				
+				DomicilioDto domicilioDto = new DomicilioDto();
+				Domicilio domicilioEntity = entity.getDomicilio();
+				domicilioDto.setId(domicilioEntity.getId());
+				domicilioDto.setCalle(domicilioEntity.getCalle());
+				domicilioDto.setNumero(domicilioEntity.getNumero());
+				domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
+				domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
+						
+			
 			    dtos.add(dto);
 			}
 			
@@ -62,6 +75,15 @@ public ClienteDto findById(int id) throws Exception{
 			dto.setApellido(entity.getApellido());
 			dto.setTelefono(entity.getTelefono());
 			dto.setEmail(entity.getEmail());
+			
+			DomicilioDto domicilioDto = new DomicilioDto();
+			Domicilio domicilioEntity = entity.getDomicilio();
+			domicilioDto.setId(domicilioEntity.getId());
+			domicilioDto.setCalle(domicilioEntity.getCalle());
+			domicilioDto.setNumero(domicilioEntity.getNumero());
+			domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
+			domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
+			
 			
 					
 	} catch (Exception e) {

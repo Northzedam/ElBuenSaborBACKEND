@@ -10,7 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Empleado;
 import com.example.demo.repository.EmpleadoRepository;
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.DomicilioDto;
 import com.example.demo.dtos.EmpleadoDto;
+import com.example.demo.entity.Domicilio;
 
 @Service
 public class EmpleadoServicio {
@@ -36,7 +39,15 @@ public class EmpleadoServicio {
 				dto.setTelefono(entity.getTelefono());
 				dto.setEmail(entity.getEmail());
 				dto.setCuil(entity.getCuil());
-
+                
+				DomicilioDto domicilioDto = new DomicilioDto();
+				Domicilio domicilioEntity = entity.getDomicilio();
+				domicilioDto.setId(domicilioEntity.getId());
+				domicilioDto.setCalle(domicilioEntity.getCalle());
+				domicilioDto.setNumero(domicilioEntity.getNumero());
+				domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
+				domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
+				
 				dtos.add(dto);
 			}
 			
@@ -62,6 +73,15 @@ public class EmpleadoServicio {
 				dto.setTelefono(entity.getTelefono());
 				dto.setEmail(entity.getEmail());
 				dto.setCuil(entity.getCuil());
+				
+				DomicilioDto domicilioDto = new DomicilioDto();
+				Domicilio domicilioEntity = entity.getDomicilio();
+				domicilioDto.setId(domicilioEntity.getId());
+				domicilioDto.setCalle(domicilioEntity.getCalle());
+				domicilioDto.setNumero(domicilioEntity.getNumero());
+				domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
+				domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
+				
 
 		} catch (Exception e) {
 			throw new Exception();
