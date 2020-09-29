@@ -2,18 +2,14 @@ package com.example.demo.entity;
 	
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 	public class ArticuloConsumo extends EntidadGenerica implements Serializable{
@@ -45,6 +41,9 @@ import javax.persistence.OneToOne;
 		@Column(name = "EsInsumo")
 		private boolean esInsumo;
 		
+		@Column(name = "imagen")
+		private String imagen;
+		
 		/*@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "detalle_factura")
 		private List<DetalleFactura> detallesFactura = new ArrayList<DetalleFactura>();
@@ -69,7 +68,7 @@ import javax.persistence.OneToOne;
 		
 		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo, List<DetalleFactura> detallesFactura,
-				List<DetallePedido> detallesPedido, RubroArticulo rubroArticulo) {
+				List<DetallePedido> detallesPedido, RubroArticulo rubroArticulo, String imagen) {
 			super();
 			this.id = id;
 			this.denominacion = denominacion;
@@ -82,13 +81,14 @@ import javax.persistence.OneToOne;
 			/*this.detallesFactura = detallesFactura;
 			this.detallesPedido = detallesPedido;*/
 			this.rubroArticulo = rubroArticulo;
+			this.imagen = imagen;
 		}
 
 
 
 		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo, List<DetalleFactura> detallesFactura,
-				List<DetallePedido> detallesPedido) {
+				List<DetallePedido> detallesPedido, String imagen) {
 			super();
 			this.id = id;
 			this.denominacion = denominacion;
@@ -100,12 +100,13 @@ import javax.persistence.OneToOne;
 			this.esInsumo = esInsumo;
 			/*this.detallesFactura = detallesFactura;
 			this.detallesPedido = detallesPedido;*/
+			this.imagen = imagen;
 		}
 
 
 
 		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
-				double stockMinimo, String unidadMedida, boolean esInsumo) {
+				double stockMinimo, String unidadMedida, boolean esInsumo, String imagen) {
 			super();
 			this.id = id;
 			this.denominacion = denominacion;
@@ -115,6 +116,7 @@ import javax.persistence.OneToOne;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
+			this.imagen = imagen;
 			
 		}
 
@@ -212,6 +214,20 @@ import javax.persistence.OneToOne;
 		public void setEsInsumo(boolean esInsumo) {
 			this.esInsumo = esInsumo;
 		}
+
+
+
+		public String getImagen() {
+			return imagen;
+		}
+
+
+
+		public void setImagen(String imagen) {
+			this.imagen = imagen;
+		}
+		
+		
 		
 		
    }	

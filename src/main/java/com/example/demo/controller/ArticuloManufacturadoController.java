@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dtos.ArticuloConsumoDto;
 import com.example.demo.dtos.ArticuloManufacturadoDto;
@@ -81,6 +82,23 @@ public class ArticuloManufacturadoController{
 
 		}
 
+	}
+	
+	@PostMapping(value = "/saveImage")
+	
+	@Transactional	
+	public ResponseEntity postImage(@RequestParam("imagen") MultipartFile imagen) {
+	
+		if(imagen.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.OK).body("Seleccione un archivo");				
+		}
+		
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(service.saveImage(imagen));
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body
+					("{\"message\":\"Error.Please check the BODY request, and try again.\"}");
+		}
 	}
 	
 	//put-----------------------

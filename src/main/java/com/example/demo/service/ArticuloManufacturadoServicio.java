@@ -1,14 +1,20 @@
 package com.example.demo.service;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.ElBuenSabor2020Application;
 import com.example.demo.dtos.ArticuloManufacturadoDto;
 import com.example.demo.entity.ArticuloManufacturado;
 import com.example.demo.repository.ArticuloManufacturadoRepository;
@@ -18,6 +24,8 @@ public class ArticuloManufacturadoServicio {
 
 
 	ArticuloManufacturadoRepository repository;
+	private String upload_folder = String.valueOf(ElBuenSabor2020Application.getHome()+ "\\images\\").replace("\\","/");
+
 
 	public ArticuloManufacturadoServicio(ArticuloManufacturadoRepository repository) {
 		this.repository = repository;
@@ -35,6 +43,7 @@ public class ArticuloManufacturadoServicio {
 				dto.setTiempoEstimadoCocina(entity.getTiempoEstimadoCocina());
 				dto.setDenominacion(entity.getDenominacion());
 				dto.setPrecioVenta(entity.getPrecioVenta());
+				dto.setImagen(entity.getImagen());
 				
 				dtos.add(dto);
 			}
@@ -59,6 +68,7 @@ public class ArticuloManufacturadoServicio {
 				dto.setTiempoEstimadoCocina(entity.getTiempoEstimadoCocina());
 				dto.setDenominacion(entity.getDenominacion());
 				dto.setPrecioVenta(entity.getPrecioVenta());
+				dto.setImagen(entity.getImagen());
 		} catch (Exception e) {
 			throw new Exception();
 		}
@@ -74,6 +84,7 @@ public class ArticuloManufacturadoServicio {
 		entity.setTiempoEstimadoCocina(dto.getTiempoEstimadoCocina());
 		entity.setDenominacion(dto.getDenominacion());
 		entity.setPrecioVenta(dto.getPrecioVenta());
+		entity.setImagen(dto.getImagen());
 		
 		try {
 			entity = repository.save(entity);
@@ -85,6 +96,17 @@ public class ArticuloManufacturadoServicio {
 		
 			
 	}
+    
+    public String saveImage(MultipartFile file) throws IOException {
+		if(!file.isEmpty()) {
+			byte[] bytes = file.getBytes();
+			Path path = Paths.get(upload_folder + file.getOriginalFilename());
+			Files.write(path, bytes);
+		}
+		return(upload_folder);
+		
+	}
+
 	
 	public ArticuloManufacturadoDto update(int id, ArticuloManufacturadoDto dto, boolean estado) throws Exception {
 		Optional<ArticuloManufacturado> optionalEntity = repository.findById((long) id);
@@ -94,7 +116,8 @@ public class ArticuloManufacturadoServicio {
 			 entity.setId(id);
 			 entity.setTiempoEstimadoCocina(dto.getTiempoEstimadoCocina());
              entity.setDenominacion(dto.getDenominacion());
-             entity.setPrecioVenta(dto.getPrecioVenta());		 
+             entity.setPrecioVenta(dto.getPrecioVenta());	
+             entity.setImagen(dto.getImagen());
 			 repository.save(entity);
 			 return dto;
 			 

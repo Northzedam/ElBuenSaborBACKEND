@@ -1,15 +1,22 @@
 package com.example.demo.service;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.demo.entity.ArticuloConsumo;
 import com.example.demo.repository.ArticuloConsumoRepository;
+import com.example.demo.ElBuenSabor2020Application;
 import com.example.demo.dtos.ArticuloConsumoDto;
 
 @Service
@@ -17,6 +24,8 @@ public class ArticuloConsumoServicio {
 
 
 	ArticuloConsumoRepository repository;
+	private String upload_folder = String.valueOf(ElBuenSabor2020Application.getHome()+ "\\images\\").replace("\\","/");
+
 
 	public ArticuloConsumoServicio(ArticuloConsumoRepository repository) {
 		this.repository = repository;
@@ -38,6 +47,8 @@ public class ArticuloConsumoServicio {
 				dto.setStockMinimo(entity.getStockMinimo());
 				dto.setUnidadMedida(entity.getUnidadMedida());
 				dto.setEsInsumo(entity.isEsInsumo());
+				dto.setImagen(entity.getImagen());
+
 				dtos.add(dto);
 			}
 			
@@ -65,6 +76,8 @@ public class ArticuloConsumoServicio {
 				dto.setStockMinimo(entity.getStockMinimo());
 				dto.setUnidadMedida(entity.getUnidadMedida());
 				dto.setEsInsumo(entity.isEsInsumo());
+				dto.setImagen(entity.getImagen());
+
 		} catch (Exception e) {
 			throw new Exception();
 		}
@@ -84,6 +97,8 @@ public class ArticuloConsumoServicio {
 		entity.setStockMinimo(dto.getStockMinimo());
 		entity.setUnidadMedida(dto.getUnidadMedida());
 		entity.setEsInsumo(dto.isEsInsumo());
+		entity.setImagen(dto.getImagen());
+
 		
 		try {
 			entity = repository.save(entity);
@@ -95,6 +110,17 @@ public class ArticuloConsumoServicio {
 		
 			
 	}
+    
+    public String saveImage(MultipartFile file) throws IOException {
+		if(!file.isEmpty()) {
+			byte[] bytes = file.getBytes();
+			Path path = Paths.get(upload_folder + file.getOriginalFilename());
+			Files.write(path, bytes);
+		}
+		return(upload_folder);
+		
+	}
+
 	
 	public ArticuloConsumoDto update(int id, ArticuloConsumoDto dto, boolean estado) throws Exception {
 		Optional<ArticuloConsumo> optionalEntity = repository.findById((long) id);
@@ -109,6 +135,8 @@ public class ArticuloConsumoServicio {
 				entity.setStockMinimo(dto.getStockMinimo());
 				entity.setUnidadMedida(dto.getUnidadMedida());
 				entity.setEsInsumo(dto.isEsInsumo());
+				entity.setImagen(dto.getImagen());
+
 			 
 			 repository.save(entity);
 			 dto.setId(entity.getId());

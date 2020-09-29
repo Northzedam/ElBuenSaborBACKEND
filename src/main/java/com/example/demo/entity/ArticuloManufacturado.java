@@ -31,6 +31,9 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	@Column(name = "precioVenta")
 	private double precioVenta;
 	
+	@Column(name = "imagen")
+	private String imagen;
+	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="rubroGeneral_id")
 	private RubroGeneral rubroGeneral;
@@ -46,6 +49,8 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	@OneToMany(mappedBy="articuloManufacturado", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Column(name = "detalleFactura")
 	private List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalle = new ArrayList<ArticuloManufacturadoDetalle>();
+	
+	
 		
 	//Constructores
 	
@@ -54,12 +59,13 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	}
 
 
-	public ArticuloManufacturado(long id, int tiempoEstimadoCocina, String denominacion, double precioVenta) {
+	public ArticuloManufacturado(long id, int tiempoEstimadoCocina, String denominacion, double precioVenta, String imagen) {
 		super();
 		this.id = id;
 		this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 		this.denominacion = denominacion;
 		this.precioVenta = precioVenta;
+		this.imagen = imagen;
 		
 	}
 
@@ -109,6 +115,15 @@ public class ArticuloManufacturado extends EntidadGenerica implements Serializab
 	}
 	*/
 
+	public String getImagen() {
+		return imagen;
+	}
+
+
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	
 	
 }
