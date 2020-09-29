@@ -17,13 +17,15 @@ public class ArticuloConsumoDto {
 	private String unidadMedida;
 	
 	private boolean esInsumo;
+	
+	private String imagen;
 
 	public ArticuloConsumoDto() {
 		super();
 	}
 
 	public ArticuloConsumoDto(long id, String denominacion, double precioCompra, double precioVenta, double stockActual,
-			double stockMinimo, String unidadMedida, boolean esInsumo) {
+			double stockMinimo, String unidadMedida, boolean esInsumo, String imagen) {
 		super();
 		this.id = id;
 		this.denominacion = denominacion;
@@ -33,6 +35,7 @@ public class ArticuloConsumoDto {
 		this.stockMinimo = stockMinimo;
 		this.unidadMedida = unidadMedida;
 		this.esInsumo = esInsumo;
+		this.imagen = imagen;
 	}
 
 	public long getId() {
@@ -98,6 +101,15 @@ public class ArticuloConsumoDto {
 	public void setEsInsumo(boolean esInsumo) {
 		this.esInsumo = esInsumo;
 	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+	
 	
 	
 }

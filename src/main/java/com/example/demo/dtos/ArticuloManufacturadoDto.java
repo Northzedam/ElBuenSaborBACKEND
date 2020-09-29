@@ -20,6 +20,8 @@ public class ArticuloManufacturadoDto  {
 	
 	private double precioVenta;
 	
+	private String imagen;
+	
 	
 	private RubroGeneralDto rubroGeneralDto;
 	
@@ -39,12 +41,13 @@ public class ArticuloManufacturadoDto  {
 	}
 
 
-	public ArticuloManufacturadoDto(long id, int tiempoEstimadoCocina, String denominacion, double precioVenta) {
+	public ArticuloManufacturadoDto(long id, int tiempoEstimadoCocina, String denominacion, double precioVenta, String imagen) {
 		super();
 		this.id = id;
 		this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 		this.denominacion = denominacion;
 		this.precioVenta = precioVenta;
+		this.imagen = imagen;
 		
 	}
 
@@ -99,6 +102,13 @@ public class ArticuloManufacturadoDto  {
 	}
 	*/
 
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	
 	
 }
