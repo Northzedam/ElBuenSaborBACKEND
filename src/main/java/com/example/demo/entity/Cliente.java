@@ -129,6 +129,18 @@ public class Cliente extends EntidadGenerica implements Serializable{
 	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;
 	}
+
+
+
+	public List<Pedido> getPedidoList() {
+		return pedidoList;
+	}
+
+
+
+	public void setPedidoList(List<Pedido> pedidoList) {
+		this.pedidoList = pedidoList;
+	}
 	
 		
 	

@@ -9,28 +9,40 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
+import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloManufacturadoDto;
 import com.example.demo.dtos.ClienteDto;
+import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.DomicilioDto;
 import com.example.demo.dtos.PedidoDto;
+import com.example.demo.entity.ArticuloConsumo;
+import com.example.demo.entity.ArticuloManufacturado;
 import com.example.demo.entity.Cliente;
+import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Domicilio;
+import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ClienteRepository;
 
 @Service
 public class ClienteServicio{
 	
 	ClienteRepository repository;
+	protected DomicilioServicio domService;
+	protected PedidoServicio pedService;
+	protected DetallePedidoServicio detPedService;
 
 	public ClienteServicio(ClienteRepository repository) {
 		this.repository = repository;
 	}
 	
 public List<ClienteDto> findAll() throws Exception {
+	
+		
 		
 		List<Cliente>entities = repository.findAll();
 		List<ClienteDto>dtos = new ArrayList<ClienteDto>();
 		List<PedidoDto> pedidos = new ArrayList<PedidoDto>();
+		
 		try {
 			
 			for(Cliente entity : entities) {
@@ -41,6 +53,32 @@ public List<ClienteDto> findAll() throws Exception {
 				dto.setTelefono(entity.getTelefono());
 				dto.setEmail(entity.getEmail());
 				
+				//////////////////////////////////////////////////////////////////////
+				/*
+				Domicilio domicilioEntity2 = entity.getDomicilio();
+				dto.setDomicilioDto(domService.findById((int)domicilioEntity2.getId()));
+				
+				for(Pedido entityPedido : entity.getPedidoList()) {
+					PedidoDto dtoPedido = new PedidoDto();
+					List<DetallePedidoDto> datallePedidos = new ArrayList<DetallePedidoDto>();
+					
+					dtoPedido=pedService.findById((int)entityPedido.getId());
+					
+					for(DetallePedido entityDetalle : entityPedido.getDetalles()) {
+						DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+						
+						dtoDetalle=detPedService.findById((int)entityDetalle.getId());					
+						
+						datallePedidos.add(dtoDetalle);
+					}
+					dtoPedido.setDetalles(datallePedidos);
+					pedidos.add(dtoPedido);
+				}
+				
+				dto.setPedidoListDto(pedidos);
+				*/
+				
+				////////////////////////////////////////////////////////////////////7
 				DomicilioDto domicilioDto = new DomicilioDto();
 				Domicilio domicilioEntity = entity.getDomicilio();
 				domicilioDto.setId(domicilioEntity.getId());
@@ -48,8 +86,47 @@ public List<ClienteDto> findAll() throws Exception {
 				domicilioDto.setNumero(domicilioEntity.getNumero());
 				domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
 				domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
-						
-			
+				
+				
+				for(Pedido entityPedido : entity.getPedidoList()) {
+					PedidoDto dtoPedido = new PedidoDto();
+					dtoPedido.setId(entityPedido.getId());
+					dtoPedido.setFecha(entityPedido.getFecha());
+					dtoPedido.setNumero(entityPedido.getNumero());
+					dtoPedido.setEstado(entityPedido.getEstado());
+					dtoPedido.setHoraFin(entityPedido.getHoraFin());
+					dtoPedido.setTipoEnvio(entityPedido.getTipoEnvio());
+					dtoPedido.setFactura(entityPedido.getFactura());
+					
+					for(DetallePedido entityDetalle : entityPedido.getDetalles()) {
+						DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+						dtoDetalle.setId(entityDetalle.getId());
+						dtoDetalle.setCantidad(entityDetalle.getCantidad());
+						dtoDetalle.setSubtotal(entityDetalle.getSubtotal());
+
+						ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();   
+						ArticuloConsumo articuloConsumoEntity = entityDetalle.getArticuloConsumo();
+						articuloConsumoDto.setDenominacion(articuloConsumoEntity.getDenominacion());
+						articuloConsumoDto.setPrecioCompra(articuloConsumoEntity.getPrecioCompra());
+						articuloConsumoDto.setPrecioVenta(articuloConsumoEntity.getPrecioVenta());
+						articuloConsumoDto.setStockActual(articuloConsumoEntity.getStockActual());
+						articuloConsumoDto.setStockMinimo(articuloConsumoEntity.getStockMinimo());
+						articuloConsumoDto.setUnidadMedida(articuloConsumoEntity.getUnidadMedida());
+						dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
+						if(entityDetalle.getArticuloManufacturado()!=null) {
+							ArticuloManufacturadoDto articuloManufacturadoDto = new ArticuloManufacturadoDto();
+							ArticuloManufacturado articuloManufacturadoEntity = entityDetalle.getArticuloManufacturado();
+							articuloManufacturadoDto.setId(articuloManufacturadoEntity.getId());
+							articuloManufacturadoDto.setDenominacion(articuloManufacturadoEntity.getDenominacion());
+							articuloManufacturadoDto.setPrecioVenta(articuloManufacturadoEntity.getPrecioVenta());
+							articuloManufacturadoDto.setTiempoEstimadoCocina(articuloManufacturadoEntity.getTiempoEstimadoCocina());
+							dtoDetalle.setArticuloManufacturadoDto(articuloManufacturadoDto);
+						}
+						dtoPedido.getDetalles().add(dtoDetalle);	
+					}
+				
+					
+				}
 			    dtos.add(dto);
 			}
 			

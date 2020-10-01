@@ -80,6 +80,16 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	//SETTERS Y GETTERS
 
 
+	public Factura getFactura() {
+		return factura;
+	}
+
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+
+
 	public long getId() {
 		return id;
 	}
