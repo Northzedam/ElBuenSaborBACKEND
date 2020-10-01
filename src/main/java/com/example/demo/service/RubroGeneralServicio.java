@@ -32,8 +32,14 @@ public class RubroGeneralServicio {
 				RubroGeneralDto dto = new RubroGeneralDto();
 				dto.setId(entity.getId());
 				dto.setDenominacion(entity.getDenominacion());
-
+                
+				for(ArticuloManufacturado ArtManufentity) {
+					
+				}
+				
+				
 				dtos.add(dto);
+				
 			}
 			
 			return dtos;
