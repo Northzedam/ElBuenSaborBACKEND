@@ -147,6 +147,28 @@ public class ArticuloConsumoServicio {
 		}
 		return dto;
 	}
+	
+	public double updateStock(int id, double cantidad, boolean esIngreso) throws Exception {
+		Optional<ArticuloConsumo> optionalEntity = repository.findById((long) id);
+		double stockActualizado=0;
+		try {
+			 ArticuloConsumo entity = optionalEntity.get();
+			    entity.setId(id);
+			    if(esIngreso){ // si esIngreso es true es porque se esta ingresando stock, sino es porque se hizo un pedido y se esta restando al stock actual
+					entity.setStockActual(entity.getStockActual() + cantidad);
+			    }else{
+					entity.setStockActual(entity.getStockActual() - cantidad);
+			    }
+			 
+			 repository.save(entity);
+			 stockActualizado = entity.getStockActual();
+			 
+			 
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return stockActualizado;
+	}
 			
 	public boolean delete(int id) throws Exception {
 		try {

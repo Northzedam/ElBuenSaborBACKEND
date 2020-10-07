@@ -120,6 +120,25 @@ public class ArticuloConsumoController{
 		}
 		
 	}
+	
+	@Transactional
+	public ResponseEntity putStock(@PathVariable int id, @RequestBody double cantidad, boolean esIngreso) {
+		
+		try {
+			
+			
+			return ResponseEntity.status(HttpStatus.OK).body(service.updateStock(id, cantidad, esIngreso));
+			
+		} catch (Exception e) {
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body
+					("{\"message\": \"Error. Please check the ID or BODY request, and try again later.\"}");
+						
+		}
+		
+	}
+	
+	
 	//delete-----------------------
 	
 	@DeleteMapping("/{id}")

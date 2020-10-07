@@ -33,9 +33,9 @@ public class RubroGeneralServicio {
 				dto.setId(entity.getId());
 				dto.setDenominacion(entity.getDenominacion());
                 
-				for(ArticuloManufacturado ArtManufentity) {
+				//for(ArticuloManufacturado ArtManufentity) {
 					
-				}
+			//	}
 				
 				
 				dtos.add(dto);
