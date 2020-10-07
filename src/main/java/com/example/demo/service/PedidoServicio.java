@@ -9,9 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.ArticuloConsumo;
 import com.example.demo.entity.ArticuloManufacturado;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Pedido;
+import com.example.demo.repository.ArticuloConsumoRepository;
 import com.example.demo.repository.PedidoRepository;
 import com.example.demo.dtos.ArticuloConsumoDto;
 import com.example.demo.dtos.ArticuloManufacturadoDto;
@@ -23,7 +25,7 @@ public class PedidoServicio {
 
 
 	PedidoRepository repository;
-
+	ArticuloConsumoRepository artConsRepository;
 	public PedidoServicio(PedidoRepository repository) {
 		this.repository = repository;
 	}
@@ -110,17 +112,30 @@ public class PedidoServicio {
 	
 		
     public PedidoDto save(PedidoDto dto, boolean estado) throws Exception {
-		
+		ArticuloConsumoServicio artConsService = new ArticuloConsumoServicio(artConsRepository);
 		Pedido entity = new Pedido();
 		
 		entity.setFecha(dto.getFecha());
 		entity.setNumero(dto.getNumero());
 		entity.setEstado(dto.getEstado());
 		entity.setHoraFin(dto.getHoraFin());
-		entity.setTipoEnvio(dto.getTipoEnvio());		
+		entity.setTipoEnvio(dto.getTipoEnvio());
 		
+		for(DetallePedidoDto detalleDto : dto.getDetalles()) {
+			DetallePedido detalleEntity = new DetallePedido();
+			detalleEntity.setCantidad(detalleDto.getCantidad());
+			detalleEntity.setSubtotal(detalleDto.getSubtotal());
+			entity.getDetalles().add(detalleEntity);
+			try {
+				artConsService.updateStock(detalleDto.getArticuloConsumoDto().getId(), (double)detalleDto.getCantidad(), false);
+			} catch (Exception e) {
+				throw new Exception();
+			}
+			
+		}
 		try {
 			entity = repository.save(entity);
+			
 			dto.setId(entity.getId());
 			return dto;
 		} catch (Exception e) {

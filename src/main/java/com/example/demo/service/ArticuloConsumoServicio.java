@@ -148,7 +148,7 @@ public class ArticuloConsumoServicio {
 		return dto;
 	}
 	
-	public double updateStock(int id, double cantidad, boolean esIngreso) throws Exception {
+	public double updateStock(long id, double cantidad, boolean esIngreso) throws Exception {
 		Optional<ArticuloConsumo> optionalEntity = repository.findById((long) id);
 		double stockActualizado=0;
 		try {
