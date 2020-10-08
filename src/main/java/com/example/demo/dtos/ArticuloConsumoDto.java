@@ -18,6 +18,8 @@ public class ArticuloConsumoDto {
 	
 	private boolean esInsumo;
 	
+	private int tiempoEstimadoCocina;
+	
 	private String imagen;
 
 	public ArticuloConsumoDto() {
@@ -25,7 +27,7 @@ public class ArticuloConsumoDto {
 	}
 
 	public ArticuloConsumoDto(long id, String denominacion, double precioCompra, double precioVenta, double stockActual,
-			double stockMinimo, String unidadMedida, boolean esInsumo, String imagen) {
+			double stockMinimo, String unidadMedida, boolean esInsumo, int tiempoEstimadoCocina, String imagen) {
 		super();
 		this.id = id;
 		this.denominacion = denominacion;
@@ -35,6 +37,7 @@ public class ArticuloConsumoDto {
 		this.stockMinimo = stockMinimo;
 		this.unidadMedida = unidadMedida;
 		this.esInsumo = esInsumo;
+		this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 		this.imagen = imagen;
 	}
 
@@ -100,6 +103,15 @@ public class ArticuloConsumoDto {
 
 	public void setEsInsumo(boolean esInsumo) {
 		this.esInsumo = esInsumo;
+	}
+	
+
+	public int getTiempoEstimadoCocina() {
+		return tiempoEstimadoCocina;
+	}
+
+	public void setTiempoEstimadoCocina(int tiempoEstimadoCocina) {
+		this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 	}
 
 	public String getImagen() {

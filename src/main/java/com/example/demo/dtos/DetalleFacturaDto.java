@@ -3,7 +3,6 @@ package com.example.demo.dtos;
 
 
 import com.example.demo.dtos.ArticuloConsumoDto;
-import com.example.demo.dtos.ArticuloManufacturadoDto;
 import com.example.demo.dtos.FacturaDto;
 
 public class DetalleFacturaDto {
@@ -25,7 +24,6 @@ public class DetalleFacturaDto {
 	private ArticuloConsumoDto articuloConsumoDto;
 	
 	
-	private ArticuloManufacturadoDto articuloManufacturadoDto;
 	
 	public DetalleFacturaDto() {
 		super();
@@ -111,16 +109,6 @@ public class DetalleFacturaDto {
 	}
 
 
-
-	public ArticuloManufacturadoDto getArticuloManufacturadoDto() {
-		return articuloManufacturadoDto;
-	}
-
-
-
-	public void setArticuloManufacturadoDto(ArticuloManufacturadoDto articuloManufacturadoDto) {
-		this.articuloManufacturadoDto = articuloManufacturadoDto;
-	}
 
 
 }

@@ -10,10 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.ArticuloConsumoDto;
-import com.example.demo.dtos.ArticuloManufacturadoDto;
 import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.entity.ArticuloConsumo;
-import com.example.demo.entity.ArticuloManufacturado;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.repository.DetallePedidoRepository;
 
@@ -47,15 +45,7 @@ public List<DetallePedidoDto> findAll() throws Exception {
 				articuloConsumoDto.setStockMinimo(articuloConsumoEntity.getStockMinimo());
 				articuloConsumoDto.setUnidadMedida(articuloConsumoEntity.getUnidadMedida());
 				dto.setArticuloConsumoDto(articuloConsumoDto);
-				if(entity.getArticuloManufacturado()!=null) {
-					ArticuloManufacturadoDto articuloManufacturadoDto = new ArticuloManufacturadoDto();
-					ArticuloManufacturado articuloManufacturadoEntity = entity.getArticuloManufacturado();
-					articuloManufacturadoDto.setId(articuloManufacturadoEntity.getId());
-					articuloManufacturadoDto.setDenominacion(articuloManufacturadoEntity.getDenominacion());
-					articuloManufacturadoDto.setPrecioVenta(articuloManufacturadoEntity.getPrecioVenta());
-					articuloManufacturadoDto.setTiempoEstimadoCocina(articuloManufacturadoEntity.getTiempoEstimadoCocina());
-					dto.setArticuloManufacturadoDto(articuloManufacturadoDto);
-				}
+				
 				dtos.add(dto);
 			}
 			
@@ -88,14 +78,7 @@ public DetallePedidoDto findById(int id) throws Exception{
 			articuloConsumoDto.setStockMinimo(articuloConsumoEntity.getStockMinimo());
 			articuloConsumoDto.setUnidadMedida(articuloConsumoEntity.getUnidadMedida());
 			
-			ArticuloManufacturadoDto articuloManufacturadoDto = new ArticuloManufacturadoDto();
-			ArticuloManufacturado articuloManufacturadoEntity = entity.getArticuloManufacturado();
-			articuloManufacturadoDto.setId(articuloManufacturadoEntity.getId());
-			articuloManufacturadoDto.setDenominacion(articuloManufacturadoEntity.getDenominacion());
-			articuloManufacturadoDto.setPrecioVenta(articuloManufacturadoEntity.getPrecioVenta());
-			articuloManufacturadoDto.setTiempoEstimadoCocina(articuloManufacturadoEntity.getTiempoEstimadoCocina());
-			dto.setArticuloConsumoDto(articuloConsumoDto);
-			dto.setArticuloManufacturadoDto(articuloManufacturadoDto);
+			
 	} catch (Exception e) {
 		throw new Exception();
 	}
