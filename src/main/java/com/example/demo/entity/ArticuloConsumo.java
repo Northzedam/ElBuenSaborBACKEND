@@ -26,7 +26,7 @@ import javax.persistence.OneToMany;
 		@Column(name = "PrecioCompra")
 		private double precioCompra;
 		
-		@Column(name = "PrecioVeta")
+		@Column(name = "PrecioVenta")
 		private double precioVenta;
 		
 		@Column(name = "StockActual")
@@ -41,6 +41,9 @@ import javax.persistence.OneToMany;
 		@Column(name = "EsInsumo")
 		private boolean esInsumo;
 		
+		@Column(name = "TiempoEstimadoCocina")
+		private int tiempoEstimadoCocina;
+		
 		@Column(name = "imagen")
 		private String imagen;
 		
@@ -52,13 +55,11 @@ import javax.persistence.OneToMany;
 		@Column(name = "detalle_pedido")
 		private List<DetallePedido> detallesPedido = new ArrayList<DetallePedido>();
 		*/
+		
 		@ManyToOne(cascade = CascadeType.PERSIST)
-		@JoinColumn(name = "id_rubroArticulo")
+		@JoinColumn(name = "rubroArticulo")
 		private RubroArticulo rubroArticulo;
 		
-		@OneToMany(mappedBy="articuloConsumo" ,cascade = CascadeType.ALL, orphanRemoval=true)
-		@Column(name = "artManufDetalle")
-		private List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalle= new ArrayList<ArticuloManufacturadoDetalle>();
 
 		public ArticuloConsumo() {
 			super();
@@ -67,7 +68,7 @@ import javax.persistence.OneToMany;
 
 		
 		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
-				double stockMinimo, String unidadMedida, boolean esInsumo, List<DetalleFactura> detallesFactura,
+				double stockMinimo, String unidadMedida, boolean esInsumo,int tiempoEstimadoCocina, List<DetalleFactura> detallesFactura,
 				List<DetallePedido> detallesPedido, RubroArticulo rubroArticulo, String imagen) {
 			super();
 			this.id = id;
@@ -78,6 +79,7 @@ import javax.persistence.OneToMany;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
+			this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 			/*this.detallesFactura = detallesFactura;
 			this.detallesPedido = detallesPedido;*/
 			this.rubroArticulo = rubroArticulo;
@@ -87,7 +89,7 @@ import javax.persistence.OneToMany;
 
 
 		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
-				double stockMinimo, String unidadMedida, boolean esInsumo, List<DetalleFactura> detallesFactura,
+				double stockMinimo, String unidadMedida, boolean esInsumo,int tiempoEstimadoCocina, List<DetalleFactura> detallesFactura,
 				List<DetallePedido> detallesPedido, String imagen) {
 			super();
 			this.id = id;
@@ -98,6 +100,7 @@ import javax.persistence.OneToMany;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
+			this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 			/*this.detallesFactura = detallesFactura;
 			this.detallesPedido = detallesPedido;*/
 			this.imagen = imagen;
@@ -106,7 +109,7 @@ import javax.persistence.OneToMany;
 
 
 		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
-				double stockMinimo, String unidadMedida, boolean esInsumo, String imagen) {
+				double stockMinimo, String unidadMedida, boolean esInsumo,int tiempoEstimadoCocina, String imagen) {
 			super();
 			this.id = id;
 			this.denominacion = denominacion;
@@ -116,6 +119,7 @@ import javax.persistence.OneToMany;
 			this.stockMinimo = stockMinimo;
 			this.unidadMedida = unidadMedida;
 			this.esInsumo = esInsumo;
+			this.tiempoEstimadoCocina = tiempoEstimadoCocina;
 			this.imagen = imagen;
 			
 		}
@@ -214,19 +218,25 @@ import javax.persistence.OneToMany;
 		public void setEsInsumo(boolean esInsumo) {
 			this.esInsumo = esInsumo;
 		}
+			
+
+		public int getTiempoEstimadoCocina() {
+			return tiempoEstimadoCocina;
+		}
 
 
+		public void setTiempoEstimadoCocina(int tiempoEstimadoCocina) {
+			this.tiempoEstimadoCocina = tiempoEstimadoCocina;
+		}
 
 		public String getImagen() {
 			return imagen;
 		}
 
 
-
 		public void setImagen(String imagen) {
 			this.imagen = imagen;
 		}
-		
 		
 		
 		

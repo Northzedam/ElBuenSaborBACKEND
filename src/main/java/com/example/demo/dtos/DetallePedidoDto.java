@@ -3,7 +3,6 @@ package com.example.demo.dtos;
 
 
 import com.example.demo.dtos.ArticuloConsumoDto;
-import com.example.demo.dtos.ArticuloManufacturadoDto;
 
 
 public class DetallePedidoDto {
@@ -20,7 +19,6 @@ public class DetallePedidoDto {
 	private ArticuloConsumoDto articuloConsumoDto;
 	
 	
-	private ArticuloManufacturadoDto articuloManufacturadoDto;
 
 
 	public DetallePedidoDto() {
@@ -28,14 +26,13 @@ public class DetallePedidoDto {
 	}
 
 
-	public DetallePedidoDto(long id, int cantidad, double subtotal, ArticuloConsumoDto articuloConsumoDto,
-			ArticuloManufacturadoDto articuloManufacturadoDto) {
+	public DetallePedidoDto(long id, int cantidad, double subtotal, ArticuloConsumoDto articuloConsumoDto
+			) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
 		this.articuloConsumoDto = articuloConsumoDto;
-		this.articuloManufacturadoDto = articuloManufacturadoDto;
 	}
 
 
@@ -78,15 +75,6 @@ public class DetallePedidoDto {
 		this.articuloConsumoDto = articuloConsumoDto;
 	}
 
-
-	public ArticuloManufacturadoDto getArticuloManufacturadoDto() {
-		return articuloManufacturadoDto;
-	}
-
-
-	public void setArticuloManufacturadoDto(ArticuloManufacturadoDto articuloManufacturadoDto) {
-		this.articuloManufacturadoDto = articuloManufacturadoDto;
-	}
 
 	
 }

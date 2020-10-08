@@ -10,13 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.ArticuloConsumo;
-import com.example.demo.entity.ArticuloManufacturado;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ArticuloConsumoRepository;
 import com.example.demo.repository.PedidoRepository;
 import com.example.demo.dtos.ArticuloConsumoDto;
-import com.example.demo.dtos.ArticuloManufacturadoDto;
 import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.PedidoDto;
 
@@ -57,16 +55,12 @@ public class PedidoServicio {
 					articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
 					articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
 					articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
-
-					ArticuloManufacturadoDto articuloManufacturadoDto = new ArticuloManufacturadoDto();
-					ArticuloManufacturado articuloManufacturadoEntity = entityDetalle.getArticuloManufacturado();
-					articuloManufacturadoDto.setId(articuloManufacturadoEntity.getId());
-					articuloManufacturadoDto.setDenominacion(articuloManufacturadoEntity.getDenominacion());
-					articuloManufacturadoDto.setPrecioVenta(articuloManufacturadoEntity.getPrecioVenta());
-					articuloManufacturadoDto.setTiempoEstimadoCocina(articuloManufacturadoEntity.getTiempoEstimadoCocina());
+					articuloConsumoDto.setStockActual(entityDetalle.getArticuloConsumo().getStockActual());
+					articuloConsumoDto.setStockMinimo(entityDetalle.getArticuloConsumo().getStockMinimo());
+					articuloConsumoDto.setTiempoEstimadoCocina(entityDetalle.getArticuloConsumo().getTiempoEstimadoCocina());
 					dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
-					dtoDetalle.setArticuloManufacturadoDto(articuloManufacturadoDto);
 
+					
 					dto.getDetalles().add(dtoDetalle);
 				}
 				dtos.add(dto);

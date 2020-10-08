@@ -34,9 +34,6 @@ import javax.persistence.OneToOne;
 		@JoinColumn(name = "id_articuloConsumo")
 		private ArticuloConsumo articuloConsumo;
 		
-		@ManyToOne(cascade = CascadeType.PERSIST)
-		@JoinColumn(name ="detalleFactura")
-		private ArticuloManufacturado articuloManufacturado;
 		
 		public DetalleFactura() {
 			super();
@@ -108,18 +105,6 @@ import javax.persistence.OneToOne;
 
 		public void setSubtotal(int subtotal) {
 			this.subtotal = subtotal;
-		}
-
-
-
-		public ArticuloManufacturado getArticuloManufacturado() {
-			return articuloManufacturado;
-		}
-
-
-
-		public void setArticuloManufacturado(ArticuloManufacturado articuloManufacturado) {
-			this.articuloManufacturado = articuloManufacturado;
 		}
 		
 		
