@@ -15,8 +15,6 @@ import javax.persistence.OneToOne;
 @Entity
 	public class DetallePedido extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
-		@Column(name = "Id")
-		private long id;
 
 		@Column(name = "Cantidad")
 		private int cantidad;
@@ -25,10 +23,6 @@ import javax.persistence.OneToOne;
 		private double subtotal;
 		
 		@ManyToOne(cascade = CascadeType.PERSIST)
-		@JoinColumn(name = "id_pedido")
-		private Pedido pedido;
-		
-		@ManyToOne
 		@JoinColumn(name = "id_articuloConsumo")
 		private ArticuloConsumo articuloConsumo;
 		
@@ -37,36 +31,26 @@ import javax.persistence.OneToOne;
 			super();
 		}		
 		
-		public DetallePedido(long id, int cantidad, double subtotal, Pedido pedido, ArticuloConsumo articuloConsumo) {
+		public DetallePedido( int cantidad, double subtotal, ArticuloConsumo articuloConsumo) {
 			super();
-			this.id = id;
+			
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
-			this.pedido = pedido;
+			//this.pedido = pedido;
 			this.articuloConsumo = articuloConsumo;
 		}
 
-		public DetallePedido(long id, int cantidad, double subtotal) {
+		public DetallePedido( int cantidad, double subtotal) {
 			super();
-			this.id = id;
+			
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
-		}
-
-		public DetallePedido(long id, int cantidad, double subtotal, Pedido pedido) {
-			super();
-			this.id = id;
-			this.cantidad = cantidad;
-			this.subtotal = subtotal;
-			this.pedido = pedido;	
 		}
 
 		
 		
 		//GETTERS Y SETTERS ------------------------------------------------------------------------
-		public long getId() {
-			return id;
-		}
+		
 		public ArticuloConsumo getArticuloConsumo() {
 			return articuloConsumo;
 		}
@@ -102,7 +86,7 @@ import javax.persistence.OneToOne;
 		}
 
 
-
+/*
 		public Pedido getPedido() {
 			return pedido;
 		}
@@ -113,6 +97,6 @@ import javax.persistence.OneToOne;
 			this.pedido = pedido;
 		}
 
-		
+	*/	
 		
 }
