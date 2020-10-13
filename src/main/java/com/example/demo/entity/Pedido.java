@@ -35,11 +35,11 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	@Column(name = "TipoDeEnvio")
 	private int tipoEnvio;
 
-	@OneToMany(mappedBy="pedido" ,cascade = CascadeType.ALL, orphanRemoval=true)
-	@Column(name = "DetallePedido")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+	@JoinColumn(name = "id_pedido")
 	private List<DetallePedido> detalles = new ArrayList<DetallePedido>();
 
-	@ManyToOne (cascade = CascadeType.PERSIST)
+	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 	

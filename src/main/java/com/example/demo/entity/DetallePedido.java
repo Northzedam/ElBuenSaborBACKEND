@@ -25,10 +25,6 @@ import javax.persistence.OneToOne;
 		private double subtotal;
 		
 		@ManyToOne(cascade = CascadeType.PERSIST)
-		@JoinColumn(name = "id_pedido")
-		private Pedido pedido;
-		
-		@ManyToOne
 		@JoinColumn(name = "id_articuloConsumo")
 		private ArticuloConsumo articuloConsumo;
 		
@@ -37,12 +33,12 @@ import javax.persistence.OneToOne;
 			super();
 		}		
 		
-		public DetallePedido(long id, int cantidad, double subtotal, Pedido pedido, ArticuloConsumo articuloConsumo) {
+		public DetallePedido(long id, int cantidad, double subtotal, ArticuloConsumo articuloConsumo) {
 			super();
 			this.id = id;
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
-			this.pedido = pedido;
+			//this.pedido = pedido;
 			this.articuloConsumo = articuloConsumo;
 		}
 
@@ -51,14 +47,6 @@ import javax.persistence.OneToOne;
 			this.id = id;
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
-		}
-
-		public DetallePedido(long id, int cantidad, double subtotal, Pedido pedido) {
-			super();
-			this.id = id;
-			this.cantidad = cantidad;
-			this.subtotal = subtotal;
-			this.pedido = pedido;	
 		}
 
 		
@@ -102,7 +90,7 @@ import javax.persistence.OneToOne;
 		}
 
 
-
+/*
 		public Pedido getPedido() {
 			return pedido;
 		}
@@ -113,6 +101,6 @@ import javax.persistence.OneToOne;
 			this.pedido = pedido;
 		}
 
-		
+	*/	
 		
 }

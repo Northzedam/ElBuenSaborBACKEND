@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -16,9 +18,6 @@ import javax.persistence.OneToMany;
 		
 	
 		private static final long serialVersionUID = 1L;
-		
-		@Column(name = "Id")
-		private long id;
 		
 		@Column(name = "Denominacion")
 		private String denominacion;
@@ -67,11 +66,11 @@ import javax.persistence.OneToMany;
 		
 
 		
-		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
+		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo,int tiempoEstimadoCocina, List<DetalleFactura> detallesFactura,
 				List<DetallePedido> detallesPedido, RubroArticulo rubroArticulo, String imagen) {
 			super();
-			this.id = id;
+			
 			this.denominacion = denominacion;
 			this.precioCompra = precioCompra;
 			this.precioVenta = precioVenta;
@@ -88,11 +87,11 @@ import javax.persistence.OneToMany;
 
 
 
-		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
+		public ArticuloConsumo(String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo,int tiempoEstimadoCocina, List<DetalleFactura> detallesFactura,
 				List<DetallePedido> detallesPedido, String imagen) {
 			super();
-			this.id = id;
+			
 			this.denominacion = denominacion;
 			this.precioCompra = precioCompra;
 			this.precioVenta = precioVenta;
@@ -111,7 +110,7 @@ import javax.persistence.OneToMany;
 		public ArticuloConsumo(long id,String denominacion, double precioCompra, double precioVenta, double stockActual,
 				double stockMinimo, String unidadMedida, boolean esInsumo,int tiempoEstimadoCocina, String imagen) {
 			super();
-			this.id = id;
+			
 			this.denominacion = denominacion;
 			this.precioCompra = precioCompra;
 			this.precioVenta = precioVenta;
@@ -135,9 +134,6 @@ import javax.persistence.OneToMany;
 			return rubroArticulo;
 		}
 
-		public long getId() {
-			return id;
-		}
 
 		public void setRubroArticulo(RubroArticulo rubroArticulo) {
 			this.rubroArticulo = rubroArticulo;

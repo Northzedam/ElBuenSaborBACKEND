@@ -84,7 +84,19 @@ public class ArticuloConsumoServicio {
 		
 		return dto;
 	}
-	
+
+	public ArticuloConsumo findEntityById(long id) throws Exception{
+		Optional<ArticuloConsumo>entityOptional = repository.findById((long) id);
+		try {
+			ArticuloConsumo artCons = entityOptional.get();
+			return artCons;
+		} catch (Exception e) {
+			System.out.println("No se pudo obtener el artConsumo del optional---");
+			return null;
+		}
+		
+		
+	}
 		
     public ArticuloConsumoDto save(ArticuloConsumoDto dto, boolean estado) throws Exception {
 		
@@ -150,7 +162,8 @@ public class ArticuloConsumoServicio {
 	
 	public double updateStock(long id, double cantidad, boolean esIngreso) throws Exception {
 		Optional<ArticuloConsumo> optionalEntity = repository.findById((long) id);
-		double stockActualizado=0;
+	    double stockActualizado=0;
+
 		try {
 			 ArticuloConsumo entity = optionalEntity.get();
 			    entity.setId(id);
@@ -162,6 +175,7 @@ public class ArticuloConsumoServicio {
 			 
 			 repository.save(entity);
 			 stockActualizado = entity.getStockActual();
+			 
 			 
 			 
 		} catch (Exception e) {

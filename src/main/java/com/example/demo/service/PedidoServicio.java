@@ -24,8 +24,11 @@ public class PedidoServicio {
 
 	PedidoRepository repository;
 	ArticuloConsumoRepository artConsRepository;
-	public PedidoServicio(PedidoRepository repository) {
+	ArticuloConsumoServicio artConsService = new ArticuloConsumoServicio(artConsRepository);
+
+	public PedidoServicio(PedidoRepository repository,ArticuloConsumoRepository artConsRepository) {
 		this.repository = repository;
+		this.artConsRepository = artConsRepository;
 	}
 	
 	public List<PedidoDto> findAll() throws Exception {
@@ -106,7 +109,6 @@ public class PedidoServicio {
 	
 		
     public PedidoDto save(PedidoDto dto, boolean estado) throws Exception {
-		ArticuloConsumoServicio artConsService = new ArticuloConsumoServicio(artConsRepository);
 		Pedido entity = new Pedido();
 		
 		entity.setFecha(dto.getFecha());
@@ -119,18 +121,22 @@ public class PedidoServicio {
 			DetallePedido detalleEntity = new DetallePedido();
 			detalleEntity.setCantidad(detalleDto.getCantidad());
 			detalleEntity.setSubtotal(detalleDto.getSubtotal());
+			
+			detalleEntity.setArticuloConsumo(artConsRepository.getOne(detalleDto.getArticuloConsumoId()));			
 			entity.getDetalles().add(detalleEntity);
-			try {
+			
+			/*try {
 				artConsService.updateStock(detalleDto.getArticuloConsumoDto().getId(), (double)detalleDto.getCantidad(), false);
 			} catch (Exception e) {
 				throw new Exception();
 			}
-			
+			*/
 		}
 		try {
 			entity = repository.save(entity);
 			
 			dto.setId(entity.getId());
+			
 			return dto;
 		} catch (Exception e) {
 			throw new Exception();	
