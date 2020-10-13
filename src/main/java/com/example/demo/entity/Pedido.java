@@ -36,7 +36,7 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	private int tipoEnvio;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-	@JoinColumn(name = "DetallePedido")
+	@JoinColumn(name = "id_pedido")
 	private List<DetallePedido> detalles = new ArrayList<DetallePedido>();
 
 	@ManyToOne (cascade = CascadeType.ALL)

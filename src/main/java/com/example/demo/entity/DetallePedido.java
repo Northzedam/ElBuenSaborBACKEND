@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 @Entity
 	public class DetallePedido extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
+		@Column(name = "Id")
+		private long id;
 
 		@Column(name = "Cantidad")
 		private int cantidad;
@@ -31,18 +33,18 @@ import javax.persistence.OneToOne;
 			super();
 		}		
 		
-		public DetallePedido( int cantidad, double subtotal, ArticuloConsumo articuloConsumo) {
+		public DetallePedido(long id, int cantidad, double subtotal, ArticuloConsumo articuloConsumo) {
 			super();
-			
+			this.id = id;
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
 			//this.pedido = pedido;
 			this.articuloConsumo = articuloConsumo;
 		}
 
-		public DetallePedido( int cantidad, double subtotal) {
+		public DetallePedido(long id, int cantidad, double subtotal) {
 			super();
-			
+			this.id = id;
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
 		}
@@ -50,7 +52,9 @@ import javax.persistence.OneToOne;
 		
 		
 		//GETTERS Y SETTERS ------------------------------------------------------------------------
-		
+		public long getId() {
+			return id;
+		}
 		public ArticuloConsumo getArticuloConsumo() {
 			return articuloConsumo;
 		}

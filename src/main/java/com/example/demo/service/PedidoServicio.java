@@ -24,7 +24,7 @@ public class PedidoServicio {
 
 	PedidoRepository repository;
 	ArticuloConsumoRepository artConsRepository;
-	//ArticuloConsumoServicio artConsService = new ArticuloConsumoServicio(artConsRepository);
+	ArticuloConsumoServicio artConsService = new ArticuloConsumoServicio(artConsRepository);
 
 	public PedidoServicio(PedidoRepository repository,ArticuloConsumoRepository artConsRepository) {
 		this.repository = repository;
@@ -124,8 +124,8 @@ public class PedidoServicio {
 			
 			detalleEntity.setArticuloConsumo(artConsRepository.getOne(detalleDto.getArticuloConsumoId()));			
 			entity.getDetalles().add(detalleEntity);
-			/*
-			try {
+			
+			/*try {
 				artConsService.updateStock(detalleDto.getArticuloConsumoDto().getId(), (double)detalleDto.getCantidad(), false);
 			} catch (Exception e) {
 				throw new Exception();
