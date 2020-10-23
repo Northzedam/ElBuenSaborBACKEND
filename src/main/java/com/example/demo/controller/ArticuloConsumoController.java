@@ -121,7 +121,7 @@ public class ArticuloConsumoController{
 		
 	}
 	
-	@Transactional
+	/*@Transactional
 	public ResponseEntity putStock(@PathVariable int id, @RequestBody double cantidad, boolean esIngreso) {
 		
 		try {
@@ -136,7 +136,7 @@ public class ArticuloConsumoController{
 						
 		}
 		
-	}
+	}*/
 	
 	
 	//delete-----------------------

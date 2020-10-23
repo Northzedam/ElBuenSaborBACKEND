@@ -160,7 +160,7 @@ public class ArticuloConsumoServicio {
 		return dto;
 	}
 	
-	public double updateStock(long id, double cantidad, boolean esIngreso) throws Exception {
+	public void updateStock(long id, double cantidad, boolean esIngreso) throws Exception {
 		Optional<ArticuloConsumo> optionalEntity = repository.findById((long) id);
 	    double stockActualizado=0;
 
@@ -174,14 +174,11 @@ public class ArticuloConsumoServicio {
 			    }
 			 
 			 repository.save(entity);
-			 stockActualizado = entity.getStockActual();
-			 
-			 
-			 
+	 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return stockActualizado;
+		
 	}
 			
 	public boolean delete(int id) throws Exception {
