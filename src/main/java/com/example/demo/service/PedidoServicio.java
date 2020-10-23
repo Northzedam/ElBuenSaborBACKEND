@@ -121,21 +121,19 @@ public class PedidoServicio {
 			DetallePedido detalleEntity = new DetallePedido();
 			detalleEntity.setCantidad(detalleDto.getCantidad());
 			detalleEntity.setSubtotal(detalleDto.getSubtotal());
-			
-			detalleEntity.setArticuloConsumo(artConsRepository.getOne(detalleDto.getArticuloConsumoId()));			
-			entity.getDetalles().add(detalleEntity);
-			
-			/*try {
-				artConsService.updateStock(detalleDto.getArticuloConsumoDto().getId(), (double)detalleDto.getCantidad(), false);
-			} catch (Exception e) {
-				throw new Exception();
+			ArticuloConsumo artConsumoEntity = artConsRepository.getOne(detalleDto.getArticuloConsumoId());
+			if(artConsumoEntity.getStockActual() > artConsumoEntity.getStockMinimo()) {
+				artConsumoEntity.setStockActual(artConsumoEntity.getStockActual() - detalleDto.getCantidad());
+			}else {
+				throw new Exception("Stock insuficiente");
 			}
-			*/
+			detalleEntity.setArticuloConsumo(artConsumoEntity);			
+			entity.getDetalles().add(detalleEntity);
 		}
 		try {
-			entity = repository.save(entity);
-			
+			entity = repository.save(entity);	
 			dto.setId(entity.getId());
+			
 			
 			return dto;
 		} catch (Exception e) {
