@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Pedido;
 
 @Repository
-public interface PedidoRepository extends JpaRepository<Pedido, Int> {
+public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 
 	public Page <Pedido> findAll(Pageable pageable);
 }
