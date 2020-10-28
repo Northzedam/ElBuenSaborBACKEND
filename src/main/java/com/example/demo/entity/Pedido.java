@@ -47,12 +47,17 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	@JoinColumn(name= "fk_factura")
 	private Factura factura;
 	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name= "tiempoPreparacion")
+	private int tiempoPreparacion;
+	
 	public Pedido() {
 		super();
 	}
 
 
-	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio) {
+	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, int tiempoPreparacion) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -60,12 +65,13 @@ public class Pedido extends EntidadGenerica implements Serializable{
 		this.estado = estado;
 		this.horaFin = horaFin;
 		this.tipoEnvio = tipoEnvio;
+		this.tiempoPreparacion = tiempoPreparacion;
 	}
 	
 	
 
 
-	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, List<DetallePedido> detalles) {
+	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, List<DetallePedido> detalles, int tiempoPreparacion) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -74,6 +80,7 @@ public class Pedido extends EntidadGenerica implements Serializable{
 		this.horaFin = horaFin;
 		this.tipoEnvio = tipoEnvio;
 		this.detalles = detalles;
+		this.tiempoPreparacion = tiempoPreparacion;
 	}
 
 
@@ -151,6 +158,16 @@ public class Pedido extends EntidadGenerica implements Serializable{
 
 	public void setTipoEnvio(int tipoEnvio) {
 		this.tipoEnvio = tipoEnvio;
+	}
+
+
+	public int getTiempoPreparacion() {
+		return tiempoPreparacion;
+	}
+
+
+	public void setTiempoPreparacion(int tiempoPreparacion) {
+		this.tiempoPreparacion = tiempoPreparacion;
 	}
 
 

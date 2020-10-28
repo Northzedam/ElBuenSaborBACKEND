@@ -132,5 +132,20 @@ public class PedidoController {
 		}
 		
 	}
+	
+	//get tiempo restante-------------
+	
+	@PutMapping("/updateTiempoRestante/{id}/{tiempoRestante}")
+	@Transactional
+	public ResponseEntity<String> updateTiempoRestante(@PathVariable("id") int id,
+			@PathVariable("tiempoRestante") int tiempoRestante) {
+		try {
+			PedidoServicio.updateTiempoRestante(id, tiempoRestante);
+			return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"Actualizado\"}");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body("{\"message\": \"Error. Please try again later.\"}");
+		}
+	}
 
 }

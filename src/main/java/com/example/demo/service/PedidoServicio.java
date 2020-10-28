@@ -1,9 +1,15 @@
 package com.example.demo.service;
 
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +20,7 @@ import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ArticuloConsumoRepository;
 import com.example.demo.repository.PedidoRepository;
+
 import com.example.demo.dtos.ArticuloConsumoDto;
 import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.PedidoDto;
@@ -78,7 +85,7 @@ public class PedidoServicio {
 	
 	public PedidoDto findById(int id) throws Exception{
 		
-		Optional<Pedido>entityOptional = repository.findById((long) id);
+		Optional<Pedido>entityOptional = repository.findById((int) id);
 		
 		PedidoDto dto = new PedidoDto();
 		
@@ -144,7 +151,7 @@ public class PedidoServicio {
 	}
 	
 	public PedidoDto update(int id, PedidoDto dto, boolean estado) throws Exception {
-		Optional<Pedido> optionalEntity = repository.findById((long) id);
+		Optional<Pedido> optionalEntity = repository.findById((int) id);
 		
 		try {
 			 Pedido entity = optionalEntity.get();
@@ -170,8 +177,8 @@ public class PedidoServicio {
 			
 	public boolean delete(int id) throws Exception {
 		try {
-			if(repository.existsById((long) id)) {
-				repository.deleteById((long) id);
+			if(repository.existsById((int) id)) {
+				repository.deleteById((int) id);
 				return true;
 			}else {
 				throw new Exception();
@@ -193,6 +200,16 @@ public class PedidoServicio {
 		}
 	}
 	
+	@Transactional
+	public void updateTiempoRestante(int id, int tiempoRestante) {
+		Optional<Pedido> result = PedidoRepository.findById(id);
+		try {
+			result.get().setTiempoPreparacion(tiempoRestante);
+			PedidoRepository.save(result.get());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	
 }
 

@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -205,8 +207,17 @@ public class ArticuloConsumoServicio {
 		}
 	}
 	
+	public String getCurrentTimestamp() {
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		Time timestamp = new Time(System.currentTimeMillis());
+		return sdf.format(timestamp);
+	}
 	
-	
+	public String getFutureTimestamp(int tiempoComida) {
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		Time timestamp = new Time(System.currentTimeMillis() + tiempoComida);
+		return sdf.format(timestamp);
+	}
 	
 }
 
