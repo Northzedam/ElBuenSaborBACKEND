@@ -46,6 +46,7 @@ public class PedidoServicio {
 				dto.setEstado(entity.getEstado());
 				dto.setHoraFin(entity.getHoraFin());
 				dto.setTipoEnvio(entity.getTipoEnvio());
+				dto.setCliente(entity.getCliente());
 				
 				for(DetallePedido entityDetalle : entity.getDetalles()) {
 					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
@@ -75,6 +76,34 @@ public class PedidoServicio {
 			throw new Exception();
 		}
 	}
+	
+	
+public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
+		
+		List<Pedido>entities = repository.findAll();
+		List<PedidoDto>dtos = new ArrayList<PedidoDto>();
+		try {
+			
+			for(Pedido entity : entities) {
+				if(entity.getCliente().getId()==idCliente) {
+					PedidoDto dto = new PedidoDto();
+					dto.setId(entity.getId());
+					dto.setFecha(entity.getFecha());
+					dto.setNumero(entity.getNumero());
+					dto.setEstado(entity.getEstado());
+					dto.setHoraFin(entity.getHoraFin());
+					dto.setTipoEnvio(entity.getTipoEnvio());
+					dtos.add(dto);
+				}				
+			}
+						
+			return dtos;
+			
+		} catch (Exception e) {
+			throw new Exception();
+		}
+	}
+	
 	
 	public PedidoDto findById(int id) throws Exception{
 		
