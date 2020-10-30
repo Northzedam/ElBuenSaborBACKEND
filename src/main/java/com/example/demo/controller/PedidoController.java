@@ -45,6 +45,28 @@ public class PedidoController {
 		}
 	}
 	
+	@GetMapping("/pedidosPorEstado/{status}")
+	@Transactional
+	public ResponseEntity getPedidosByStatus(@PathVariable String status){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(service.findPedidosByStatus(status));
+			
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
+		}
+	}
+	
+	@GetMapping("/pedidosNoFinalizados/")
+	@Transactional
+	public ResponseEntity getPedidosNoFinalizados(){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(service.findPedidosNoFinalizados());
+			
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
+		}
+	}
+	
 	
 	@GetMapping("/pedidosPorCliente/{idCliente}")
 	@Transactional

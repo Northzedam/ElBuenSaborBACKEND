@@ -25,6 +25,8 @@ public class PedidoServicio {
 	PedidoRepository repository;
 	ArticuloConsumoRepository artConsRepository;
 	ArticuloConsumoServicio artConsService = new ArticuloConsumoServicio(artConsRepository);
+	
+	public static int tiempoDeCola=0;
 
 	public PedidoServicio(PedidoRepository repository,ArticuloConsumoRepository artConsRepository) {
 		this.repository = repository;
@@ -44,7 +46,7 @@ public class PedidoServicio {
 				dto.setFecha(entity.getFecha());
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
-				dto.setHoraFin(entity.getHoraFin());
+				dto.setTiempoRequerido(entity.getTiempoRequerido());
 				dto.setTipoEnvio(entity.getTipoEnvio());
 				dto.setCliente(entity.getCliente());
 				
@@ -77,8 +79,99 @@ public class PedidoServicio {
 		}
 	}
 	
+	public List<PedidoDto> findPedidosByStatus(String status) throws Exception{
+		
+		List<Pedido>entities = repository.findPedidosByStatus(status);
+		List<PedidoDto>dtos = new ArrayList<PedidoDto>();
+		List<DetallePedidoDto>detalles = new ArrayList<DetallePedidoDto>();
+		try {
+			
+			for(Pedido entity : entities) {
+				PedidoDto dto = new PedidoDto();
+				dto.setId(entity.getId());
+				dto.setFecha(entity.getFecha());
+				dto.setNumero(entity.getNumero());
+				dto.setEstado(entity.getEstado());
+				dto.setTiempoRequerido(entity.getTiempoRequerido());
+				dto.setTipoEnvio(entity.getTipoEnvio());
+				dto.setCliente(entity.getCliente());
+				
+				for(DetallePedido entityDetalle : entity.getDetalles()) {
+					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+					dtoDetalle.setId(entityDetalle.getId());
+					dtoDetalle.setCantidad(entityDetalle.getCantidad());
+					
+					ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
+					articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
+					articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
+					articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
+					articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
+					articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
+					articuloConsumoDto.setStockActual(entityDetalle.getArticuloConsumo().getStockActual());
+					articuloConsumoDto.setStockMinimo(entityDetalle.getArticuloConsumo().getStockMinimo());
+					articuloConsumoDto.setTiempoEstimadoCocina(entityDetalle.getArticuloConsumo().getTiempoEstimadoCocina());
+					dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
+
+					
+					dto.getDetalles().add(dtoDetalle);
+				}
+				dtos.add(dto);
+			}
+						
+			return dtos;
+			
+		} catch (Exception e) {
+			throw new Exception();
+		}
+	}
 	
-public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
+public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
+		
+		List<Pedido>entities = repository.findPedidosNoFinalizados();
+		List<PedidoDto>dtos = new ArrayList<PedidoDto>();
+		List<DetallePedidoDto>detalles = new ArrayList<DetallePedidoDto>();
+		try {
+			
+			for(Pedido entity : entities) {
+				PedidoDto dto = new PedidoDto();
+				dto.setId(entity.getId());
+				dto.setFecha(entity.getFecha());
+				dto.setNumero(entity.getNumero());
+				dto.setEstado(entity.getEstado());
+				dto.setTiempoRequerido(entity.getTiempoRequerido());
+				dto.setTipoEnvio(entity.getTipoEnvio());
+				dto.setCliente(entity.getCliente());
+				
+				for(DetallePedido entityDetalle : entity.getDetalles()) {
+					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+					dtoDetalle.setId(entityDetalle.getId());
+					dtoDetalle.setCantidad(entityDetalle.getCantidad());
+					
+					ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
+					articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
+					articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
+					articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
+					articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
+					articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
+					articuloConsumoDto.setStockActual(entityDetalle.getArticuloConsumo().getStockActual());
+					articuloConsumoDto.setStockMinimo(entityDetalle.getArticuloConsumo().getStockMinimo());
+					articuloConsumoDto.setTiempoEstimadoCocina(entityDetalle.getArticuloConsumo().getTiempoEstimadoCocina());
+					dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
+
+					
+					dto.getDetalles().add(dtoDetalle);
+				}
+				dtos.add(dto);
+			}
+						
+			return dtos;
+			
+		} catch (Exception e) {
+			throw new Exception();
+		}
+	}
+	
+	public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
 		
 		List<Pedido>entities = repository.findAll();
 		List<PedidoDto>dtos = new ArrayList<PedidoDto>();
@@ -91,7 +184,7 @@ public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
 					dto.setFecha(entity.getFecha());
 					dto.setNumero(entity.getNumero());
 					dto.setEstado(entity.getEstado());
-					dto.setHoraFin(entity.getHoraFin());
+					dto.setTiempoRequerido(entity.getTiempoRequerido());
 					dto.setTipoEnvio(entity.getTipoEnvio());
 					dtos.add(dto);
 				}				
@@ -118,7 +211,7 @@ public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
 				dto.setFecha(entity.getFecha());
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
-				dto.setHoraFin(entity.getHoraFin());
+				dto.setTiempoRequerido(entity.getTiempoRequerido());
 				dto.setTipoEnvio(entity.getTipoEnvio());
 				for(DetallePedido entityDetalle : entity.getDetalles()) {
 					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
@@ -139,11 +232,12 @@ public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
 		
     public PedidoDto save(PedidoDto dto, boolean estado) throws Exception {
 		Pedido entity = new Pedido();
-		
+		int tiempoRequerido=0;
 		entity.setFecha(dto.getFecha());
 		entity.setNumero(dto.getNumero());
 		entity.setEstado(dto.getEstado());
-		entity.setHoraFin(dto.getHoraFin());
+		
+		
 		entity.setTipoEnvio(dto.getTipoEnvio());
 		
 		for(DetallePedidoDto detalleDto : dto.getDetalles()) {
@@ -156,9 +250,12 @@ public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
 			}else {
 				throw new Exception("Stock insuficiente");
 			}
+			
+			tiempoRequerido+=(artConsumoEntity.getTiempoEstimadoCocina()*detalleDto.getCantidad());
 			detalleEntity.setArticuloConsumo(artConsumoEntity);			
 			entity.getDetalles().add(detalleEntity);
 		}
+		entity.setTiempoRequerido(tiempoRequerido);
 		try {
 			entity = repository.save(entity);	
 			dto.setId(entity.getId());
@@ -181,7 +278,7 @@ public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
 			    entity.setFecha(dto.getFecha());
 				entity.setNumero(dto.getNumero());
 				entity.setEstado(dto.getEstado());
-				entity.setHoraFin(dto.getHoraFin());
+				entity.setTiempoRequerido(dto.getTiempoRequerido());
 				entity.setTipoEnvio(dto.getTipoEnvio());
 
 
@@ -221,6 +318,8 @@ public List<PedidoDto> findPedidosByClienteId(int idCliente) throws Exception {
 			throw new Exception(e.getMessage());
 		}
 	}
+	
+	
 	
 	
 }

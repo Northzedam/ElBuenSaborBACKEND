@@ -24,7 +24,7 @@ public class PedidoDto {
 	private String estado;
 
 	
-	private Date horaFin;
+	private int tiempoRequerido;
 	
 	
 	private int tipoEnvio;
@@ -44,14 +44,14 @@ public class PedidoDto {
 	}
 
 
-	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio,
+	public PedidoDto(long id, Date fecha, int numero, String estado, int tiempoRequerido, int tipoEnvio,
 			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
-		this.horaFin = horaFin;
+		this.tiempoRequerido = tiempoRequerido;
 		this.tipoEnvio = tipoEnvio;
 		this.detalles = detalles;
 		this.cliente = cliente;
@@ -99,13 +99,13 @@ public class PedidoDto {
 	}
 
 
-	public Date getHoraFin() {
-		return horaFin;
+	public int getTiempoRequerido() {
+		return tiempoRequerido;
 	}
 
 
-	public void setHoraFin(Date horaFin) {
-		this.horaFin = horaFin;
+	public void setTiempoRequerido(int tiempoRequerido) {
+		this.tiempoRequerido = tiempoRequerido;
 	}
 
 
