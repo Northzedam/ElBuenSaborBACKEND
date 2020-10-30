@@ -92,7 +92,7 @@ public List<ClienteDto> findAll() throws Exception {
 					dtoPedido.setFecha(entityPedido.getFecha());
 					dtoPedido.setNumero(entityPedido.getNumero());
 					dtoPedido.setEstado(entityPedido.getEstado());
-					dtoPedido.setHoraFin(entityPedido.getHoraFin());
+					dtoPedido.setTiempoRequerido(entityPedido.getTiempoRequerido());
 					dtoPedido.setTipoEnvio(entityPedido.getTipoEnvio());
 					dtoPedido.setFactura(entityPedido.getFactura());
 					

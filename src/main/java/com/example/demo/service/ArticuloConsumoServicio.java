@@ -109,6 +109,7 @@ public class ArticuloConsumoServicio {
 		entity.setStockMinimo(dto.getStockMinimo());
 		entity.setUnidadMedida(dto.getUnidadMedida());
 		entity.setEsInsumo(dto.isEsInsumo());
+		entity.setTiempoEstimadoCocina(dto.getTiempoEstimadoCocina());
 		entity.setImagen(dto.getImagen());
 
 		

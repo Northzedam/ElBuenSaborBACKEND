@@ -29,8 +29,8 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	@Column(name = "Estado")
 	private String estado;
 
-	@Column(name = "HoraFin")
-	private Date horaFin;
+	@Column(name = "tiempoRequerido")
+	private int tiempoRequerido;
 	
 	@Column(name = "TipoDeEnvio")
 	private int tipoEnvio;
@@ -52,26 +52,26 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio) {
+	public Pedido(long id, Date fecha, int numero, String estado, int tiempoRequerido, int tipoEnvio) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
-		this.horaFin = horaFin;
+		this.tiempoRequerido = tiempoRequerido;
 		this.tipoEnvio = tipoEnvio;
 	}
 	
 	
 
 
-	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tipoEnvio, List<DetallePedido> detalles) {
+	public Pedido(long id, Date fecha, int numero, String estado, int tiempoRequerido, int tipoEnvio, List<DetallePedido> detalles) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
-		this.horaFin = horaFin;
+		this.tiempoRequerido = tiempoRequerido;
 		this.tipoEnvio = tipoEnvio;
 		this.detalles = detalles;
 	}
@@ -134,13 +134,13 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	}
 
 
-	public Date getHoraFin() {
-		return horaFin;
+	public int getTiempoRequerido() {
+		return tiempoRequerido;
 	}
 
 
-	public void setHoraFin(Date horaFin) {
-		this.horaFin = horaFin;
+	public void setTiempoRequerido(int tiempoRequerido) {
+		this.tiempoRequerido = tiempoRequerido;
 	}
 
 
