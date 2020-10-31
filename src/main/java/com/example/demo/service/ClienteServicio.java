@@ -9,12 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloDto;
 import com.example.demo.dtos.ClienteDto;
 import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.DomicilioDto;
 import com.example.demo.dtos.PedidoDto;
-import com.example.demo.entity.ArticuloConsumo;
+import com.example.demo.entity.Articulo;
 import com.example.demo.entity.Cliente;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Domicilio;
@@ -102,15 +102,12 @@ public List<ClienteDto> findAll() throws Exception {
 						dtoDetalle.setCantidad(entityDetalle.getCantidad());
 						dtoDetalle.setSubtotal(entityDetalle.getSubtotal());
 
-						ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();   
-						ArticuloConsumo articuloConsumoEntity = entityDetalle.getArticuloConsumo();
+						ArticuloDto articuloConsumoDto = new ArticuloDto();   
+						Articulo articuloConsumoEntity = entityDetalle.getArticulo();
 						articuloConsumoDto.setDenominacion(articuloConsumoEntity.getDenominacion());
 						articuloConsumoDto.setPrecioCompra(articuloConsumoEntity.getPrecioCompra());
 						articuloConsumoDto.setPrecioVenta(articuloConsumoEntity.getPrecioVenta());
-						articuloConsumoDto.setStockActual(articuloConsumoEntity.getStockActual());
-						articuloConsumoDto.setStockMinimo(articuloConsumoEntity.getStockMinimo());
-						articuloConsumoDto.setUnidadMedida(articuloConsumoEntity.getUnidadMedida());
-						dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
+						dtoDetalle.setArticuloDto(articuloConsumoDto);
 						
 						dtoPedido.getDetalles().add(dtoDetalle);	
 					}

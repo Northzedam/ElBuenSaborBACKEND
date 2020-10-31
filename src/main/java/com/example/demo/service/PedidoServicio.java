@@ -9,13 +9,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.ArticuloConsumo;
+import com.example.demo.entity.Articulo;
 import com.example.demo.entity.DetallePedido;
+import com.example.demo.entity.DetalleReceta;
 import com.example.demo.entity.Pedido;
-import com.example.demo.repository.ArticuloConsumoRepository;
+import com.example.demo.repository.ArticuloRepository;
+import com.example.demo.repository.InsumoRepository;
 import com.example.demo.repository.PedidoRepository;
-import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloDto;
 import com.example.demo.dtos.DetallePedidoDto;
+import com.example.demo.dtos.DetalleRecetaDto;
 import com.example.demo.dtos.PedidoDto;
 
 @Service
@@ -23,14 +26,15 @@ public class PedidoServicio {
 
 
 	PedidoRepository repository;
-	ArticuloConsumoRepository artConsRepository;
-	ArticuloConsumoServicio artConsService = new ArticuloConsumoServicio(artConsRepository);
+	ArticuloRepository articuloRepository;
+	InsumoRepository insumoRepository;
+	ArticuloServicio artConsService = new ArticuloServicio(articuloRepository, insumoRepository);
 	
 	public static int tiempoDeCola=0;
 
-	public PedidoServicio(PedidoRepository repository,ArticuloConsumoRepository artConsRepository) {
+	public PedidoServicio(PedidoRepository repository,ArticuloRepository articuloRepository) {
 		this.repository = repository;
-		this.artConsRepository = artConsRepository;
+		this.articuloRepository = articuloRepository;
 	}
 	
 	public List<PedidoDto> findAll() throws Exception {
@@ -55,16 +59,14 @@ public class PedidoServicio {
 					dtoDetalle.setId(entityDetalle.getId());
 					dtoDetalle.setCantidad(entityDetalle.getCantidad());
 					
-					ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
-					articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
-					articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
-					articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
-					articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
-					articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
-					articuloConsumoDto.setStockActual(entityDetalle.getArticuloConsumo().getStockActual());
-					articuloConsumoDto.setStockMinimo(entityDetalle.getArticuloConsumo().getStockMinimo());
-					articuloConsumoDto.setTiempoEstimadoCocina(entityDetalle.getArticuloConsumo().getTiempoEstimadoCocina());
-					dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
+					ArticuloDto ArticuloDto = new ArticuloDto();
+					
+					ArticuloDto.setDenominacion(entityDetalle.getArticulo().getDenominacion());
+					ArticuloDto.setPrecioCompra(entityDetalle.getArticulo().getPrecioCompra());
+					ArticuloDto.setPrecioVenta(entityDetalle.getArticulo().getPrecioVenta());
+					ArticuloDto.setEsManufacturado(entityDetalle.getArticulo().isEsManufacturado());	
+					ArticuloDto.setTiempoCocina(entityDetalle.getArticulo().getTiempoCocina());
+					dtoDetalle.setArticuloDto(ArticuloDto);
 
 					
 					dto.getDetalles().add(dtoDetalle);
@@ -101,16 +103,13 @@ public class PedidoServicio {
 					dtoDetalle.setId(entityDetalle.getId());
 					dtoDetalle.setCantidad(entityDetalle.getCantidad());
 					
-					ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
-					articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
-					articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
-					articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
-					articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
-					articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
-					articuloConsumoDto.setStockActual(entityDetalle.getArticuloConsumo().getStockActual());
-					articuloConsumoDto.setStockMinimo(entityDetalle.getArticuloConsumo().getStockMinimo());
-					articuloConsumoDto.setTiempoEstimadoCocina(entityDetalle.getArticuloConsumo().getTiempoEstimadoCocina());
-					dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
+					ArticuloDto ArticuloDto = new ArticuloDto();
+					ArticuloDto.setDenominacion(entityDetalle.getArticulo().getDenominacion());
+					ArticuloDto.setPrecioCompra(entityDetalle.getArticulo().getPrecioCompra());
+					ArticuloDto.setPrecioVenta(entityDetalle.getArticulo().getPrecioVenta());
+					ArticuloDto.setEsManufacturado(entityDetalle.getArticulo().isEsManufacturado());	
+					ArticuloDto.setTiempoCocina(entityDetalle.getArticulo().getTiempoCocina());
+					dtoDetalle.setArticuloDto(ArticuloDto);
 
 					
 					dto.getDetalles().add(dtoDetalle);
@@ -147,16 +146,32 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 					dtoDetalle.setId(entityDetalle.getId());
 					dtoDetalle.setCantidad(entityDetalle.getCantidad());
 					
-					ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
-					articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
-					articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
-					articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
-					articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
-					articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
-					articuloConsumoDto.setStockActual(entityDetalle.getArticuloConsumo().getStockActual());
-					articuloConsumoDto.setStockMinimo(entityDetalle.getArticuloConsumo().getStockMinimo());
-					articuloConsumoDto.setTiempoEstimadoCocina(entityDetalle.getArticuloConsumo().getTiempoEstimadoCocina());
-					dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
+					ArticuloDto ArticuloDto = new ArticuloDto();
+					ArticuloDto.setId(entityDetalle.getArticulo().getId());
+					ArticuloDto.setDenominacion(entityDetalle.getArticulo().getDenominacion());
+					ArticuloDto.setPrecioCompra(entityDetalle.getArticulo().getPrecioCompra());
+					ArticuloDto.setPrecioVenta(entityDetalle.getArticulo().getPrecioVenta());
+					ArticuloDto.setEsManufacturado(entityDetalle.getArticulo().isEsManufacturado());	
+					ArticuloDto.setTiempoCocina(entityDetalle.getArticulo().getTiempoCocina());
+					
+					 List<DetalleRecetaDto>detallesReceta = new ArrayList<DetalleRecetaDto>();
+						
+						
+						for(DetalleReceta detalleReceta : entityDetalle.getArticulo().getDetallesReceta()) {
+							DetalleRecetaDto detalleRecetaDto = new DetalleRecetaDto();
+							detalleRecetaDto.setId(detalleReceta.getId());
+							detalleRecetaDto.setCantidad(detalleReceta.getCantidad());
+							detalleRecetaDto.getInsumo().setId(detalleReceta.getInsumo().getId());
+							detalleRecetaDto.getInsumo().setDenominacion(detalleReceta.getInsumo().getDenominacion());
+							detalleRecetaDto.getInsumo().setPrecioCompra(detalleReceta.getInsumo().getPrecioCompra());
+							detalleRecetaDto.getInsumo().setStockActual(detalleReceta.getInsumo().getStockActual());
+							detalleRecetaDto.getInsumo().setStockMinimo(detalleReceta.getInsumo().getStockMinimo());
+							detallesReceta.add(detalleRecetaDto);
+						}
+						ArticuloDto.setDetalles(detallesReceta);
+					
+					
+					dtoDetalle.setArticuloDto(ArticuloDto);
 
 					
 					dto.getDetalles().add(dtoDetalle);
@@ -217,7 +232,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
 					dtoDetalle.setId(entityDetalle.getId());
 					dtoDetalle.setCantidad(entityDetalle.getCantidad());
-					//dtoDetalle.setArticuloConsumo(entityDetalle.getArticuloConsumo());
+					//dtoDetalle.setArticulo(entityDetalle.getArticulo());
 					
 					dto.getDetalles().add(dtoDetalle);
 				}
@@ -244,15 +259,18 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			DetallePedido detalleEntity = new DetallePedido();
 			detalleEntity.setCantidad(detalleDto.getCantidad());
 			detalleEntity.setSubtotal(detalleDto.getSubtotal());
-			ArticuloConsumo artConsumoEntity = artConsRepository.getOne(detalleDto.getArticuloConsumoId());
-			if(artConsumoEntity.getStockActual() > artConsumoEntity.getStockMinimo()) {
-				artConsumoEntity.setStockActual(artConsumoEntity.getStockActual() - detalleDto.getCantidad());
-			}else {
-				throw new Exception("Stock insuficiente");
-			}
+			Articulo articuloEntity = articuloRepository.getOne(detalleDto.getArticuloDto().getId());
+			/* CONTROL DE STOCK
+			for(DetalleReceta detalle : articuloEntity.getDetallesReceta()) {
+				if(detalle.getInsumo().getStockActual() > detalle.getInsumo().getStockMinimo()) {
+					detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - detalle.getCantidad());
+				}else {
+					throw new Exception("Stock insuficiente");
+				}
+			}*/
 			
-			tiempoRequerido+=(artConsumoEntity.getTiempoEstimadoCocina()*detalleDto.getCantidad());
-			detalleEntity.setArticuloConsumo(artConsumoEntity);			
+			tiempoRequerido+=(articuloEntity.getTiempoCocina()*detalleDto.getCantidad());
+			detalleEntity.setArticulo(articuloEntity);			
 			entity.getDetalles().add(detalleEntity);
 		}
 		entity.setTiempoRequerido(tiempoRequerido);

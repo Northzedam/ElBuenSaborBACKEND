@@ -2,7 +2,7 @@ package com.example.demo.dtos;
 
 
 
-import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloDto;
 
 
 public class DetallePedidoDto {
@@ -16,10 +16,7 @@ public class DetallePedidoDto {
 	private double subtotal;
 	
 	
-	private long articuloConsumoId;
-	
-	
-	private ArticuloConsumoDto articuloConsumoDto;
+	private ArticuloDto articuloDto;
 	
 	
 
@@ -29,15 +26,17 @@ public class DetallePedidoDto {
 	}
 
 
-	public DetallePedidoDto(long id, int cantidad, double subtotal,long articuloConsumoId, ArticuloConsumoDto articuloConsumoDto
-			) {
+
+
+	public DetallePedidoDto(long id, int cantidad, double subtotal, ArticuloDto articuloDto) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
-		this.articuloConsumoId = articuloConsumoId;
-		this.articuloConsumoDto = articuloConsumoDto;
+		this.articuloDto = articuloDto;
 	}
+
+
 
 
 	public long getId() {
@@ -45,9 +44,13 @@ public class DetallePedidoDto {
 	}
 
 
+
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
+
 
 
 	public int getCantidad() {
@@ -55,9 +58,13 @@ public class DetallePedidoDto {
 	}
 
 
+
+
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+
+
 
 
 	public double getSubtotal() {
@@ -65,30 +72,28 @@ public class DetallePedidoDto {
 	}
 
 
+
+
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
 
 
-	public long getArticuloConsumoId() {
-		return articuloConsumoId;
+
+
+	public ArticuloDto getArticuloDto() {
+		return articuloDto;
 	}
 
 
-	public void setArticuloConsumoId(long articuloConsumoId) {
-		this.articuloConsumoId = articuloConsumoId;
+
+
+	public void setArticuloDto(ArticuloDto articuloDto) {
+		this.articuloDto = articuloDto;
 	}
 
 
-	public ArticuloConsumoDto getArticuloConsumoDto() {
-		return articuloConsumoDto;
-	}
-
-
-	public void setArticuloConsumoDto(ArticuloConsumoDto articuloConsumoDto) {
-		this.articuloConsumoDto = articuloConsumoDto;
-	}
-
+	
 
 	
 }

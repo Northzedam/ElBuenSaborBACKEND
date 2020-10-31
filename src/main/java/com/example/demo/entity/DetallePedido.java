@@ -25,21 +25,20 @@ import javax.persistence.OneToOne;
 		private double subtotal;
 		
 		@ManyToOne(cascade = CascadeType.PERSIST)
-		@JoinColumn(name = "id_articuloConsumo")
-		private ArticuloConsumo articuloConsumo;
+		@JoinColumn(name = "id_articulo")
+		private Articulo articulo;
 		
 
 		public DetallePedido() {
 			super();
 		}		
 		
-		public DetallePedido(long id, int cantidad, double subtotal, ArticuloConsumo articuloConsumo) {
+		public DetallePedido(long id, int cantidad, double subtotal, Articulo articulo) {
 			super();
 			this.id = id;
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
-			//this.pedido = pedido;
-			this.articuloConsumo = articuloConsumo;
+			this.articulo = articulo;
 		}
 
 		public DetallePedido(long id, int cantidad, double subtotal) {
@@ -48,59 +47,47 @@ import javax.persistence.OneToOne;
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
 		}
-
 		
 		
 		//GETTERS Y SETTERS ------------------------------------------------------------------------
+
 		public long getId() {
 			return id;
 		}
-		public ArticuloConsumo getArticuloConsumo() {
-			return articuloConsumo;
+
+		public void setId(long id) {
+			this.id = id;
 		}
-
-
-
-		public void setArticuloConsumo(ArticuloConsumo articuloConsumo) {
-			this.articuloConsumo = articuloConsumo;
-		}
-
-
 
 		public int getCantidad() {
 			return cantidad;
 		}
 
-
-
 		public void setCantidad(int cantidad) {
 			this.cantidad = cantidad;
 		}
-
-
 
 		public double getSubtotal() {
 			return subtotal;
 		}
 
-
-
 		public void setSubtotal(double subtotal) {
 			this.subtotal = subtotal;
 		}
 
-
-/*
-		public Pedido getPedido() {
-			return pedido;
+		public Articulo EsManufacturado() {
+			return articulo;
 		}
 
-
-
-		public void setPedido(Pedido pedido) {
-			this.pedido = pedido;
+		public void setArticulo(Articulo articulo) {
+			this.articulo = articulo;
 		}
 
-	*/	
+		public Articulo getArticulo() {
+			return articulo;
+		}
+
+		
+	
 		
 }
