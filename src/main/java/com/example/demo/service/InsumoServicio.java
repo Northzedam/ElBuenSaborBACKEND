@@ -7,17 +7,27 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.InsumoDto;
+import com.example.demo.dtos.UnidadMedidaDto;
 import com.example.demo.entity.Insumo;
+import com.example.demo.entity.UnidadMedida;
 import com.example.demo.repository.InsumoRepository;
+import com.example.demo.repository.UnidadMedidaRepository;
 
 @Service
 public class InsumoServicio {
 	
 	InsumoRepository repository;
+	UnidadMedidaRepository unidadMedidaRepository;
 
-	public InsumoServicio(InsumoRepository repository) {
+	public InsumoServicio(InsumoRepository repository, UnidadMedidaRepository unidadMedidaRepository
+) {
 		this.repository = repository;
+		this.unidadMedidaRepository = unidadMedidaRepository;
 	}
+	
+	/*public InsumoServicio(UnidadMedidaRepository unidadMedidaRepository) {
+		
+	}*/
 	
 	public List<InsumoDto> findAll() throws Exception {
 		
@@ -32,7 +42,10 @@ public class InsumoServicio {
 				dto.setPrecioCompra(entity.getPrecioCompra());
 				dto.setStockActual(entity.getStockActual());
 				dto.setStockMinimo(entity.getStockMinimo());
-				dto.setUnidadMedida(entity.getUnidadMedida());
+				UnidadMedidaDto unidadMedidaDto = new UnidadMedidaDto();
+				unidadMedidaDto.setId(entity.getUnidadMedida().getId());
+				unidadMedidaDto.setUnidadMedida(entity.getUnidadMedida().getUnidadMedida());
+				dto.setUnidadMedida(unidadMedidaDto);
 				dtos.add(dto);
 			}
 			
@@ -58,7 +71,10 @@ public class InsumoServicio {
 				dto.setPrecioCompra(entity.getPrecioCompra());
 				dto.setStockActual(entity.getStockActual());
 				dto.setStockMinimo(entity.getStockMinimo());
-				dto.setUnidadMedida(entity.getUnidadMedida());
+				UnidadMedidaDto unidadMedidaDto = new UnidadMedidaDto();
+				unidadMedidaDto.setId(entity.getUnidadMedida().getId());
+				unidadMedidaDto.setUnidadMedida(entity.getUnidadMedida().getUnidadMedida());
+				dto.setUnidadMedida(unidadMedidaDto);
 		} catch (Exception e) {
 			throw new Exception();
 		}
@@ -75,7 +91,13 @@ public class InsumoServicio {
 			entity.setPrecioCompra(dto.getPrecioCompra());
 			entity.setStockActual(dto.getStockActual());
 			entity.setStockMinimo(dto.getStockMinimo());
-			entity.setUnidadMedida(dto.getUnidadMedida());
+			try {
+				Optional<UnidadMedida>unidadMedidaOptional = unidadMedidaRepository.findById(dto.getUnidadMedidaId());
+				entity.setUnidadMedida(unidadMedidaOptional.get());
+			} catch (Exception e) {
+				throw new Exception("No se encontró la unidad de medida");
+			}
+			
 			
 			
 			try {
@@ -99,7 +121,12 @@ public class InsumoServicio {
 					entity.setPrecioCompra(dto.getPrecioCompra());
 					entity.setStockActual(dto.getStockActual());
 					entity.setStockMinimo(dto.getStockMinimo());
-					entity.setUnidadMedida(dto.getUnidadMedida());
+					try {
+						Optional<UnidadMedida>unidadMedidaOptional = unidadMedidaRepository.findById(dto.getUnidadMedidaId());
+						entity.setUnidadMedida(unidadMedidaOptional.get());
+					} catch (Exception e) {
+						throw new Exception("No se encontró la unidad de medida");
+					}
 					
 				 
 				 repository.save(entity);

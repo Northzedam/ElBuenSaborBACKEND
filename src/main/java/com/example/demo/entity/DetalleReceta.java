@@ -20,10 +20,6 @@ public class DetalleReceta extends EntidadGenerica implements Serializable {
 	
 	@OneToOne
 	private Insumo insumo;
-	
-	/*@ManyToOne
-    @JoinColumn(name = "articulo_id")
-	private Articulo articulo;*/
 
 	public DetalleReceta() {
 		super();

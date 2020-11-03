@@ -12,14 +12,16 @@ public class InsumoDto {
 	
 	private double stockMinimo;
 	
-	private String unidadMedida;
+	private long unidadMedidaId;
+	
+	private UnidadMedidaDto unidadMedida;
 
 	public InsumoDto() {
 		super();
 	}
 
 	public InsumoDto(long id, String denominacion, double precioCompra, double stockActual, double stockMinimo,
-			String unidadMedida) {
+			UnidadMedidaDto unidadMedida) {
 		super();
 		this.id = id;
 		this.denominacion = denominacion;
@@ -69,13 +71,21 @@ public class InsumoDto {
 		this.stockMinimo = stockMinimo;
 	}
 
-	public String getUnidadMedida() {
+	public long getUnidadMedidaId() {
+		return unidadMedidaId;
+	}
+
+	public void setUnidadMedidaId(long unidadMedidaId) {
+		this.unidadMedidaId = unidadMedidaId;
+	}
+
+	public UnidadMedidaDto getUnidadMedida() {
 		return unidadMedida;
 	}
 
-	public void setUnidadMedida(String unidadMedida) {
+	public void setUnidadMedida(UnidadMedidaDto unidadMedida) {
 		this.unidadMedida = unidadMedida;
 	}
-	
+
 	
 }
