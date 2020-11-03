@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Empleado;
 import com.example.demo.repository.EmpleadoRepository;
-import com.example.demo.dtos.ArticuloConsumoDto;
 import com.example.demo.dtos.DomicilioDto;
 import com.example.demo.dtos.EmpleadoDto;
 import com.example.demo.entity.Domicilio;

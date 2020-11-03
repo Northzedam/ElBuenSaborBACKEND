@@ -30,63 +30,66 @@ import javax.persistence.OneToOne;
 		private RubroArticulo rubroArticulo;
 		
 		@OneToMany(mappedBy="rubroArticulo" ,cascade = CascadeType.ALL, orphanRemoval=true)
-		@Column(name = "articulo_consumo")
-		private List<ArticuloConsumo> articuloConsumoList = new ArrayList<ArticuloConsumo>();
-		
-		
-		
-		
+		@Column(name = "articulo")
+		private List<Articulo> articuloList = new ArrayList<Articulo>();
+	
 		
 		public RubroArticulo() {
 			super();
 		}
 
-		public RubroArticulo(long id, String denominacion, RubroArticulo rubroArticulo, List<ArticuloConsumo> articuloConsumoList) {
+
+		public RubroArticulo(long id, String denominacion, RubroArticulo rubroArticulo,
+				List<Articulo> articuloConsumoList) {
 			super();
 			this.id = id;
 			this.denominacion = denominacion;
 			this.rubroArticulo = rubroArticulo;
-			this.articuloConsumoList = articuloConsumoList;
+			this.articuloList = articuloConsumoList;
 		}
 
 
-
-		public RubroArticulo(long id, String denominacion, RubroArticulo rubroArticulo) {
-			super();
-			this.id = id;
-			this.denominacion = denominacion;
-			this.rubroArticulo = rubroArticulo;
-		}
-
-	
-		//GETTERS AND SETTERS
-		public long getId () {
+		public long getId() {
 			return id;
 		}
 
-		public List<ArticuloConsumo> getArticuloConsumoList() {
-			return articuloConsumoList;
+
+		public void setId(long id) {
+			this.id = id;
 		}
 
-		public void setArticuloConsumoList(List<ArticuloConsumo> articuloConsumoList) {
-			this.articuloConsumoList = articuloConsumoList;
-		}
 
 		public String getDenominacion() {
 			return denominacion;
 		}
 
+
 		public void setDenominacion(String denominacion) {
 			this.denominacion = denominacion;
 		}
+
 
 		public RubroArticulo getRubroArticulo() {
 			return rubroArticulo;
 		}
 
+
 		public void setRubroArticulo(RubroArticulo rubroArticulo) {
 			this.rubroArticulo = rubroArticulo;
 		}
+
+
+		public List<Articulo> getArticuloList() {
+			return articuloList;
+		}
+
+
+		public void setArticuloList(List<Articulo> articuloList) {
+			this.articuloList = articuloList;
+		}
+
+		
+		
 		
 		
 		

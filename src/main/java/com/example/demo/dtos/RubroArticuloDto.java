@@ -7,7 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 
-import com.example.demo.dtos.ArticuloConsumoDto;
+import com.example.demo.dtos.ArticuloDto;
 import com.example.demo.dtos.RubroArticuloDto;
 
 public class RubroArticuloDto {
@@ -21,7 +21,7 @@ public class RubroArticuloDto {
 	private RubroArticuloDto rubroArticuloDto;
 	
 	
-	private List<ArticuloConsumoDto> articuloConsumoListDto = new ArrayList<ArticuloConsumoDto>();
+	private List<ArticuloDto> articuloListDto = new ArrayList<ArticuloDto>();
 
 
 	public RubroArticuloDto() {
@@ -30,12 +30,12 @@ public class RubroArticuloDto {
 
 
 	public RubroArticuloDto(long id, String denominacion, RubroArticuloDto rubroArticuloDto,
-			List<ArticuloConsumoDto> articuloConsumoListDto) {
+			List<ArticuloDto> articuloConsumoListDto) {
 		super();
 		this.id = id;
 		this.denominacion = denominacion;
 		this.rubroArticuloDto = rubroArticuloDto;
-		this.articuloConsumoListDto = articuloConsumoListDto;
+		this.articuloListDto = articuloConsumoListDto;
 	}
 
 
@@ -69,13 +69,13 @@ public class RubroArticuloDto {
 	}
 
 
-	public List<ArticuloConsumoDto> getArticuloConsumoListDto() {
-		return articuloConsumoListDto;
+	public List<ArticuloDto> getArticuloConsumoListDto() {
+		return articuloListDto;
 	}
 
 
-	public void setArticuloConsumoListDto(List<ArticuloConsumoDto> articuloConsumoListDto) {
-		this.articuloConsumoListDto = articuloConsumoListDto;
+	public void setArticuloConsumoListDto(List<ArticuloDto> articuloConsumoListDto) {
+		this.articuloListDto = articuloConsumoListDto;
 	}
 
 

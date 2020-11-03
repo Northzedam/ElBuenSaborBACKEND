@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.dtos.ArticuloConsumoDto;
-import com.example.demo.entity.ArticuloConsumo;
-import com.example.demo.service.ArticuloConsumoServicio;
+import com.example.demo.dtos.InsumoDto;
+import com.example.demo.entity.Insumo;
+import com.example.demo.service.InsumoServicio;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT})
-@RequestMapping(path = "api/v1/articuloConsumo")
-public class ArticuloConsumoController{
+@RequestMapping(path = "api/v1/insumo")
+public class InsumoController{
 	
 	@Autowired (required = true)
-	protected ArticuloConsumoServicio service;
+	protected InsumoServicio service;
 	
 	//getAll-----------------------
 	
@@ -68,7 +68,7 @@ public class ArticuloConsumoController{
 	@PostMapping("/")
 
 	@Transactional
-	public ResponseEntity post(@RequestBody ArticuloConsumoDto dto) {
+	public ResponseEntity post(@RequestBody InsumoDto dto) {
 		
 		try {
 			
@@ -84,7 +84,7 @@ public class ArticuloConsumoController{
 		
 	}
 	
-	@PostMapping(value = "/saveImage")
+/*	@PostMapping(value = "/saveImage")
 	
 	@Transactional	
 	public ResponseEntity postImage(@RequestParam("imagen") MultipartFile imagen) {
@@ -100,12 +100,12 @@ public class ArticuloConsumoController{
 					("{\"message\":\"Error.Please check the BODY request, and try again.\"}");
 		}
 	}
-	
+	*/
 	
 	@PutMapping("/{id}")
 
 	@Transactional
-	public ResponseEntity put(@PathVariable int id, @RequestBody ArticuloConsumoDto dto) {
+	public ResponseEntity put(@PathVariable int id, @RequestBody InsumoDto dto) {
 		
 		try {
 			
@@ -159,7 +159,7 @@ public class ArticuloConsumoController{
 	
 	//getCount-----------------------
 	
-	@GetMapping("/count")
+/*	@GetMapping("/count")
 	@Transactional
 	public ResponseEntity getCount(@RequestParam(value =  "size", defaultValue = "10") int size) {
 		try {
@@ -169,5 +169,7 @@ public class ArticuloConsumoController{
 		}
 		
 	}
+	
+	*/
 
 }
