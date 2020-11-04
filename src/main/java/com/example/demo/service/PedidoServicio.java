@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.ArticuloManufacturado;
 import com.example.demo.entity.DetallePedido;
+import com.example.demo.entity.EstadoPedido;
 import com.example.demo.entity.Pedido;
+import com.example.demo.repository.EstadoPedidoRepository;
 import com.example.demo.repository.PedidoRepository;
 import com.example.demo.dtos.ArticuloConsumoDto;
 import com.example.demo.dtos.ArticuloManufacturadoDto;
@@ -23,9 +26,12 @@ public class PedidoServicio {
 
 
 	PedidoRepository repository;
+	
+	EstadoPedidoRepository estadoPedidoRepository;
 
-	public PedidoServicio(PedidoRepository repository) {
+	public PedidoServicio(PedidoRepository repository, EstadoPedidoRepository estadoPedidoRepository) {
 		this.repository = repository;
+		this.estadoPedidoRepository = estadoPedidoRepository;
 	}
 	
 	public List<PedidoDto> findAll() throws Exception {
@@ -42,33 +48,56 @@ public class PedidoServicio {
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
 				dto.setHoraFin(entity.getHoraFin());
-				dto.setTipoEnvio(entity.getTipoEnvio());
+				dto.setConEnvio(entity.getConEnvio());
+				
+				dto.setNombreCliente(entity.getCliente().getNombre()+" "+entity.getCliente().getApellido());
+				dto.setDomicilioCliente(entity.getCliente().getDomicilio().getCalle()+" "+entity.getCliente().getDomicilio().getNumero()+", "
+						+entity.getCliente().getDomicilio().getLocalidad()+" - "+entity.getCliente().getDomicilio().getDepartamento());
+				dto.setTelCliente(entity.getCliente().getTelefono());
+				dto.setIdEstadoPedido(entity.getEstadoPedido().getId());
+				dto.setStringEstadoPedido(entity.getEstadoPedido().getEstadoPedido());
+				dto.setFechaAnulado(entity.getFechaAnulado());
+			
+				String detallesConcatenados = "";
 				
 				for(DetallePedido entityDetalle : entity.getDetalles()) {
-					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
-					dtoDetalle.setId(entityDetalle.getId());
-					dtoDetalle.setCantidad(entityDetalle.getCantidad());
-					ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
-					articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
-					articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
-					articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
-					articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
-					articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
+					if(entityDetalle.getPedido().getId() == entity.getId()) {
+						
+						/*
+						DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+						dtoDetalle.setId(entityDetalle.getId());
+						dtoDetalle.setCantidad(entityDetalle.getCantidad());
+						ArticuloConsumoDto articuloConsumoDto = new ArticuloConsumoDto();
+						articuloConsumoDto.setDenominacion(entityDetalle.getArticuloConsumo().getDenominacion());
+						articuloConsumoDto.setPrecioCompra(entityDetalle.getArticuloConsumo().getPrecioCompra());
+						articuloConsumoDto.setPrecioVenta(entityDetalle.getArticuloConsumo().getPrecioVenta());
+						articuloConsumoDto.setEsInsumo(entityDetalle.getArticuloConsumo().isEsInsumo());
+						articuloConsumoDto.setUnidadMedida(entityDetalle.getArticuloConsumo().getUnidadMedida());
+						
 
-					ArticuloManufacturadoDto articuloManufacturadoDto = new ArticuloManufacturadoDto();
-					ArticuloManufacturado articuloManufacturadoEntity = entityDetalle.getArticuloManufacturado();
-					articuloManufacturadoDto.setId(articuloManufacturadoEntity.getId());
-					articuloManufacturadoDto.setDenominacion(articuloManufacturadoEntity.getDenominacion());
-					articuloManufacturadoDto.setPrecioVenta(articuloManufacturadoEntity.getPrecioVenta());
-					articuloManufacturadoDto.setTiempoEstimadoCocina(articuloManufacturadoEntity.getTiempoEstimadoCocina());
-					dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
-					dtoDetalle.setArticuloManufacturadoDto(articuloManufacturadoDto);
+						ArticuloManufacturadoDto articuloManufacturadoDto = new ArticuloManufacturadoDto();
+						ArticuloManufacturado articuloManufacturadoEntity = entityDetalle.getArticuloManufacturado();
+						articuloManufacturadoDto.setId(articuloManufacturadoEntity.getId());
+						articuloManufacturadoDto.setDenominacion(articuloManufacturadoEntity.getDenominacion());
+						articuloManufacturadoDto.setPrecioVenta(articuloManufacturadoEntity.getPrecioVenta());
+						articuloManufacturadoDto.setTiempoEstimadoCocina(articuloManufacturadoEntity.getTiempoEstimadoCocina());
+						dtoDetalle.setArticuloConsumoDto(articuloConsumoDto);
+						dtoDetalle.setArticuloManufacturadoDto(articuloManufacturadoDto);
+						*/
 
-
-				
-					
-					dto.getDetalles().add(dtoDetalle);
+	                    if(entityDetalle.getArticuloManufacturado() == null) {
+							detallesConcatenados += entityDetalle.getArticuloConsumo().getDenominacion()+" x "+ entityDetalle.getCantidad()+". ";
+	                    }else {
+							detallesConcatenados += entityDetalle.getArticuloManufacturado().getDenominacion()+" x "+ entityDetalle.getCantidad()+". ";
+	                    }
+					    
+						/*
+						dto.getDetalles().add(dtoDetalle);
+						*/
+					}					
 				}
+				dto.setStringDetallePedido(detallesConcatenados);
+				
 				dtos.add(dto);
 			}
 
@@ -96,7 +125,7 @@ public class PedidoServicio {
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
 				dto.setHoraFin(entity.getHoraFin());
-				dto.setTipoEnvio(entity.getTipoEnvio());
+				dto.setConEnvio(entity.getConEnvio());
 				for(DetallePedido entityDetalle : entity.getDetalles()) {
 					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
 					dtoDetalle.setId(entityDetalle.getId());
@@ -122,7 +151,7 @@ public class PedidoServicio {
 		entity.setNumero(dto.getNumero());
 		entity.setEstado(dto.getEstado());
 		entity.setHoraFin(dto.getHoraFin());
-		entity.setTipoEnvio(dto.getTipoEnvio());		
+		entity.setConEnvio(dto.getConEnvio());		
 		
 		try {
 			entity = repository.save(entity);
@@ -135,8 +164,8 @@ public class PedidoServicio {
 			
 	}
 	
-	public PedidoDto update(int id, PedidoDto dto, boolean estado) throws Exception {
-		Optional<Pedido> optionalEntity = repository.findById((long) id);
+	public PedidoDto update(long id, PedidoDto dto, boolean estado) throws Exception {
+		Optional<Pedido> optionalEntity = repository.findById(id);
 		
 		try {
 			 Pedido entity = optionalEntity.get();
@@ -145,17 +174,24 @@ public class PedidoServicio {
 				entity.setNumero(dto.getNumero());
 				entity.setEstado(dto.getEstado());
 				entity.setHoraFin(dto.getHoraFin());
-				entity.setTipoEnvio(dto.getTipoEnvio());
+				entity.setConEnvio(dto.getConEnvio());
+				entity.setFechaAnulado(dto.getFechaAnulado());
 
-
+				EstadoPedido epTemp = new EstadoPedido();
+				Optional<EstadoPedido>epEntityOptional = estadoPedidoRepository.findById((long)dto.getIdEstadoPedido());
+				epTemp = epEntityOptional.get();
+				entity.setEstadoPedido(epTemp);
 
 			 
 			 repository.save(entity);
 			 dto.setId(entity.getId());
+			 System.out.println("salió todo bien");
 			 return dto;
 			 
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println("Falló método Update de PedidoService: "+e.getMessage());
+
 		}
 		return dto;
 	}
