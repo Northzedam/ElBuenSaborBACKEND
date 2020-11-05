@@ -26,7 +26,7 @@ import javax.persistence.OneToOne;
 		@Column(name = "Denominacion")
 		private String denominacion;
 		
-		@Column(name = "Rubro")
+		@Column(name = "rubro")
 		private RubroArticulo rubroArticulo;
 		
 		@OneToMany(mappedBy="rubroArticulo" ,cascade = CascadeType.ALL, orphanRemoval=true)

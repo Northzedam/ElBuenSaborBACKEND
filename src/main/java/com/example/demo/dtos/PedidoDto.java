@@ -9,9 +9,21 @@ import java.util.List;
 import com.example.demo.entity.Cliente;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Factura;
+import com.example.demo.entity.Pedido;
 
 public class PedidoDto {
 	
+	public Date getHoraFin() {
+		return horaFin;
+	}
+
+
+
+	public void setHoraFin(Date horaFin) {
+		this.horaFin = horaFin;
+	}
+
+
 	private long id;
 	
 	
@@ -27,7 +39,7 @@ public class PedidoDto {
 	private int tiempoRequerido;
 	
 	
-	private int tipoEnvio;
+	private boolean conEnvio;
 
 	
 	private List<DetallePedidoDto> detalles = new ArrayList<DetallePedidoDto>();
@@ -37,6 +49,33 @@ public class PedidoDto {
 	
 	
 	private Factura factura;
+	
+	private Pedido pedido;
+	
+	private Date horaFin;
+	
+	
+	//Los siguientes son datos que se van a mostrar en la recepción
+	
+	
+	private long idEstadoPedido;
+	
+		
+	private String nombreCliente;
+	
+	
+	private String stringDetallePedido;
+	
+	
+	private int telCliente;
+	
+	
+	private String domicilioCliente;
+	
+	
+	private String stringEstadoPedido;
+	
+	private Date fechaAnulado;
 
 
 	public PedidoDto() {
@@ -44,7 +83,8 @@ public class PedidoDto {
 	}
 
 
-	public PedidoDto(long id, Date fecha, int numero, String estado, int tiempoRequerido, int tipoEnvio,
+
+	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin ,int tiempoRequerido, boolean conEnvio,
 			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura) {
 		super();
 		this.id = id;
@@ -52,10 +92,39 @@ public class PedidoDto {
 		this.numero = numero;
 		this.estado = estado;
 		this.tiempoRequerido = tiempoRequerido;
-		this.tipoEnvio = tipoEnvio;
+		this.horaFin = horaFin;
+		this.conEnvio = conEnvio;
 		this.detalles = detalles;
 		this.cliente = cliente;
 		this.factura = factura;
+	}
+	
+	
+
+
+
+	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin, boolean conEnvio,
+			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura, Pedido pedido, long idEstadoPedido,
+			String nombreCliente, String stringDetallePedido, int telCliente, String domicilioCliente,
+			String stringEstadoPedido, Date fechaAnulado) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.numero = numero;
+		this.estado = estado;
+		this.horaFin = horaFin;
+		this.conEnvio = conEnvio;
+		this.detalles = detalles;
+		this.cliente = cliente;
+		this.factura = factura;
+		this.pedido = pedido;
+		this.idEstadoPedido = idEstadoPedido;
+		this.nombreCliente = nombreCliente;
+		this.stringDetallePedido = stringDetallePedido;
+		this.telCliente = telCliente;
+		this.domicilioCliente = domicilioCliente;
+		this.stringEstadoPedido = stringEstadoPedido;
+		this.fechaAnulado = fechaAnulado;
 	}
 
 
@@ -109,13 +178,13 @@ public class PedidoDto {
 	}
 
 
-	public int getTipoEnvio() {
-		return tipoEnvio;
+	public boolean getConEnvio() {
+		return conEnvio;
 	}
 
 
-	public void setTipoEnvio(int tipoEnvio) {
-		this.tipoEnvio = tipoEnvio;
+	public void setConEnvio(boolean conEnvio) {
+		this.conEnvio = conEnvio;
 	}
 
 
@@ -147,6 +216,88 @@ public class PedidoDto {
 	public void setFactura(Factura factura) {
 		this.factura = factura;
 	}
+
+
+	public long getIdEstadoPedido() {
+		return idEstadoPedido;
+	}
+
+
+	public void setIdEstadoPedido(long idEstadoPedido) {
+		this.idEstadoPedido = idEstadoPedido;
+	}
+
+
+	public String getNombreCliente() {
+		return nombreCliente;
+	}
+
+
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
+	}
+
+
+	public String getStringDetallePedido() {
+		return stringDetallePedido;
+	}
+
+
+	public void setStringDetallePedido(String stringDetallePedido) {
+		this.stringDetallePedido = stringDetallePedido;
+	}
+
+
+	public int getTelCliente() {
+		return telCliente;
+	}
+
+
+	public void setTelCliente(int telCliente) {
+		this.telCliente = telCliente;
+	}
+
+
+	public String getDomicilioCliente() {
+		return domicilioCliente;
+	}
+
+
+	public void setDomicilioCliente(String domicilioCliente) {
+		this.domicilioCliente = domicilioCliente;
+	}
+
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+
+	public String getStringEstadoPedido() {
+		return stringEstadoPedido;
+	}
+
+
+	public void setStringEstadoPedido(String stringEstadoPedido) {
+		this.stringEstadoPedido = stringEstadoPedido;
+	}
+
+
+	public Date getFechaAnulado() {
+		return fechaAnulado;
+	}
+
+
+	public void setFechaAnulado(Date fechaAnulado) {
+		this.fechaAnulado = fechaAnulado;
+	}
+	
+	
 	
 	
 	
