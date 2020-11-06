@@ -284,14 +284,14 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			detalleEntity.setCantidad(detalleDto.getCantidad());
 			detalleEntity.setSubtotal(detalleDto.getSubtotal());
 			Articulo articuloEntity = articuloRepository.getOne(detalleDto.getArticuloDto().getId());
-			/* CONTROL DE STOCK
+			// CONTROL DE STOCK
 			for(DetalleReceta detalle : articuloEntity.getDetallesReceta()) {
 				if(detalle.getInsumo().getStockActual() > detalle.getInsumo().getStockMinimo()) {
-					detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - detalle.getCantidad());
+					detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - (detalle.getCantidad()*detalleDto.getCantidad()));
 				}else {
 					throw new Exception("Stock insuficiente");
 				}
-			}*/
+			}
 			
 			tiempoRequerido+=(articuloEntity.getTiempoCocina()*detalleDto.getCantidad());
 			detalleEntity.setArticulo(articuloEntity);			
