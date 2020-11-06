@@ -32,11 +32,19 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	@Column(name = "tiempoRequerido")
 	private int tiempoRequerido;
 	
-	@Column(name = "TipoDeEnvio")
-	private int tipoEnvio;
+	@Column(name = "horaFin")
+	private Date horaFin;
 
+	
+	@Column(name = "ConEnvio")
+	private boolean conEnvio;
+	
+	@Column(name = "FechaAnulado")
+	private Date fechaAnulado;
+	
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-	@JoinColumn(name = "id_pedido")
+	@Column(name = "DetallePedido")
 	private List<DetallePedido> detalles = new ArrayList<DetallePedido>();
 
 	@ManyToOne (cascade = CascadeType.ALL)
@@ -47,33 +55,58 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	@JoinColumn(name= "fk_factura")
 	private Factura factura;
 	
+	@ManyToOne (cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "id_estadoPedido")
+	private EstadoPedido estadoPedido;
+	
 	public Pedido() {
 		super();
 	}
 
 
-	public Pedido(long id, Date fecha, int numero, String estado, int tiempoRequerido, int tipoEnvio) {
+
+	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tiempoRequerido, boolean conEnvio) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
 		this.tiempoRequerido = tiempoRequerido;
-		this.tipoEnvio = tipoEnvio;
+		this.horaFin = horaFin;
+		this.conEnvio = conEnvio;
 	}
 	
 	
 
 
-	public Pedido(long id, Date fecha, int numero, String estado, int tiempoRequerido, int tipoEnvio, List<DetallePedido> detalles) {
+
+	public Pedido(long id, Date fecha, int numero, String estado, int tiempoRequerido, Date horaFin, boolean conEnvio, List<DetallePedido> detalles) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.numero = numero;
 		this.estado = estado;
 		this.tiempoRequerido = tiempoRequerido;
-		this.tipoEnvio = tipoEnvio;
+		this.horaFin = horaFin;
+		this.conEnvio = conEnvio;
 		this.detalles = detalles;
+	}
+	
+	
+	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, boolean conEnvio, Date fechaAnulado,
+			List<DetallePedido> detalles, Cliente cliente, Factura factura, EstadoPedido estadoPedido) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.numero = numero;
+		this.estado = estado;
+		this.horaFin = horaFin;
+		this.conEnvio = conEnvio;
+		this.fechaAnulado = fechaAnulado;
+		this.detalles = detalles;
+		this.cliente = cliente;
+		this.factura = factura;
+		this.estadoPedido = estadoPedido;
 	}
 
 
@@ -144,13 +177,33 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	}
 
 
-	public int getTipoEnvio() {
-		return tipoEnvio;
+	public boolean getConEnvio() {
+		return conEnvio;
 	}
 
 
-	public void setTipoEnvio(int tipoEnvio) {
-		this.tipoEnvio = tipoEnvio;
+	public void setConEnvio(boolean conEnvio) {
+		this.conEnvio = conEnvio;
+	}
+
+
+	public EstadoPedido getEstadoPedido() {
+		return estadoPedido;
+	}
+
+
+	public void setEstadoPedido(EstadoPedido estadoPedido) {
+		this.estadoPedido = estadoPedido;
+	}
+
+
+	public Date getFechaAnulado() {
+		return fechaAnulado;
+	}
+
+
+	public void setFechaAnulado(Date fechaAnulado) {
+		this.fechaAnulado = fechaAnulado;
 	}
 
 
@@ -161,6 +214,18 @@ public class Pedido extends EntidadGenerica implements Serializable{
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+
+
+	public Date getHoraFin() {
+		return horaFin;
+	}
+
+
+
+	public void setHoraFin(Date horaFin) {
+		this.horaFin = horaFin;
 	}
 
 

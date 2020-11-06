@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import com.example.demo.entity.DetalleReceta;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ArticuloRepository;
 import com.example.demo.repository.InsumoRepository;
+import com.example.demo.entity.EstadoPedido;
+import com.example.demo.repository.EstadoPedidoRepository;
 import com.example.demo.repository.PedidoRepository;
 import com.example.demo.dtos.ArticuloDto;
 import com.example.demo.dtos.DetallePedidoDto;
@@ -27,14 +30,16 @@ public class PedidoServicio {
 
 	PedidoRepository repository;
 	ArticuloRepository articuloRepository;
+	EstadoPedidoRepository estadoPedidoRepository;
 	InsumoRepository insumoRepository;
 	ArticuloServicio artConsService = new ArticuloServicio(articuloRepository, insumoRepository);
 	
 	public static int tiempoDeCola=0;
 
-	public PedidoServicio(PedidoRepository repository,ArticuloRepository articuloRepository) {
+	public PedidoServicio(PedidoRepository repository,ArticuloRepository articuloRepository, EstadoPedidoRepository estadoPedidoRepository) {
 		this.repository = repository;
 		this.articuloRepository = articuloRepository;
+		this.estadoPedidoRepository = estadoPedidoRepository;
 	}
 	
 	public List<PedidoDto> findAll() throws Exception {
@@ -51,8 +56,19 @@ public class PedidoServicio {
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
 				dto.setTiempoRequerido(entity.getTiempoRequerido());
-				dto.setTipoEnvio(entity.getTipoEnvio());
 				dto.setCliente(entity.getCliente());
+				dto.setHoraFin(entity.getHoraFin());
+				dto.setConEnvio(entity.getConEnvio());
+				
+				dto.setNombreCliente(entity.getCliente().getNombre()+" "+entity.getCliente().getApellido());
+				dto.setDomicilioCliente(entity.getCliente().getDomicilio().getCalle()+" "+entity.getCliente().getDomicilio().getNumero()+", "
+						+entity.getCliente().getDomicilio().getLocalidad()+" - "+entity.getCliente().getDomicilio().getDepartamento());
+				dto.setTelCliente(entity.getCliente().getTelefono());
+				dto.setIdEstadoPedido(entity.getEstadoPedido().getId());
+				dto.setStringEstadoPedido(entity.getEstadoPedido().getEstadoPedido());
+				dto.setFechaAnulado(entity.getFechaAnulado());
+				
+				String detallesConcatenados = "";
 				
 				for(DetallePedido entityDetalle : entity.getDetalles()) {
 					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
@@ -69,8 +85,19 @@ public class PedidoServicio {
 					dtoDetalle.setArticuloDto(ArticuloDto);
 
 					
+					
+
+	                    
+					detallesConcatenados += entityDetalle.getArticulo().getDenominacion()+" x "+ entityDetalle.getCantidad()+". ";
+	                    
+					    
+						
 					dto.getDetalles().add(dtoDetalle);
-				}
+						
+				}		
+				
+				dto.setStringDetallePedido(detallesConcatenados);
+				
 				dtos.add(dto);
 			}
 						
@@ -95,7 +122,6 @@ public class PedidoServicio {
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
 				dto.setTiempoRequerido(entity.getTiempoRequerido());
-				dto.setTipoEnvio(entity.getTipoEnvio());
 				dto.setCliente(entity.getCliente());
 				
 				for(DetallePedido entityDetalle : entity.getDetalles()) {
@@ -138,7 +164,6 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
 				dto.setTiempoRequerido(entity.getTiempoRequerido());
-				dto.setTipoEnvio(entity.getTipoEnvio());
 				dto.setCliente(entity.getCliente());
 				
 				for(DetallePedido entityDetalle : entity.getDetalles()) {
@@ -200,7 +225,6 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 					dto.setNumero(entity.getNumero());
 					dto.setEstado(entity.getEstado());
 					dto.setTiempoRequerido(entity.getTiempoRequerido());
-					dto.setTipoEnvio(entity.getTipoEnvio());
 					dtos.add(dto);
 				}				
 			}
@@ -227,7 +251,8 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
 				dto.setTiempoRequerido(entity.getTiempoRequerido());
-				dto.setTipoEnvio(entity.getTipoEnvio());
+				dto.setHoraFin(entity.getHoraFin());
+				dto.setConEnvio(entity.getConEnvio());
 				for(DetallePedido entityDetalle : entity.getDetalles()) {
 					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
 					dtoDetalle.setId(entityDetalle.getId());
@@ -251,23 +276,22 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		entity.setFecha(dto.getFecha());
 		entity.setNumero(dto.getNumero());
 		entity.setEstado(dto.getEstado());
-		
-		
-		entity.setTipoEnvio(dto.getTipoEnvio());
+		entity.setHoraFin(dto.getHoraFin());
+		entity.setConEnvio(dto.getConEnvio());	
 		
 		for(DetallePedidoDto detalleDto : dto.getDetalles()) {
 			DetallePedido detalleEntity = new DetallePedido();
 			detalleEntity.setCantidad(detalleDto.getCantidad());
 			detalleEntity.setSubtotal(detalleDto.getSubtotal());
 			Articulo articuloEntity = articuloRepository.getOne(detalleDto.getArticuloDto().getId());
-			/* CONTROL DE STOCK
+			// CONTROL DE STOCK
 			for(DetalleReceta detalle : articuloEntity.getDetallesReceta()) {
 				if(detalle.getInsumo().getStockActual() > detalle.getInsumo().getStockMinimo()) {
-					detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - detalle.getCantidad());
+					detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - (detalle.getCantidad()*detalleDto.getCantidad()));
 				}else {
 					throw new Exception("Stock insuficiente");
 				}
-			}*/
+			}
 			
 			tiempoRequerido+=(articuloEntity.getTiempoCocina()*detalleDto.getCantidad());
 			detalleEntity.setArticulo(articuloEntity);			
@@ -287,8 +311,8 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			
 	}
 	
-	public PedidoDto update(int id, PedidoDto dto, boolean estado) throws Exception {
-		Optional<Pedido> optionalEntity = repository.findById((long) id);
+	public PedidoDto update(long id, PedidoDto dto, boolean estado) throws Exception {
+		Optional<Pedido> optionalEntity = repository.findById(id);
 		
 		try {
 			 Pedido entity = optionalEntity.get();
@@ -297,17 +321,25 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				entity.setNumero(dto.getNumero());
 				entity.setEstado(dto.getEstado());
 				entity.setTiempoRequerido(dto.getTiempoRequerido());
-				entity.setTipoEnvio(dto.getTipoEnvio());
+				entity.setHoraFin(dto.getHoraFin());
+				entity.setConEnvio(dto.getConEnvio());
+				entity.setFechaAnulado(dto.getFechaAnulado());
 
-
+				EstadoPedido epTemp = new EstadoPedido();
+				Optional<EstadoPedido>epEntityOptional = estadoPedidoRepository.findById((long)dto.getIdEstadoPedido());
+				epTemp = epEntityOptional.get();
+				entity.setEstadoPedido(epTemp);
 
 			 
 			 repository.save(entity);
 			 dto.setId(entity.getId());
+			 System.out.println("salió todo bien");
 			 return dto;
 			 
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println("Falló método Update de PedidoService: "+e.getMessage());
+
 		}
 		return dto;
 	}
