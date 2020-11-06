@@ -94,6 +94,7 @@ public class InsumoServicio {
 			try {
 				Optional<UnidadMedida>unidadMedidaOptional = unidadMedidaRepository.findById(dto.getUnidadMedidaId());
 				entity.setUnidadMedida(unidadMedidaOptional.get());
+				dto.getUnidadMedida().setUnidadMedida(unidadMedidaOptional.get().getUnidadMedida());
 			} catch (Exception e) {
 				throw new Exception("No se encontró la unidad de medida");
 			}
@@ -124,6 +125,7 @@ public class InsumoServicio {
 					try {
 						Optional<UnidadMedida>unidadMedidaOptional = unidadMedidaRepository.findById(dto.getUnidadMedidaId());
 						entity.setUnidadMedida(unidadMedidaOptional.get());
+						dto.getUnidadMedida().setUnidadMedida(unidadMedidaOptional.get().getUnidadMedida());
 					} catch (Exception e) {
 						throw new Exception("No se encontró la unidad de medida");
 					}
