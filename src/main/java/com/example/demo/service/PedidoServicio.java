@@ -56,7 +56,6 @@ public class PedidoServicio {
 				dto.setNumero(entity.getNumero());
 				dto.setEstado(entity.getEstado());
 				dto.setTiempoRequerido(entity.getTiempoRequerido());
-				dto.setCliente(entity.getCliente());
 				dto.setHoraFin(entity.getHoraFin());
 				dto.setConEnvio(entity.getConEnvio());
 				
