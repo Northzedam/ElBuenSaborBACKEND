@@ -2,10 +2,12 @@ package com.example.demo.service;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -328,6 +330,9 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				Optional<EstadoPedido>epEntityOptional = estadoPedidoRepository.findById((long)dto.getIdEstadoPedido());
 				epTemp = epEntityOptional.get();
 				entity.setEstadoPedido(epTemp);
+				
+				//le doy valor string de estadoPedido
+				dto.setStringEstadoPedido(epTemp.getEstadoPedido());
 
 			 
 			 repository.save(entity);
@@ -368,7 +373,16 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		}
 	}
 	
+	//FindByFrase
+	public Page<Pedido> findByFrase(boolean usarParamConEnvio, boolean conEnvio, long idEstadoPedido, String frase, Date  fechaDesde, Date fechaHasta, boolean tieneHoraFin, boolean tieneFechaAnulado, Pageable pageable){
+		return repository.findByNombre(usarParamConEnvio, conEnvio, idEstadoPedido, frase, fechaDesde, fechaHasta, tieneHoraFin, tieneFechaAnulado, pageable);
+	}
 	
+	//FindByFrase2 (su usuario)
+	
+	public Page<Pedido> pedidosPaged(boolean conEnvio, long idEstadoPedido, Pageable pageable){
+		return repository.findByConEnvioAndIdEstadoPedido(conEnvio, idEstadoPedido, pageable);
+	}
 	
 	
 }
