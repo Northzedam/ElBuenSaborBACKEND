@@ -272,6 +272,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 	
 		
     public PedidoDto save(PedidoDto dto, boolean estado) throws Exception {
+    	boolean error=false;
 		Pedido entity = new Pedido();
 		int tiempoRequerido=0;
 		entity.setFecha(dto.getFecha());
@@ -285,29 +286,35 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			detalleEntity.setCantidad(detalleDto.getCantidad());
 			detalleEntity.setSubtotal(detalleDto.getSubtotal());
 			Articulo articuloEntity = articuloRepository.getOne(detalleDto.getArticuloDto().getId());
-			/* CONTROL DE STOCK
+			// CONTROL DE STOCK
 			for(DetalleReceta detalle : articuloEntity.getDetallesReceta()) {
-				if(detalle.getInsumo().getStockActual() > detalle.getInsumo().getStockMinimo()) {
-					detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - detalle.getCantidad());
+				if((detalle.getInsumo().getStockActual() > detalle.getInsumo().getStockMinimo()) && (detalle.getInsumo().getStockActual() > detalle.getCantidad()*detalleDto.getCantidad() )) { // controla que el stock actual sea mayor que el minimo
+						detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - (detalle.getCantidad()*detalleDto.getCantidad()));		
 				}else {
+					error = true;
 					throw new Exception("Stock insuficiente");
 				}
-			}*/
+			}
 			
 			tiempoRequerido+=(articuloEntity.getTiempoCocina()*detalleDto.getCantidad());
 			detalleEntity.setArticulo(articuloEntity);			
 			entity.getDetalles().add(detalleEntity);
 		}
 		entity.setTiempoRequerido(tiempoRequerido);
-		try {
-			entity = repository.save(entity);	
-			dto.setId(entity.getId());
-			
-			
-			return dto;
-		} catch (Exception e) {
-			throw new Exception();	
-		}
+		
+			try {
+					if(error) {
+						entity=null;
+					}
+					entity = repository.save(entity);	
+					dto.setId(entity.getId());	
+					
+				return dto;
+				
+			} catch (Exception e) {
+				throw new Exception();	
+			}	
+		
 		
 			
 	}
