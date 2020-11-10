@@ -22,6 +22,8 @@ import com.example.demo.repository.InsumoRepository;
 import com.example.demo.ElBuenSabor2020Application;
 import com.example.demo.dtos.ArticuloDto;
 import com.example.demo.dtos.DetalleRecetaDto;
+import com.example.demo.dtos.InsumoDto;
+import com.example.demo.dtos.UnidadMedidaDto;
 
 @Service
 public class ArticuloServicio {
@@ -61,11 +63,17 @@ public class ArticuloServicio {
 					DetalleRecetaDto detalleRecetaDto = new DetalleRecetaDto();
 					detalleRecetaDto.setId(detalleReceta.getId());
 					detalleRecetaDto.setCantidad(detalleReceta.getCantidad());
-					detalleRecetaDto.getInsumo().setId(detalleReceta.getInsumo().getId());
-					detalleRecetaDto.getInsumo().setDenominacion(detalleReceta.getInsumo().getDenominacion());
-					detalleRecetaDto.getInsumo().setPrecioCompra(detalleReceta.getInsumo().getPrecioCompra());
-					detalleRecetaDto.getInsumo().setStockActual(detalleReceta.getInsumo().getStockActual());
-					detalleRecetaDto.getInsumo().setStockMinimo(detalleReceta.getInsumo().getStockMinimo());
+					InsumoDto insumoDto = new InsumoDto();
+					insumoDto.setId(detalleReceta.getInsumo().getId());
+					insumoDto.setDenominacion(detalleReceta.getInsumo().getDenominacion());
+					insumoDto.setPrecioCompra(detalleReceta.getInsumo().getPrecioCompra());
+					insumoDto.setStockActual(detalleReceta.getInsumo().getStockActual());
+					insumoDto.setStockMinimo(detalleReceta.getInsumo().getStockMinimo());
+					UnidadMedidaDto unidadMedidaDto = new UnidadMedidaDto();
+					unidadMedidaDto.setId(detalleReceta.getInsumo().getUnidadMedida().getId());
+					unidadMedidaDto.setUnidadMedida(detalleReceta.getInsumo().getUnidadMedida().getUnidadMedida());
+					insumoDto.setUnidadMedida(unidadMedidaDto);
+					detalleRecetaDto.setInsumo(insumoDto);
 					detallesReceta.add(detalleRecetaDto);
 				}
 				dto.setDetalles(detallesReceta);

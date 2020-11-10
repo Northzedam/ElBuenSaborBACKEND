@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -381,14 +383,25 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 	}
 	
 	//FindByFrase
-	public Page<Pedido> findByFrase(boolean usarParamConEnvio, boolean conEnvio, long idEstadoPedido, String frase, Date  fechaDesde, Date fechaHasta, boolean tieneHoraFin, boolean tieneFechaAnulado, Pageable pageable){
-		return repository.findByNombre(usarParamConEnvio, conEnvio, idEstadoPedido, frase, fechaDesde, fechaHasta, tieneHoraFin, tieneFechaAnulado, pageable);
-	}
-	
-	//FindByFrase2 (su usuario)
-	
-	public Page<Pedido> pedidosPaged(boolean conEnvio, long idEstadoPedido, Pageable pageable){
-		return repository.findByConEnvioAndIdEstadoPedido(conEnvio, idEstadoPedido, pageable);
+	public Page<PedidoDto> findByFrase(boolean usarParamConEnvio, boolean conEnvio, long idEstadoPedido, String frase, Date  fechaDesde, Date fechaHasta, boolean tieneHoraFin, boolean tieneFechaAnulado, Pageable pageable){
+		
+		Page<Pedido> pedidosEntity = repository.findByNombre(usarParamConEnvio, conEnvio, idEstadoPedido, frase, fechaDesde, fechaHasta, tieneHoraFin, tieneFechaAnulado, pageable);
+		Page<PedidoDto> pedidosDto = null;
+		try {
+			pedidosDto = pedidosEntity.map(new Function<Pedido, PedidoDto>() {
+				
+				public PedidoDto apply(Pedido t) {
+					return new PedidoDto(t);
+				}
+
+	        });	
+		}catch(Exception e){
+			System.out.println("MANSO ERROR: "+e.getMessage());
+		}
+		
+		
+		return pedidosDto;		
+
 	}
 	
 	
