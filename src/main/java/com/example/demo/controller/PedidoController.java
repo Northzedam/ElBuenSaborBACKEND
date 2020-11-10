@@ -1,15 +1,8 @@
 package com.example.demo.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -172,61 +165,6 @@ public class PedidoController {
 			return null;
 		}
 		
-	}
-	
-	//Paginator
-	@GetMapping("/lista/pedidosPaged/")
-	@Transactional
-	public ResponseEntity<Page<Pedido>> pedidos(
-		@RequestParam(defaultValue = "0") int page,
-		@RequestParam(defaultValue = "10") int size,
-		@RequestParam(defaultValue = "fecha") String order,
-		@RequestParam(defaultValue = "true") boolean asc,
-		@RequestParam(defaultValue = "") String frase,
-		@RequestParam(defaultValue = "2000-01-01 00:00:00") String fechaDesde,
-		@RequestParam(defaultValue = "2040-12-31 23:59:59") String fechaHasta,
-		@RequestParam(defaultValue = "false") boolean usarParamConEnvio,
-		@RequestParam(defaultValue = "false") boolean conEnvio,
-		@RequestParam(defaultValue = "0") long idEstadoPedido,
-		@RequestParam(defaultValue = "false") boolean tieneHoraFin,
-		@RequestParam(defaultValue = "false") boolean tieneFechaAnulado) throws Exception{
-		
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.ENGLISH);
-		Date dateFechaDesde = new Date();
-		Date dateFechaHasta = new Date();
-		
-		dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaDesde);
-		dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);
-		
-		//if(!frase.equals("")) {				
-			        
-			if(!asc) {
-				Page<Pedido> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, dateFechaDesde, dateFechaHasta, tieneHoraFin, tieneFechaAnulado,
-						  PageRequest.of(page, size, Sort.by(order).descending()));
-				return new ResponseEntity(pedidos, HttpStatus.OK);
-			}else {
-				Page<Pedido> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, dateFechaDesde, dateFechaHasta, tieneHoraFin, tieneFechaAnulado,
-						  PageRequest.of(page, size, Sort.by(order)));
-				return new ResponseEntity(pedidos, HttpStatus.OK);
-			}
-				
-		/*	
-		}else{
-			
-			if(!asc) {
-				Page<Pedido> pedidos = service.pedidosPaged(conEnvio, idEstadoPedido,
-						  PageRequest.of(page, size, Sort.by(order).descending()));
-				return new ResponseEntity(pedidos, HttpStatus.OK);
-			}else {
-				Page<Pedido> pedidos = service.pedidosPaged(conEnvio, idEstadoPedido,
-						PageRequest.of(page, size, Sort.by(order)));
-				return new ResponseEntity(pedidos, HttpStatus.OK);
-			}
-			
-		
-		}
-		*/
 	}
 
 }
