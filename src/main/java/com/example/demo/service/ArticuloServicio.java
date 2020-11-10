@@ -69,10 +69,10 @@ public class ArticuloServicio {
 					detallesReceta.add(detalleRecetaDto);
 				}
 				dto.setDetalles(detallesReceta);
-			
+
 				dtos.add(dto);
 			}
-			
+
 			return dtos;
 			
 		} catch (Exception e) {
