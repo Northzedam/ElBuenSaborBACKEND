@@ -175,7 +175,7 @@ public class PedidoController {
 	}
 	
 	//Paginator
-	@GetMapping("/lista/pedidosPaged/")
+	@GetMapping("/lista/pedidosPaged")
 	@Transactional
 	public ResponseEntity<Page<Pedido>> pedidos(
 		@RequestParam(defaultValue = "0") int page,
@@ -191,42 +191,22 @@ public class PedidoController {
 		@RequestParam(defaultValue = "false") boolean tieneHoraFin,
 		@RequestParam(defaultValue = "false") boolean tieneFechaAnulado) throws Exception{
 		
+		System.out.println("HOLA PEBETE: "+idEstadoPedido);
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.ENGLISH);
 		Date dateFechaDesde = new Date();
 		Date dateFechaHasta = new Date();
 		
 		dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaDesde);
-		dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);
-		
-		//if(!frase.equals("")) {				
+		dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);			
 			        
-			if(!asc) {
-				Page<Pedido> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, dateFechaDesde, dateFechaHasta, tieneHoraFin, tieneFechaAnulado,
-						  PageRequest.of(page, size, Sort.by(order).descending()));
-				return new ResponseEntity(pedidos, HttpStatus.OK);
-			}else {
-				Page<Pedido> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, dateFechaDesde, dateFechaHasta, tieneHoraFin, tieneFechaAnulado,
-						  PageRequest.of(page, size, Sort.by(order)));
-				return new ResponseEntity(pedidos, HttpStatus.OK);
-			}
-				
-		/*	
-		}else{
-			
-			if(!asc) {
-				Page<Pedido> pedidos = service.pedidosPaged(conEnvio, idEstadoPedido,
-						  PageRequest.of(page, size, Sort.by(order).descending()));
-				return new ResponseEntity(pedidos, HttpStatus.OK);
-			}else {
-				Page<Pedido> pedidos = service.pedidosPaged(conEnvio, idEstadoPedido,
-						PageRequest.of(page, size, Sort.by(order)));
-				return new ResponseEntity(pedidos, HttpStatus.OK);
-			}
-			
-		
+		if(!asc) {
+			Page<PedidoDto> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, dateFechaDesde, dateFechaHasta, tieneHoraFin, tieneFechaAnulado,
+					  PageRequest.of(page, size, Sort.by(order).descending()));
+			return new ResponseEntity(pedidos, HttpStatus.OK);
+		}else {
+			Page<PedidoDto> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, dateFechaDesde, dateFechaHasta, tieneHoraFin, tieneFechaAnulado,
+					  PageRequest.of(page, size, Sort.by(order)));
+			return new ResponseEntity(pedidos, HttpStatus.OK);
 		}
-		*/
 	}
-
 }
