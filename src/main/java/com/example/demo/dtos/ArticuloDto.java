@@ -19,13 +19,15 @@ public class ArticuloDto {
 	private List<DetalleRecetaDto>detalles;
 	
 	private int tiempoCocina;
+	
+	private RubroArticuloDto rubroArticuloDto;
 
 	public ArticuloDto() {
 		super();
 	}
 
 	public ArticuloDto(long id, String denominacion, double precioCompra, double precioVenta, boolean esManufacturado,
-			String imagen) {
+			String imagen, RubroArticuloDto rubroArticuloDto) {
 		super();
 		this.id = id;
 		this.denominacion = denominacion;
@@ -33,7 +35,7 @@ public class ArticuloDto {
 		this.precioVenta = precioVenta;
 		this.esManufacturado = esManufacturado;
 		this.imagen = imagen;
-		
+		this.rubroArticuloDto = rubroArticuloDto;
 	}
 
 	public long getId() {
@@ -83,6 +85,15 @@ public class ArticuloDto {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+	
+
+	public RubroArticuloDto getRubroArticuloDto() {
+		return rubroArticuloDto;
+	}
+
+	public void setRubroArticuloDto(RubroArticuloDto rubroArticuloDto) {
+		this.rubroArticuloDto = rubroArticuloDto;
+	}
 
 	public List<DetalleRecetaDto> getDetalles() {
 		return detalles;
@@ -90,6 +101,11 @@ public class ArticuloDto {
 
 	public void setDetalles(List<DetalleRecetaDto> detalles) {
 		this.detalles = detalles;
+	}
+
+	public ArticuloDto(RubroArticuloDto rubroArticuloDto) {
+		super();
+		this.rubroArticuloDto = rubroArticuloDto;
 	}
 
 	public int getTiempoCocina() {

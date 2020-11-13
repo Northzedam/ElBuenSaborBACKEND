@@ -122,8 +122,10 @@ public class PedidoDto {
 	
 	private String stringEstadoPedido;
 	
+	
 	private Date fechaAnulado;
-
+	
+	
 
 	public PedidoDto() {
 		super();
