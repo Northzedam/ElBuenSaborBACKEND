@@ -42,7 +42,8 @@ import javax.persistence.OneToMany;
 		@Column(name = "imagen")
 		private String imagen;
 
-		@ManyToOne	
+		@ManyToOne
+		@JoinColumn(name="rubroArticulo")
 		private RubroArticulo rubroArticulo;
 		
 		public Articulo() {

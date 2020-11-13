@@ -17,12 +17,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.entity.Articulo;
 import com.example.demo.entity.DetalleReceta;
 import com.example.demo.entity.Insumo;
+import com.example.demo.entity.RubroArticulo;
 import com.example.demo.repository.ArticuloRepository;
 import com.example.demo.repository.InsumoRepository;
 import com.example.demo.ElBuenSabor2020Application;
 import com.example.demo.dtos.ArticuloDto;
 import com.example.demo.dtos.DetalleRecetaDto;
 import com.example.demo.dtos.InsumoDto;
+import com.example.demo.dtos.RubroArticuloDto;
 import com.example.demo.dtos.UnidadMedidaDto;
 
 @Service
@@ -55,6 +57,10 @@ public class ArticuloServicio {
 				dto.setPrecioVenta(entity.getPrecioVenta());
 				dto.setEsManufacturado(entity.isEsManufacturado());
 				dto.setImagen(entity.getImagen());
+		        RubroArticuloDto rubroArticuloDto = new RubroArticuloDto();
+		        rubroArticuloDto.setDenominacion(entity.getRubroArticulo().getDenominacion());
+		        rubroArticuloDto.setId(entity.getRubroArticulo().getId());
+		        dto.setRubroArticuloDto(rubroArticuloDto);
 				
 				 List<DetalleRecetaDto>detallesReceta = new ArrayList<DetalleRecetaDto>();
 				
@@ -103,7 +109,11 @@ public class ArticuloServicio {
 				dto.setPrecioVenta(entity.getPrecioVenta());
 				dto.setEsManufacturado(entity.isEsManufacturado());
 				dto.setImagen(entity.getImagen());
-				
+				RubroArticuloDto rubroArticuloDto = new RubroArticuloDto();
+		        rubroArticuloDto.setDenominacion(entity.getRubroArticulo().getDenominacion());
+		        rubroArticuloDto.setId(entity.getRubroArticulo().getId());
+		        dto.setRubroArticuloDto(rubroArticuloDto);
+		        
 				 List<DetalleRecetaDto>detallesReceta = new ArrayList<DetalleRecetaDto>();
 					
 					
@@ -150,6 +160,9 @@ public class ArticuloServicio {
 		entity.setEsManufacturado(dto.isEsManufacturado());
 		entity.setTiempoCocina(dto.getTiempoCocina());
 		entity.setImagen(dto.getImagen());
+		RubroArticulo rubroArticulo = new RubroArticulo();
+        rubroArticulo.setDenominacion(dto.getRubroArticuloDto().getDenominacion());
+        entity.setRubroArticulo(rubroArticulo);
 		
 	    List<DetalleReceta>detallesReceta = new ArrayList<DetalleReceta>();
 		for(DetalleRecetaDto detalleRecetaDto : dto.getDetalles()) {
@@ -198,6 +211,10 @@ public class ArticuloServicio {
 				entity.setEsManufacturado(dto.isEsManufacturado());
 				entity.setTiempoCocina(dto.getTiempoCocina());
 				entity.setImagen(dto.getImagen());
+				entity.setImagen(dto.getImagen());
+				RubroArticulo rubroArticulo = new RubroArticulo();
+		        rubroArticulo.setDenominacion(dto.getRubroArticuloDto().getDenominacion());
+		        entity.setRubroArticulo(rubroArticulo);
 	 
 				   List<DetalleReceta>detallesReceta = new ArrayList<DetalleReceta>();
 					for(DetalleRecetaDto detalleRecetaDto : dto.getDetalles()) {

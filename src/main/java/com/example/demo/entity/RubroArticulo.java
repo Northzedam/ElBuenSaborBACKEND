@@ -26,6 +26,7 @@ import javax.persistence.OneToOne;
 		@Column(name = "Denominacion")
 		private String denominacion;
 		
+		
 		@Column(name = "rubro")
 		private RubroArticulo rubroArticulo;
 		
