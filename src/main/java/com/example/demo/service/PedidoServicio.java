@@ -55,55 +55,10 @@ public class PedidoServicio {
 			
 			for(Pedido entity : entities) {
 				PedidoDto dto = new PedidoDto();
-				dto.setId(entity.getId());
-				dto.setFecha(entity.getFecha());
-				dto.setNumero(entity.getNumero());
-				dto.setEstado(entity.getEstado());
-				dto.setTiempoRequerido(entity.getTiempoRequerido());
-				dto.setHoraFin(entity.getHoraFin());
-				dto.setConEnvio(entity.getConEnvio());
-				
-				dto.setNombreCliente(entity.getCliente().getNombre()+" "+entity.getCliente().getApellido());
-				dto.setDomicilioCliente(entity.getCliente().getDomicilio().getCalle()+" "+entity.getCliente().getDomicilio().getNumero()+", "
-						+entity.getCliente().getDomicilio().getLocalidad()+" - "+entity.getCliente().getDomicilio().getDepartamento());
-				dto.setTelCliente(entity.getCliente().getTelefono());
-				dto.setIdEstadoPedido(entity.getEstadoPedido().getId());
-				dto.setStringEstadoPedido(entity.getEstadoPedido().getEstadoPedido());
-				dto.setFechaAnulado(entity.getFechaAnulado());
-				
-				String detallesConcatenados = "";
-				
-				for(DetallePedido entityDetalle : entity.getDetalles()) {
-					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
-					dtoDetalle.setId(entityDetalle.getId());
-					dtoDetalle.setCantidad(entityDetalle.getCantidad());
-					
-					ArticuloDto ArticuloDto = new ArticuloDto();
-					
-					ArticuloDto.setDenominacion(entityDetalle.getArticulo().getDenominacion());
-					ArticuloDto.setPrecioCompra(entityDetalle.getArticulo().getPrecioCompra());
-					ArticuloDto.setPrecioVenta(entityDetalle.getArticulo().getPrecioVenta());
-					ArticuloDto.setEsManufacturado(entityDetalle.getArticulo().isEsManufacturado());	
-					ArticuloDto.setTiempoCocina(entityDetalle.getArticulo().getTiempoCocina());
-					dtoDetalle.setArticuloDto(ArticuloDto);
-
-					
-					
-
-	                    
-					detallesConcatenados += entityDetalle.getArticulo().getDenominacion()+" x "+ entityDetalle.getCantidad()+". ";
-	                    
-					    
-						
-					dto.getDetalles().add(dtoDetalle);
-						
-				}		
-				
-				dto.setStringDetallePedido(detallesConcatenados);
+				dto = this.convertEntidadAPedidoDTO(entity);
 				
 				dtos.add(dto);
 			}
-						
 			return dtos;
 			
 		} catch (Exception e) {
@@ -247,23 +202,8 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		PedidoDto dto = new PedidoDto();
 		
 		try {
-			 Pedido entity = entityOptional.get();
-			
-				dto.setId(entity.getId());
-				dto.setFecha(entity.getFecha());
-				dto.setNumero(entity.getNumero());
-				dto.setEstado(entity.getEstado());
-				dto.setTiempoRequerido(entity.getTiempoRequerido());
-				dto.setHoraFin(entity.getHoraFin());
-				dto.setConEnvio(entity.getConEnvio());
-				for(DetallePedido entityDetalle : entity.getDetalles()) {
-					DetallePedidoDto dtoDetalle = new DetallePedidoDto();
-					dtoDetalle.setId(entityDetalle.getId());
-					dtoDetalle.setCantidad(entityDetalle.getCantidad());
-					//dtoDetalle.setArticulo(entityDetalle.getArticulo());
-					
-					dto.getDetalles().add(dtoDetalle);
-				}
+			Pedido entity = entityOptional.get();			
+			dto = this.convertEntidadAPedidoDTO(entity);
 
 		} catch (Exception e) {
 			throw new Exception();
@@ -334,6 +274,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				entity.setHoraFin(dto.getHoraFin());
 				entity.setConEnvio(dto.getConEnvio());
 				entity.setFechaAnulado(dto.getFechaAnulado());
+				entity.setFactura(dto.getFactura());
 
 				EstadoPedido epTemp = new EstadoPedido();
 				Optional<EstadoPedido>epEntityOptional = estadoPedidoRepository.findById((long)dto.getIdEstadoPedido());
@@ -391,7 +332,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			pedidosDto = pedidosEntity.map(new Function<Pedido, PedidoDto>() {
 				
 				public PedidoDto apply(Pedido t) {
-					return new PedidoDto(t);
+					return convertEntidadAPedidoDTO(t);
 				}
 
 	        });	
@@ -402,6 +343,48 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		
 		return pedidosDto;		
 
+	}
+	
+	private PedidoDto convertEntidadAPedidoDTO(Pedido entity) {
+		PedidoDto dto = new PedidoDto();
+		dto.setId(entity.getId());
+		dto.setFecha(entity.getFecha());
+		dto.setNumero(entity.getNumero());
+		dto.setEstado(entity.getEstado());
+		dto.setTiempoRequerido(entity.getTiempoRequerido());
+		dto.setHoraFin(entity.getHoraFin());
+		dto.setConEnvio(entity.getConEnvio());
+		
+		dto.setNombreCliente(entity.getCliente().getNombre()+" "+entity.getCliente().getApellido());
+		dto.setDomicilioCliente(entity.getCliente().getDomicilio().getCalle()+" "+entity.getCliente().getDomicilio().getNumero()+", "
+				+entity.getCliente().getDomicilio().getLocalidad()+" - "+entity.getCliente().getDomicilio().getDepartamento());
+		dto.setTelCliente(entity.getCliente().getTelefono());
+		dto.setIdEstadoPedido(entity.getEstadoPedido().getId());
+		dto.setStringEstadoPedido(entity.getEstadoPedido().getEstadoPedido());
+		dto.setFechaAnulado(entity.getFechaAnulado());
+		
+		String detallesConcatenados = "";
+		
+		for(DetallePedido entityDetalle : entity.getDetalles()) {
+			DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+			dtoDetalle.setId(entityDetalle.getId());
+			dtoDetalle.setCantidad(entityDetalle.getCantidad());
+			
+			ArticuloDto ArticuloDto = new ArticuloDto();
+			
+			ArticuloDto.setDenominacion(entityDetalle.getArticulo().getDenominacion());
+			ArticuloDto.setPrecioCompra(entityDetalle.getArticulo().getPrecioCompra());
+			ArticuloDto.setPrecioVenta(entityDetalle.getArticulo().getPrecioVenta());
+			ArticuloDto.setEsManufacturado(entityDetalle.getArticulo().isEsManufacturado());	
+			ArticuloDto.setTiempoCocina(entityDetalle.getArticulo().getTiempoCocina());
+			dtoDetalle.setArticuloDto(ArticuloDto);
+			
+			detallesConcatenados += entityDetalle.getArticulo().getDenominacion()+" x "+ entityDetalle.getCantidad()+". ";
+                			
+			dto.getDetalles().add(dtoDetalle);				
+		}				
+		dto.setStringDetallePedido(detallesConcatenados);		
+		return dto;
 	}
 	
 	

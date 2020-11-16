@@ -12,53 +12,7 @@ import com.example.demo.entity.Factura;
 import com.example.demo.entity.Pedido;
 
 public class PedidoDto {
-	
-	
-	
-	public PedidoDto(Pedido entity) {
-		super();
-		this.id = entity.getId();
-		this.fecha = entity.getFecha();
-		this.numero = entity.getNumero();
-		this.estado = entity.getEstado();
-		this.tiempoRequerido = entity.getTiempoRequerido();
-		this.horaFin = entity.getHoraFin();
-		this.conEnvio = entity.getConEnvio();
 		
-		this.nombreCliente = entity.getCliente().getNombre()+" "+entity.getCliente().getApellido();
-		
-		this.domicilioCliente = entity.getCliente().getDomicilio().getCalle()+" "+entity.getCliente().getDomicilio().getNumero()+", "
-				+entity.getCliente().getDomicilio().getLocalidad()+" - "+entity.getCliente().getDomicilio().getDepartamento();
-		
-		this.telCliente = entity.getCliente().getTelefono();
-		this.idEstadoPedido = entity.getEstadoPedido().getId();
-		this.stringEstadoPedido = entity.getEstadoPedido().getEstadoPedido();
-		this.fechaAnulado = entity.getFechaAnulado();
-		
-		String detallesConcatenados = "";
-		
-		for(DetallePedido entityDetalle : entity.getDetalles()) {
-			DetallePedidoDto dtoDetalle = new DetallePedidoDto();
-			dtoDetalle.setId(entityDetalle.getId());
-			dtoDetalle.setCantidad(entityDetalle.getCantidad());
-			
-			ArticuloDto ArticuloDto = new ArticuloDto();
-			
-			ArticuloDto.setDenominacion(entityDetalle.getArticulo().getDenominacion());
-			ArticuloDto.setPrecioCompra(entityDetalle.getArticulo().getPrecioCompra());
-			ArticuloDto.setPrecioVenta(entityDetalle.getArticulo().getPrecioVenta());
-			ArticuloDto.setEsManufacturado(entityDetalle.getArticulo().isEsManufacturado());	
-			ArticuloDto.setTiempoCocina(entityDetalle.getArticulo().getTiempoCocina());
-			dtoDetalle.setArticuloDto(ArticuloDto);
-			
-			detallesConcatenados += entityDetalle.getArticulo().getDenominacion()+" x "+ entityDetalle.getCantidad()+". ";
-                			
-			this.getDetalles().add(dtoDetalle);				
-		}				
-		this.setStringDetallePedido(detallesConcatenados);
-	}
-
-
 
 	public Date getHoraFin() {
 		return horaFin;

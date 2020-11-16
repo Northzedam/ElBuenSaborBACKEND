@@ -151,6 +151,29 @@ public class FacturaServicio {
 		}
 	}
 	
+	public int findUltimoNroFactura() throws Exception {
+		List<Factura> facturas = repository.findAll();
+		
+		int nroMaximo = 0;
+		
+		try {
+			if(facturas.isEmpty()) {
+				return nroMaximo;
+			}else {
+				for(Factura entity : facturas) {
+					if(entity.getNumero() > nroMaximo) {
+						nroMaximo = entity.getNumero();
+					}
+				}
+				return nroMaximo;
+			}			
+			
+		}catch(Exception e) {
+			System.out.println("Error en FacturaService. Método: 'findUltimoNroFactura'. "+e.getMessage());
+			throw new Exception(e.getMessage());
+		}		
+	}
+	
 	
 }
 

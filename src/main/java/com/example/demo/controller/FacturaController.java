@@ -130,4 +130,17 @@ public class FacturaController{
 		}
 		
 	}
+	
+	//getUltimoNroFactura-----------------------
+	
+		@GetMapping("/ultimoNroFactura")
+		@Transactional
+		public ResponseEntity getUltimoNumeroFactura (){
+			try {
+				return ResponseEntity.status(HttpStatus.OK).body(service.findUltimoNroFactura());
+				
+			}catch(Exception e) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error en FacturaService. Método: 'findUltimoNroFactura'.\": \"" + e.getMessage() + "\"}");
+			}
+		}
 }

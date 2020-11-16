@@ -87,6 +87,7 @@ public class ArticuloServicio {
 				dtos.add(dto);
 			}
 			
+
 			return dtos;
 			
 		} catch (Exception e) {
