@@ -130,17 +130,17 @@ public class PedidoController {
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity put(@PathVariable int id, @RequestBody PedidoDto dto) {
-
+		System.out.println("Acá está el comienzo del put");
 		try {
-
+			System.out.println("Acá está el try del put");
 			return ResponseEntity.status(HttpStatus.OK).body(service.update(id, dto, true));
 
 		} catch (Exception e) {
-
+			System.out.println("Acá está el catch del put");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body("{\"Mi mensaje put\": \"" + e.getMessage() + "\"}");
 		}
-
+		
 	}
 	
 	//delete-----------------------
