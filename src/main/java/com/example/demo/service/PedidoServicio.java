@@ -23,6 +23,7 @@ import com.example.demo.repository.InsumoRepository;
 import com.example.demo.entity.EstadoPedido;
 import com.example.demo.repository.EstadoPedidoRepository;
 import com.example.demo.repository.PedidoRepository;
+import com.example.demo.repository.RubroArticuloRepository;
 import com.example.demo.dtos.ArticuloDto;
 import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.DetalleRecetaDto;
@@ -36,7 +37,8 @@ public class PedidoServicio {
 	ArticuloRepository articuloRepository;
 	EstadoPedidoRepository estadoPedidoRepository;
 	InsumoRepository insumoRepository;
-	ArticuloServicio artConsService = new ArticuloServicio(articuloRepository, insumoRepository);
+	RubroArticuloRepository rubroArticuloRepository;
+	ArticuloServicio artConsService = new ArticuloServicio(articuloRepository, insumoRepository,rubroArticuloRepository);
 	
 	public static int tiempoDeCola=0;
 

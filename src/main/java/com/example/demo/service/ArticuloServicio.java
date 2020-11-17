@@ -20,6 +20,7 @@ import com.example.demo.entity.Insumo;
 import com.example.demo.entity.RubroArticulo;
 import com.example.demo.repository.ArticuloRepository;
 import com.example.demo.repository.InsumoRepository;
+import com.example.demo.repository.RubroArticuloRepository;
 import com.example.demo.ElBuenSabor2020Application;
 import com.example.demo.dtos.ArticuloDto;
 import com.example.demo.dtos.DetalleRecetaDto;
@@ -33,12 +34,15 @@ public class ArticuloServicio {
 
 	ArticuloRepository repository;
 	InsumoRepository insumoRepository;
+	RubroArticuloRepository rubroArticuloRepository;
 	private String upload_folder = String.valueOf(ElBuenSabor2020Application.getHome()+ "\\images\\").replace("\\","/");
 
 
-	public ArticuloServicio(ArticuloRepository repository,InsumoRepository insumoRepository) {
+	public ArticuloServicio(ArticuloRepository repository,InsumoRepository insumoRepository,
+			RubroArticuloRepository rubroArticuloRepository) {
 		this.repository = repository;
 		this.insumoRepository = insumoRepository;
+		this.rubroArticuloRepository = rubroArticuloRepository;
 	}
 	
 	
@@ -61,6 +65,7 @@ public class ArticuloServicio {
 		        rubroArticuloDto.setDenominacion(entity.getRubroArticulo().getDenominacion());
 		        rubroArticuloDto.setId(entity.getRubroArticulo().getId());
 		        dto.setRubroArticuloDto(rubroArticuloDto);
+				
 				
 				 List<DetalleRecetaDto>detallesReceta = new ArrayList<DetalleRecetaDto>();
 				
@@ -161,9 +166,10 @@ public class ArticuloServicio {
 		entity.setEsManufacturado(dto.isEsManufacturado());
 		entity.setTiempoCocina(dto.getTiempoCocina());
 		entity.setImagen(dto.getImagen());
-		RubroArticulo rubroArticulo = new RubroArticulo();
-        rubroArticulo.setDenominacion(dto.getRubroArticuloDto().getDenominacion());
-        entity.setRubroArticulo(rubroArticulo);
+		
+		Optional<RubroArticulo>rubroArticuloOptional = (rubroArticuloRepository.findById(dto.getRubroArticuloDto().getId()));
+		RubroArticulo rubroArticulo = rubroArticuloOptional.get();
+		entity.setRubroArticulo(rubroArticulo);
 		
 	    List<DetalleReceta>detallesReceta = new ArrayList<DetalleReceta>();
 		for(DetalleRecetaDto detalleRecetaDto : dto.getDetalles()) {
