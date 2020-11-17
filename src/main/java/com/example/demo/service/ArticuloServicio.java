@@ -166,9 +166,7 @@ public class ArticuloServicio {
 		entity.setEsManufacturado(dto.isEsManufacturado());
 		entity.setTiempoCocina(dto.getTiempoCocina());
 		entity.setImagen(dto.getImagen());
-		//RubroArticulo rubroArticulo = new RubroArticulo();
-       // rubroArticulo.setDenominacion(dto.getRubroArticuloDto().getDenominacion());
-        //entity.setRubroArticulo(rubroArticulo);
+		
 		Optional<RubroArticulo>rubroArticuloOptional = (rubroArticuloRepository.findById(dto.getRubroArticuloDto().getId()));
 		RubroArticulo rubroArticulo = rubroArticuloOptional.get();
 		entity.setRubroArticulo(rubroArticulo);
