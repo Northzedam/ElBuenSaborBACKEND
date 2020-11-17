@@ -60,22 +60,18 @@ public class PedidoDto {
 	
 	
 	private long idEstadoPedido;
-	
 		
 	private String nombreCliente;
+		
+	private String stringDetallePedido;	
 	
-	
-	private String stringDetallePedido;
-	
-	
-	private int telCliente;
-	
+	private int telCliente;	
 	
 	private String domicilioCliente;
 	
+	private String emailCliente;	
 	
-	private String stringEstadoPedido;
-	
+	private String stringEstadoPedido;	
 	
 	private Date fechaAnulado;
 	
@@ -298,6 +294,18 @@ public class PedidoDto {
 
 	public void setFechaAnulado(Date fechaAnulado) {
 		this.fechaAnulado = fechaAnulado;
+	}
+
+
+
+	public String getEmailCliente() {
+		return emailCliente;
+	}
+
+
+
+	public void setEmailCliente(String emailCliente) {
+		this.emailCliente = emailCliente;
 	}
 	
 	
