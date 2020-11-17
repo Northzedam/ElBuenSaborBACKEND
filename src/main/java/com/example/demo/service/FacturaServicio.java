@@ -9,7 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Factura;
+import com.example.demo.entity.Pedido;
+import com.example.demo.repository.ArticuloRepository;
+import com.example.demo.repository.EstadoPedidoRepository;
 import com.example.demo.repository.FacturaRepository;
+import com.example.demo.repository.InsumoRepository;
+import com.example.demo.repository.PedidoRepository;
 import com.example.demo.dtos.FacturaDto;
 
 @Service
@@ -17,9 +22,23 @@ public class FacturaServicio {
 
 
 	FacturaRepository repository;
+	PedidoRepository pedidoRepository;
+	ArticuloRepository articuloRepository;
+	EstadoPedidoRepository estadoPedidoRepository;
+	InsumoRepository insumoRepository;
+	
+	PedidoServicio pedidoService = new PedidoServicio(pedidoRepository, articuloRepository, estadoPedidoRepository);
 
-	public FacturaServicio(FacturaRepository repository) {
+	public FacturaServicio(FacturaRepository repository, 
+			PedidoRepository pedidoRepository,
+			ArticuloRepository articuloRepository,
+			EstadoPedidoRepository estadoPedidoRepository,
+			InsumoRepository insumoRepository) {
 		this.repository = repository;
+		this.pedidoRepository = pedidoRepository;
+		this.articuloRepository = articuloRepository;
+		this.estadoPedidoRepository = estadoPedidoRepository;
+		this.insumoRepository = insumoRepository;
 	}
 	
 	public List<FacturaDto> findAll() throws Exception {
@@ -83,14 +102,18 @@ public class FacturaServicio {
 		entity.setMontoDescuento(dto.getMontoDescuento());
 		entity.setTotal(dto.getTotal());
 		entity.setFormaDePago(dto.getFormaDePago());
-		entity.setNroTarjeta(dto.getNroTarjeta());
-
-
-
-		
+		entity.setNroTarjeta(dto.getNroTarjeta());		
 		
 		try {
+			//primero guardo la factura
 			entity = repository.save(entity);
+			
+			//segundo, le asigno esa factura al pedido al cual está vinculado
+			Pedido pedido = this.pedidoRepository.getOne(dto.getPedido().getId());
+			pedido.setFactura(entity);
+			pedidoRepository.save(pedido);
+			
+			//por último le doy al dto de factura el id creado en la BD y devuelvo el dto al controlador
 			dto.setId(entity.getId());
 			return dto;
 		} catch (Exception e) {

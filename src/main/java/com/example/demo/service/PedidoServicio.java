@@ -326,9 +326,9 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 	}
 	
 	//FindByFrase
-	public Page<PedidoDto> findByFrase(boolean usarParamConEnvio, boolean conEnvio, long idEstadoPedido, String frase, Date  fechaDesde, Date fechaHasta, boolean tieneHoraFin, boolean tieneFechaAnulado, Pageable pageable){
+	public Page<PedidoDto> findByFrase(boolean usarParamConEnvio, boolean conEnvio, long idEstadoPedido, String frase, Date  fechaDesde, Date fechaHasta, boolean esFacturado, boolean tieneFechaAnulado, Pageable pageable){
 		
-		Page<Pedido> pedidosEntity = repository.findByNombre(usarParamConEnvio, conEnvio, idEstadoPedido, frase, fechaDesde, fechaHasta, tieneHoraFin, tieneFechaAnulado, pageable);
+		Page<Pedido> pedidosEntity = repository.findByNombre(usarParamConEnvio, conEnvio, idEstadoPedido, frase, fechaDesde, fechaHasta, esFacturado, tieneFechaAnulado, pageable);
 		Page<PedidoDto> pedidosDto = null;
 		try {
 			pedidosDto = pedidosEntity.map(new Function<Pedido, PedidoDto>() {
@@ -361,6 +361,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		dto.setDomicilioCliente(entity.getCliente().getDomicilio().getCalle()+" "+entity.getCliente().getDomicilio().getNumero()+", "
 				+entity.getCliente().getDomicilio().getLocalidad()+" - "+entity.getCliente().getDomicilio().getDepartamento());
 		dto.setTelCliente(entity.getCliente().getTelefono());
+		dto.setEmailCliente(entity.getCliente().getEmail());
 		dto.setIdEstadoPedido(entity.getEstadoPedido().getId());
 		dto.setStringEstadoPedido(entity.getEstadoPedido().getEstadoPedido());
 		dto.setFechaAnulado(entity.getFechaAnulado());
