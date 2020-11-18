@@ -27,8 +27,8 @@ import javax.persistence.OneToOne;
 		private String denominacion;
 		
 		
-		@Column(name = "rubro")
-		private RubroArticulo rubroArticulo;
+		/*@Column(name = "rubro")
+		private RubroArticulo rubroArticulo;*/
 		
 		@OneToMany(mappedBy="rubroArticulo" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "articulo")
@@ -45,7 +45,7 @@ import javax.persistence.OneToOne;
 			super();
 			this.id = id;
 			this.denominacion = denominacion;
-			this.rubroArticulo = rubroArticulo;
+			//this.rubroArticulo = rubroArticulo;
 			this.articuloList = articuloConsumoList;
 		}
 
@@ -70,14 +70,14 @@ import javax.persistence.OneToOne;
 		}
 
 
-		public RubroArticulo getRubroArticulo() {
+		/*public RubroArticulo getRubroArticulo() {
 			return rubroArticulo;
 		}
 
 
 		public void setRubroArticulo(RubroArticulo rubroArticulo) {
 			this.rubroArticulo = rubroArticulo;
-		}
+		}*/
 
 
 		public List<Articulo> getArticuloList() {

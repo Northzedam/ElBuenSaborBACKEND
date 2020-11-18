@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Cascade;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente extends EntidadGenerica implements Serializable{
@@ -40,7 +41,7 @@ public class Cliente extends EntidadGenerica implements Serializable{
 	@JoinColumn(name="domicilio_id")
 	private Domicilio domicilio;
 
-	@JsonBackReference
+	@JsonManagedReference
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL, orphanRemoval=true)
 	@Column(name = "pedido")
 	private List<Pedido> pedidoList = new ArrayList<Pedido>();
