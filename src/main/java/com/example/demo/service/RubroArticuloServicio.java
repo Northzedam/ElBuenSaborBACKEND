@@ -28,26 +28,8 @@ public class RubroArticuloServicio {
 		List<RubroArticuloDto>dtos = new ArrayList<RubroArticuloDto>();
 		try {
 			
-			/*for(RubroArticulo entity : entities) {
-				RubroArticuloDto dto = new RubroArticuloDto();
-				dto.setId(entity.getId());
-				dto.setDenominacion(entity.getDenominacion());
-				List<RubroArticuloDto>rubrosHijos = new ArrayList<RubroArticuloDto>();
-				for(RubroArticulo rubroHijo : entity.getRubroChildren()) {
-					RubroArticuloDto dtoHijo = new RubroArticuloDto();
-					dtoHijo.setId(rubroHijo.getId());
-					dtoHijo.setDenominacion(rubroHijo.getDenominacion());
-					rubrosHijos.add(dtoHijo);
-				}
-				dto.setListRubrosHijos(rubrosHijos);
-			
-				dtos.add(dto);
-			}
-			
-			return dtos;*/
-			
 			for(RubroArticulo entity : entities) {
-				if(entity.getRubroParent() == null) {
+				if(entity.getRubroParent() == null) { 
 				RubroArticuloDto dto = new RubroArticuloDto();
 				dto.setId(entity.getId());
 				dto.setDenominacion(entity.getDenominacion());
@@ -57,7 +39,6 @@ public class RubroArticuloServicio {
 				dtos.add(dto);
 				}	
 			}
-			
 			return dtos;
 			
 		} catch (Exception e) {
@@ -107,9 +88,12 @@ public class RubroArticuloServicio {
 		RubroArticulo entity = new RubroArticulo();
 		
 		entity.setDenominacion(dto.getDenominacion());
-		Optional<RubroArticulo>rubroArticuloOptional = repository.findById(dto.getIdrubroPadreDto());
-		RubroArticulo rubroParent = rubroArticuloOptional.get();
-		entity.setRubroParent(rubroParent);
+		if(dto.getIdrubroPadreDto() != 0L) {
+			Optional<RubroArticulo>rubroArticuloOptional = repository.findById(dto.getIdrubroPadreDto());
+			RubroArticulo rubroParent = rubroArticuloOptional.get();
+			entity.setRubroParent(rubroParent);
+		}
+		
 		
 		try {
 			entity = repository.save(entity);
