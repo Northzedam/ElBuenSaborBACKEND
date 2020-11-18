@@ -28,13 +28,34 @@ public class RubroArticuloServicio {
 		List<RubroArticuloDto>dtos = new ArrayList<RubroArticuloDto>();
 		try {
 			
-			for(RubroArticulo entity : entities) {
+			/*for(RubroArticulo entity : entities) {
 				RubroArticuloDto dto = new RubroArticuloDto();
 				dto.setId(entity.getId());
 				dto.setDenominacion(entity.getDenominacion());
-			//	dto.setRubroArticulo(entity.getRubroArticulo());
+				List<RubroArticuloDto>rubrosHijos = new ArrayList<RubroArticuloDto>();
+				for(RubroArticulo rubroHijo : entity.getRubroChildren()) {
+					RubroArticuloDto dtoHijo = new RubroArticuloDto();
+					dtoHijo.setId(rubroHijo.getId());
+					dtoHijo.setDenominacion(rubroHijo.getDenominacion());
+					rubrosHijos.add(dtoHijo);
+				}
+				dto.setListRubrosHijos(rubrosHijos);
 			
 				dtos.add(dto);
+			}
+			
+			return dtos;*/
+			
+			for(RubroArticulo entity : entities) {
+				if(entity.getRubroParent() == null) {
+				RubroArticuloDto dto = new RubroArticuloDto();
+				dto.setId(entity.getId());
+				dto.setDenominacion(entity.getDenominacion());
+				if(entity.getRubroChildren() != null) {
+					setearHijos(entity,dto);	
+				}			
+				dtos.add(dto);
+				}	
 			}
 			
 			return dtos;
@@ -42,6 +63,22 @@ public class RubroArticuloServicio {
 		} catch (Exception e) {
 			throw new Exception();
 		}
+	}
+	
+	public void setearHijos(RubroArticulo rubro, RubroArticuloDto dto) {
+		List<RubroArticuloDto>dtos = new ArrayList<RubroArticuloDto>();
+	
+		for(RubroArticulo rubroHijo : rubro.getRubroChildren()) {
+			RubroArticuloDto dtoHijo = new RubroArticuloDto();
+			dtoHijo.setId(rubroHijo.getId());
+			dtoHijo.setDenominacion(rubroHijo.getDenominacion());
+			dtos.add(dtoHijo);
+			if(rubroHijo.getRubroChildren() != null) {
+				setearHijos(rubroHijo,dtoHijo);
+			}	
+			
+		}
+		dto.setListRubrosHijos(dtos);
 	}
 	
 	public RubroArticuloDto findById(int id) throws Exception{
@@ -70,8 +107,9 @@ public class RubroArticuloServicio {
 		RubroArticulo entity = new RubroArticulo();
 		
 		entity.setDenominacion(dto.getDenominacion());
-		//entity.setRubroArticulo(dto.getRubroArticulo());
-	
+		Optional<RubroArticulo>rubroArticuloOptional = repository.findById(dto.getIdrubroPadreDto());
+		RubroArticulo rubroParent = rubroArticuloOptional.get();
+		entity.setRubroParent(rubroParent);
 		
 		try {
 			entity = repository.save(entity);
