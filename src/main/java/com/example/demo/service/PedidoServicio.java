@@ -390,6 +390,31 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		return dto;
 	}
 	
+	public List <PedidoDto> findByIdEstadoPedido(int idEstadoPedido) throws Exception{
+		
+		List<Pedido> entities = repository.findAll();
+		List<PedidoDto> dtos = new ArrayList<PedidoDto>();
+		
+		try {
+			
+			for(Pedido entity : entities) {
+				if(entity.getEstadoPedido().getId() == (long)idEstadoPedido) {
+					PedidoDto dto = new PedidoDto();
+					dto = this.convertEntidadAPedidoDTO(entity);
+					dtos.add(dto);
+				}
+				
+			}
+			return dtos;
+			
+		} catch (Exception e) {
+			
+			throw new Exception();
+		}
+		
+		
+	}
+	
 	
 }
 
