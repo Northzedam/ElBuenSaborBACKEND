@@ -18,10 +18,11 @@ public class RubroArticuloDto {
 	private String denominacion;
 	
 	
-	private RubroArticuloDto rubroArticuloDto;
+	private long IdrubroPadreDto;
 	
+	private List<RubroArticuloDto>listRubrosHijos;
 	
-	private List<ArticuloDto> articuloListDto = new ArrayList<ArticuloDto>();
+	//private List<ArticuloDto> articuloListDto = new ArrayList<ArticuloDto>();
 
 
 	public RubroArticuloDto() {
@@ -29,13 +30,14 @@ public class RubroArticuloDto {
 	}
 
 
-	public RubroArticuloDto(long id, String denominacion, RubroArticuloDto rubroArticuloDto,
-			List<ArticuloDto> articuloConsumoListDto) {
+	public RubroArticuloDto(long id, String denominacion, long idrubroPadreDto, List<RubroArticuloDto> listRubrosHijos,
+			List<ArticuloDto> articuloListDto) {
 		super();
 		this.id = id;
 		this.denominacion = denominacion;
-		this.rubroArticuloDto = rubroArticuloDto;
-		this.articuloListDto = articuloConsumoListDto;
+		IdrubroPadreDto = idrubroPadreDto;
+		this.listRubrosHijos = listRubrosHijos;
+		//this.articuloListDto = articuloListDto;
 	}
 
 
@@ -59,24 +61,36 @@ public class RubroArticuloDto {
 	}
 
 
-	public RubroArticuloDto getRubroArticuloDto() {
-		return rubroArticuloDto;
+	public long getIdrubroPadreDto() {
+		return IdrubroPadreDto;
 	}
 
 
-	public void setRubroArticuloDto(RubroArticuloDto rubroArticuloDto) {
-		this.rubroArticuloDto = rubroArticuloDto;
+	public void setIdrubroPadreDto(long idrubroPadreDto) {
+		IdrubroPadreDto = idrubroPadreDto;
 	}
 
 
-	public List<ArticuloDto> getArticuloConsumoListDto() {
+	public List<RubroArticuloDto> getListRubrosHijos() {
+		return listRubrosHijos;
+	}
+
+
+	public void setListRubrosHijos(List<RubroArticuloDto> listRubrosHijos) {
+		this.listRubrosHijos = listRubrosHijos;
+	}
+
+
+	/*public List<ArticuloDto> getArticuloListDto() {
 		return articuloListDto;
 	}
 
 
-	public void setArticuloConsumoListDto(List<ArticuloDto> articuloConsumoListDto) {
-		this.articuloListDto = articuloConsumoListDto;
+	public void setArticuloListDto(List<ArticuloDto> articuloListDto) {
+		this.articuloListDto = articuloListDto;
 	}
+*/
 
+	
 
 }

@@ -25,10 +25,16 @@ import javax.persistence.OneToOne;
 		
 		@Column(name = "Denominacion")
 		private String denominacion;
-		
-		
-		/*@Column(name = "rubro")
-		private RubroArticulo rubroArticulo;*/
+	
+		//----------relacion recursiva ----------
+		@ManyToOne
+		@JoinColumn(name="parent_id")
+		private RubroArticulo rubroParent;
+
+		@OneToMany(mappedBy="rubroParent", cascade = CascadeType.ALL)
+		private List<RubroArticulo> rubroChildren = new ArrayList<RubroArticulo>();
+
+		//----------relacion recursiva ----------
 		
 		@OneToMany(mappedBy="rubroArticulo" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "articulo")
@@ -40,13 +46,14 @@ import javax.persistence.OneToOne;
 		}
 
 
-		public RubroArticulo(long id, String denominacion, RubroArticulo rubroArticulo,
-				List<Articulo> articuloConsumoList) {
+		public RubroArticulo(long id, String denominacion, RubroArticulo rubroParent, List<RubroArticulo> rubroChildren,
+				List<Articulo> articuloList) {
 			super();
 			this.id = id;
 			this.denominacion = denominacion;
-			//this.rubroArticulo = rubroArticulo;
-			this.articuloList = articuloConsumoList;
+			this.rubroParent = rubroParent;
+			this.rubroChildren = rubroChildren;
+			this.articuloList = articuloList;
 		}
 
 
@@ -70,14 +77,24 @@ import javax.persistence.OneToOne;
 		}
 
 
-		/*public RubroArticulo getRubroArticulo() {
-			return rubroArticulo;
+		public RubroArticulo getRubroParent() {
+			return rubroParent;
 		}
 
 
-		public void setRubroArticulo(RubroArticulo rubroArticulo) {
-			this.rubroArticulo = rubroArticulo;
-		}*/
+		public void setRubroParent(RubroArticulo rubroParent) {
+			this.rubroParent = rubroParent;
+		}
+
+
+		public List<RubroArticulo> getRubroChildren() {
+			return rubroChildren;
+		}
+
+
+		public void setRubroChildren(List<RubroArticulo> rubroChildren) {
+			this.rubroChildren = rubroChildren;
+		}
 
 
 		public List<Articulo> getArticuloList() {
@@ -89,9 +106,5 @@ import javax.persistence.OneToOne;
 			this.articuloList = articuloList;
 		}
 
-		
-		
-		
-		
-		
+
 }
