@@ -52,6 +52,17 @@ public class PedidoController {
 		}
 	}
 	
+	@GetMapping("/pedidoPorEstadoPedido/{idEstadoPedido}")
+	@Transactional
+	public ResponseEntity getByIdEstadoPedido(@PathVariable int idEstadoPedido){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(service.findByIdEstadoPedido(idEstadoPedido));
+			
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
+		}
+	}
+	
 	@GetMapping("/pedidosPorEstado/{status}")
 	@Transactional
 	public ResponseEntity getPedidosByStatus(@PathVariable String status){
