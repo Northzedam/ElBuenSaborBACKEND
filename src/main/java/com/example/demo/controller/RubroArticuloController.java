@@ -43,6 +43,17 @@ public class RubroArticuloController{
 		}
 	}
 	
+	@GetMapping("/getAllSinAnidar")
+	@Transactional
+	public ResponseEntity getAllSinAnidar (){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(service.findAllSinAnidar());
+			
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
+		}
+	}
+	
 	//getOne-----------------------
 	
 	@GetMapping("/{id}")

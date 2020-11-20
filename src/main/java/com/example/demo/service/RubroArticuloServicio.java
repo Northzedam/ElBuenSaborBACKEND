@@ -8,9 +8,16 @@ import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Articulo;
+import com.example.demo.entity.DetalleReceta;
 import com.example.demo.entity.RubroArticulo;
 import com.example.demo.repository.RubroArticuloRepository;
+import com.example.demo.dtos.ArticuloDto;
+import com.example.demo.dtos.DetalleRecetaDto;
+import com.example.demo.dtos.InsumoDto;
 import com.example.demo.dtos.RubroArticuloDto;
+import com.example.demo.dtos.UnidadMedidaDto;
 
 @Service
 public class RubroArticuloServicio {
@@ -60,6 +67,62 @@ public class RubroArticuloServicio {
 			
 		}
 		dto.setListRubrosHijos(dtos);
+	}
+	
+public List<RubroArticuloDto> findAllSinAnidar() throws Exception {
+		
+		List<RubroArticulo>entities = repository.findAll();
+		List<RubroArticuloDto>dtos = new ArrayList<RubroArticuloDto>();
+		List<ArticuloDto>articulosDto = new ArrayList<ArticuloDto>();
+
+		try {
+			
+
+			for(RubroArticulo entity : entities) {
+				RubroArticuloDto dto = new RubroArticuloDto();
+				dto.setId(entity.getId());
+				dto.setDenominacion(entity.getDenominacion());
+				for(Articulo articulo : entity.getArticuloList()) {
+					ArticuloDto articuloDto = new ArticuloDto();
+					articuloDto.setId(articulo.getId());
+					articuloDto.setDenominacion(articulo.getDenominacion());
+					articuloDto.setPrecioCompra(articulo.getPrecioCompra());
+					articuloDto.setPrecioVenta(articulo.getPrecioVenta());
+					articuloDto.setEsManufacturado(articulo.isEsManufacturado());
+					articuloDto.setImagen(articulo.getImagen());
+					
+					 List<DetalleRecetaDto>detallesReceta = new ArrayList<DetalleRecetaDto>();
+											
+						for(DetalleReceta detalleReceta : articulo.getDetallesReceta()) {
+							DetalleRecetaDto detalleRecetaDto = new DetalleRecetaDto();
+							detalleRecetaDto.setId(detalleReceta.getId());
+							detalleRecetaDto.setCantidad(detalleReceta.getCantidad());
+							InsumoDto insumoDto = new InsumoDto();
+							insumoDto.setId(detalleReceta.getInsumo().getId());
+							insumoDto.setDenominacion(detalleReceta.getInsumo().getDenominacion());
+							insumoDto.setPrecioCompra(detalleReceta.getInsumo().getPrecioCompra());
+							insumoDto.setStockActual(detalleReceta.getInsumo().getStockActual());
+							insumoDto.setStockMinimo(detalleReceta.getInsumo().getStockMinimo());
+							UnidadMedidaDto unidadMedidaDto = new UnidadMedidaDto();
+							unidadMedidaDto.setId(detalleReceta.getInsumo().getUnidadMedida().getId());
+							unidadMedidaDto.setUnidadMedida(detalleReceta.getInsumo().getUnidadMedida().getUnidadMedida());
+							insumoDto.setUnidadMedida(unidadMedidaDto);
+							detalleRecetaDto.setInsumo(insumoDto);
+							detallesReceta.add(detalleRecetaDto);
+						}
+						articuloDto.setDetalles(detallesReceta);	
+						dto.getArticuloListDto().add(articuloDto);
+				}
+	
+				dtos.add(dto);
+			}
+			return dtos;
+			
+			
+		} catch (Exception e) {
+			throw new Exception();
+		}
+		
 	}
 	
 	public RubroArticuloDto findById(int id) throws Exception{
