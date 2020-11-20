@@ -22,7 +22,7 @@ public class RubroArticuloDto {
 	
 	private List<RubroArticuloDto>listRubrosHijos;
 	
-	//private List<ArticuloDto> articuloListDto = new ArrayList<ArticuloDto>();
+	private List<ArticuloDto> articuloListDto = new ArrayList<ArticuloDto>();
 
 
 	public RubroArticuloDto() {
@@ -37,7 +37,7 @@ public class RubroArticuloDto {
 		this.denominacion = denominacion;
 		IdrubroPadreDto = idrubroPadreDto;
 		this.listRubrosHijos = listRubrosHijos;
-		//this.articuloListDto = articuloListDto;
+		this.articuloListDto = articuloListDto;
 	}
 
 
@@ -81,7 +81,7 @@ public class RubroArticuloDto {
 	}
 
 
-	/*public List<ArticuloDto> getArticuloListDto() {
+	public List<ArticuloDto> getArticuloListDto() {
 		return articuloListDto;
 	}
 
@@ -89,7 +89,7 @@ public class RubroArticuloDto {
 	public void setArticuloListDto(List<ArticuloDto> articuloListDto) {
 		this.articuloListDto = articuloListDto;
 	}
-*/
+
 
 	
 
