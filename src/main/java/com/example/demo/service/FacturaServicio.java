@@ -8,9 +8,14 @@ import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Articulo;
+import com.example.demo.entity.DetalleFactura;
+import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Factura;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ArticuloRepository;
+import com.example.demo.repository.DetalleFacturaRepository;
 import com.example.demo.repository.EstadoPedidoRepository;
 import com.example.demo.repository.FacturaRepository;
 import com.example.demo.repository.InsumoRepository;
@@ -26,19 +31,22 @@ public class FacturaServicio {
 	ArticuloRepository articuloRepository;
 	EstadoPedidoRepository estadoPedidoRepository;
 	InsumoRepository insumoRepository;
+	DetalleFacturaRepository detalleFacturaRepository;
 	
 	PedidoServicio pedidoService = new PedidoServicio(pedidoRepository, articuloRepository, estadoPedidoRepository);
-
+	
 	public FacturaServicio(FacturaRepository repository, 
 			PedidoRepository pedidoRepository,
 			ArticuloRepository articuloRepository,
 			EstadoPedidoRepository estadoPedidoRepository,
-			InsumoRepository insumoRepository) {
+			InsumoRepository insumoRepository,
+			DetalleFacturaRepository detalleFacturaRepository) {
 		this.repository = repository;
 		this.pedidoRepository = pedidoRepository;
 		this.articuloRepository = articuloRepository;
 		this.estadoPedidoRepository = estadoPedidoRepository;
 		this.insumoRepository = insumoRepository;
+		this.detalleFacturaRepository = detalleFacturaRepository;
 	}
 	
 	public List<FacturaDto> findAll() throws Exception {
@@ -113,6 +121,8 @@ public class FacturaServicio {
 			pedido.setFactura(entity);
 			pedidoRepository.save(pedido);
 			
+			this.pasarDetallePedidoADetalleFactura(entity, pedido);
+			
 			//por último le doy al dto de factura el id creado en la BD y devuelvo el dto al controlador
 			dto.setId(entity.getId());
 			return dto;
@@ -122,6 +132,25 @@ public class FacturaServicio {
 		
 			
 	}
+    
+    public void pasarDetallePedidoADetalleFactura(Factura factura, Pedido pedido) {
+    	
+    	if(pedido.getDetalles().size() > 0) {
+    		for(DetallePedido detallePedido : pedido.getDetalles()) {
+    			
+    			double subtotal = detallePedido.getCantidad() * detallePedido.getArticulo().getPrecioVenta();
+    			
+    			DetalleFactura detFactura = new DetalleFactura(
+    					detallePedido.getCantidad(),
+    					subtotal, 
+    					factura, 
+    					detallePedido.getArticulo());    
+    			
+    			this.detalleFacturaRepository.save(detFactura);
+    			
+    		}
+    	}    	
+    }
 	
 	public FacturaDto update(int id, FacturaDto dto, boolean estado) throws Exception {
 		Optional<Factura> optionalEntity = repository.findById((long) id);

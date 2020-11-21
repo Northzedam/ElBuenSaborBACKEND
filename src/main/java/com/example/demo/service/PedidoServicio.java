@@ -268,6 +268,20 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		
 		try {
 			 Pedido entity = optionalEntity.get();
+			 
+			 boolean debeRestaurarStock = false;
+			 
+			 if(dto.getFechaAnulado() != null) {
+				 System.out.println("Tiene fecha anulado");
+
+				 if(entity.getFechaAnulado() != dto.getFechaAnulado()) {
+					 System.out.println("las fechas son distintas");
+					 debeRestaurarStock = true;
+				 }				 
+			 }
+			 
+			 System.out.println("ESTO ES 'DEBE RESTAURAR STOCK: "+debeRestaurarStock);
+			  
 			    entity.setId(id);
 			    entity.setFecha(dto.getFecha());
 				entity.setNumero(dto.getNumero());
@@ -290,6 +304,12 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			 repository.save(entity);
 			 dto.setId(entity.getId());
 			 System.out.println("salió todo bien");
+			 
+			if(debeRestaurarStock == true) {
+				 this.restaurarStock(entity);
+			}
+			
+			 
 			 return dto;
 			 
 		} catch (Exception e) {
@@ -299,6 +319,44 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		}
 		return dto;
 	}
+	
+	
+	
+	protected void restaurarStock(Pedido pedido) {
+		
+		try {
+			if(pedido.getDetalles().size() > 0) {
+				for(DetallePedido detallePedido : pedido.getDetalles()) {
+					Articulo articuloEntity = articuloRepository.getOne(detallePedido.getArticulo().getId());
+					
+					if(articuloEntity.getDetallesReceta().size() > 0) {
+						for(DetalleReceta detalleReceta : articuloEntity.getDetallesReceta()) {
+							
+							//primero buscamos el stock que hay (ej: 3000 grs de harina)
+							double stockActual = detalleReceta.getInsumo().getStockActual();
+							//segundo, nos fijamos cuánto requiere la receta (ej: por pizza necesitamos 250 grs de harina)
+							double cantidadPorReceta = detalleReceta.getCantidad();
+							//tercero, nos fijamos cuántas veces se repite el pedido (ej: se pidieron 3 pizzas iguales)
+							int cantidadDePlatos = detallePedido.getCantidad();
+							
+							double stockRestaurado = stockActual + (cantidadDePlatos * cantidadPorReceta);
+							
+							detalleReceta.getInsumo().setStockActual(stockRestaurado);
+						}
+					}				
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Falló método 'restaurarStock' de PedidoService: "+e.getMessage());
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
 			
 	public boolean delete(int id) throws Exception {
 		try {
