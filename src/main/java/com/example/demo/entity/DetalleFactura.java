@@ -24,7 +24,7 @@ import javax.persistence.OneToOne;
 		private int cantidad;
 		
 		@Column(name = "Subtotal")
-		private int subtotal;
+		private double subtotal;
 		
 		@ManyToOne(cascade = CascadeType.PERSIST)
 		@JoinColumn(name = "id_factura")
@@ -41,23 +41,31 @@ import javax.persistence.OneToOne;
 
 		
 		
-		public DetalleFactura(long id, int cantidad, int subtotal, Factura factura, Articulo articuloConsumo) {
+		public DetalleFactura(long id, int cantidad, double subtotal, Factura factura, Articulo articuloConsumo) {
 			super();
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
 			this.factura = factura;
-			this.articulo = articulo;
+			this.articulo = articuloConsumo;
+		}
+		
+		public DetalleFactura(int cantidad, double subtotal, Factura factura, Articulo articuloConsumo) {
+			super();
+			this.cantidad = cantidad;
+			this.subtotal = subtotal;
+			this.factura = factura;
+			this.articulo = articuloConsumo;
 		}
 
 
 		
-		public DetalleFactura(int cantidad, int subtotal) {
+		public DetalleFactura(int cantidad, double subtotal) {
 			super();
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
 		}
 		
-		public DetalleFactura(int cantidad, int subtotal, Factura factura) {
+		public DetalleFactura(int cantidad, double subtotal, Factura factura) {
 			super();
 			this.cantidad = cantidad;
 			this.subtotal = subtotal;
@@ -91,13 +99,13 @@ import javax.persistence.OneToOne;
 
 
 
-		public int getSubtotal() {
+		public double getSubtotal() {
 			return subtotal;
 		}
 
 
 
-		public void setSubtotal(int subtotal) {
+		public void setSubtotal(double subtotal) {
 			this.subtotal = subtotal;
 		}
 

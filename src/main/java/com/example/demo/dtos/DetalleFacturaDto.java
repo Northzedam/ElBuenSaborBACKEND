@@ -15,7 +15,7 @@ public class DetalleFacturaDto {
 	private int cantidad;
 	
 	
-	private int subtotal;
+	private double subtotal;
 	
 	
 	private FacturaDto facturaDto;
@@ -31,7 +31,7 @@ public class DetalleFacturaDto {
 
 	
 	
-	public DetalleFacturaDto(long id, int cantidad, int subtotal, FacturaDto facturaDto, ArticuloDto articuloDto) {
+	public DetalleFacturaDto(long id, int cantidad, double subtotal, FacturaDto facturaDto, ArticuloDto articuloDto) {
 		super();
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
@@ -41,13 +41,13 @@ public class DetalleFacturaDto {
 
 
 	
-	public DetalleFacturaDto(int cantidad, int subtotal) {
+	public DetalleFacturaDto(int cantidad, double subtotal) {
 		super();
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
 	}
 	
-	public DetalleFacturaDto(int cantidad, int subtotal, FacturaDto facturaDto) {
+	public DetalleFacturaDto(int cantidad, double subtotal, FacturaDto facturaDto) {
 		super();
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
@@ -76,11 +76,11 @@ public class DetalleFacturaDto {
 		this.cantidad = cantidad;
 	}
 
-	public int getSubtotal() {
+	public double getSubtotal() {
 		return subtotal;
 	}
 
-	public void setSubtotal(int subtotal) {
+	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
 
