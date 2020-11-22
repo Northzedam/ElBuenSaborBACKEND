@@ -9,21 +9,15 @@ public class DetalleFacturaDto {
 	
 	
 	
-	private long id;
+	private long id;	
 	
+	private int cantidad;	
 	
-	private int cantidad;
+	private double subtotal;	
 	
-	
-	private double subtotal;
-	
-	
-	private FacturaDto facturaDto;
-	
+	private FacturaDto facturaDto;	
 	
 	private ArticuloDto articuloDto;
-	
-	
 	
 	public DetalleFacturaDto() {
 		super();

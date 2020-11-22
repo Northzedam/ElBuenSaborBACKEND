@@ -12,12 +12,18 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.DetalleFacturaDto;
 import com.example.demo.entity.DetalleFactura;
+import com.example.demo.entity.Factura;
+import com.example.demo.entity.Pedido;
 import com.example.demo.repository.DetalleFacturaRepository;
+import com.example.demo.repository.FacturaRepository;
+import com.example.demo.repository.PedidoRepository;
 
 @Service
 public class DetalleFacturaServicio  {
 
 	DetalleFacturaRepository repository;
+	PedidoRepository pedidoRepository;
+	FacturaRepository facturaRepository;
 
 	public DetalleFacturaServicio(DetalleFacturaRepository repository) {
 		super();
@@ -51,6 +57,8 @@ public List<DetalleFacturaDto> findAll() throws Exception {
 public DetalleFacturaDto findById(int id) throws Exception{
 	
 	Optional<DetalleFactura>entityOptional = repository.findById((long) id);
+	
+	
 	
 	DetalleFacturaDto dto = new DetalleFacturaDto();
 	
@@ -138,6 +146,32 @@ public int countPages(int size) throws Exception {
 		throw new Exception(e.getMessage());
 	}
 }
+
+
+public List<DetalleFacturaDto> findByPedidoId(int idPedido) throws Exception{	
+	
+	List<DetalleFacturaDto> dtos = new ArrayList<DetalleFacturaDto>();
+	
+	try {
+		
+		Pedido pedido = pedidoRepository.getOne((long)idPedido);
+		
+		Factura factura = facturaRepository.getOne(pedido.getFactura().getId());
+			
+		for(DetalleFactura det : factura.getDetalles()) {
+			
+			DetalleFacturaDto detDto = this.findById( (int)det.getId() ); 			
+			//dtos.add( );
+		}
+		
+	} catch (Exception e) {
+		throw new Exception("Falló el método 'findByPedidoId': "+e.getMessage());
+	}
+	
+	
+	return dtos;
+}
+
 
 	
 }

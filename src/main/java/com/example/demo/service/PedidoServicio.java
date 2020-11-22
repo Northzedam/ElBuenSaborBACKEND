@@ -15,18 +15,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Articulo;
+import com.example.demo.entity.DetalleFactura;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.DetalleReceta;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ArticuloRepository;
+import com.example.demo.repository.DetalleFacturaRepository;
 import com.example.demo.repository.InsumoRepository;
 import com.example.demo.entity.EstadoPedido;
+import com.example.demo.entity.Factura;
 import com.example.demo.repository.EstadoPedidoRepository;
+import com.example.demo.repository.FacturaRepository;
 import com.example.demo.repository.PedidoRepository;
 import com.example.demo.repository.RubroArticuloRepository;
 import com.example.demo.dtos.ArticuloDto;
+import com.example.demo.dtos.DetalleFacturaDto;
 import com.example.demo.dtos.DetallePedidoDto;
 import com.example.demo.dtos.DetalleRecetaDto;
+import com.example.demo.dtos.FacturaDto;
 import com.example.demo.dtos.PedidoDto;
 
 @Service
@@ -36,9 +42,31 @@ public class PedidoServicio {
 	PedidoRepository repository;
 	ArticuloRepository articuloRepository;
 	EstadoPedidoRepository estadoPedidoRepository;
+	
 	InsumoRepository insumoRepository;
 	RubroArticuloRepository rubroArticuloRepository;
-	ArticuloServicio artConsService = new ArticuloServicio(articuloRepository, insumoRepository,rubroArticuloRepository);
+	DetalleFacturaRepository detalleFacturaRepository;
+	
+	@Autowired (required = true)
+	FacturaRepository facturaRepository;
+	
+	@Autowired (required = true)
+	ArticuloServicio artConsService;
+	
+	@Autowired (required = true)
+	FacturaServicio facServicio;
+	
+	@Autowired (required = true)
+	DetalleFacturaServicio detFacServicio;
+	/*FacturaServicio facServicio = new FacturaServicio(
+			facturaRepository, 
+			repository, 
+			articuloRepository,
+			estadoPedidoRepository,
+			insumoRepository,
+			detalleFacturaRepository);
+			*/
+	
 	
 	public static int tiempoDeCola=0;
 
@@ -290,7 +318,6 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				entity.setHoraFin(dto.getHoraFin());
 				entity.setConEnvio(dto.getConEnvio());
 				entity.setFechaAnulado(dto.getFechaAnulado());
-				entity.setFactura(dto.getFactura());
 
 				EstadoPedido epTemp = new EstadoPedido();
 				Optional<EstadoPedido>epEntityOptional = estadoPedidoRepository.findById((long)dto.getIdEstadoPedido());
@@ -405,46 +432,86 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 
 	}
 	
-	private PedidoDto convertEntidadAPedidoDTO(Pedido entity) {
+	private PedidoDto convertEntidadAPedidoDTO(Pedido entity){
 		PedidoDto dto = new PedidoDto();
-		dto.setId(entity.getId());
-		dto.setFecha(entity.getFecha());
-		dto.setNumero(entity.getNumero());
-		dto.setEstado(entity.getEstado());
-		dto.setTiempoRequerido(entity.getTiempoRequerido());
-		dto.setHoraFin(entity.getHoraFin());
-		dto.setConEnvio(entity.getConEnvio());
-		
-		dto.setNombreCliente(entity.getCliente().getNombre()+" "+entity.getCliente().getApellido());
-		dto.setDomicilioCliente(entity.getCliente().getDomicilio().getCalle()+" "+entity.getCliente().getDomicilio().getNumero()+", "
-				+entity.getCliente().getDomicilio().getLocalidad()+" - "+entity.getCliente().getDomicilio().getDepartamento());
-		dto.setTelCliente(entity.getCliente().getTelefono());
-		dto.setEmailCliente(entity.getCliente().getEmail());
-		dto.setIdEstadoPedido(entity.getEstadoPedido().getId());
-		dto.setStringEstadoPedido(entity.getEstadoPedido().getEstadoPedido());
-		dto.setFechaAnulado(entity.getFechaAnulado());
-		
-		String detallesConcatenados = "";
-		
-		for(DetallePedido entityDetalle : entity.getDetalles()) {
-			DetallePedidoDto dtoDetalle = new DetallePedidoDto();
-			dtoDetalle.setId(entityDetalle.getId());
-			dtoDetalle.setCantidad(entityDetalle.getCantidad());
+
+		try {
+			dto.setId(entity.getId());
+			dto.setFecha(entity.getFecha());
+			dto.setNumero(entity.getNumero());
+			dto.setEstado(entity.getEstado());
+			dto.setTiempoRequerido(entity.getTiempoRequerido());
+			dto.setHoraFin(entity.getHoraFin());
+			dto.setConEnvio(entity.getConEnvio());
 			
-			ArticuloDto ArticuloDto = new ArticuloDto();
+			if(entity.getFactura() != null) {
+				FacturaDto facDto = this.facServicio.findById((int)entity.getFactura().getId());
 			
-			ArticuloDto.setDenominacion(entityDetalle.getArticulo().getDenominacion());
-			ArticuloDto.setPrecioCompra(entityDetalle.getArticulo().getPrecioCompra());
-			ArticuloDto.setPrecioVenta(entityDetalle.getArticulo().getPrecioVenta());
-			ArticuloDto.setEsManufacturado(entityDetalle.getArticulo().isEsManufacturado());	
-			ArticuloDto.setTiempoCocina(entityDetalle.getArticulo().getTiempoCocina());
-			dtoDetalle.setArticuloDto(ArticuloDto);
 			
-			detallesConcatenados += entityDetalle.getArticulo().getDenominacion()+" x "+ entityDetalle.getCantidad()+". ";
-                			
-			dto.getDetalles().add(dtoDetalle);				
-		}				
-		dto.setStringDetallePedido(detallesConcatenados);		
+				if(facDto != null) {
+					
+					Factura facTemp = facturaRepository.getOne(facDto.getId());
+					
+					List <DetalleFacturaDto> listadoDetalle = new ArrayList<DetalleFacturaDto>();
+					
+					if(facTemp.getDetalles().size() > 0) {
+						
+						for(DetalleFactura item : facTemp.getDetalles()) {
+							
+											
+							DetalleFacturaDto itemDto = new DetalleFacturaDto();
+							
+							itemDto = this.detFacServicio.findById((int)item.getId());
+							
+							ArticuloDto art = this.artConsService.findSmallArticuloPorId((int)item.getId()); 
+							
+							itemDto.setArticuloConsumoDto(art);
+							
+							listadoDetalle.add(itemDto);
+							
+						}
+						facDto.setDetallesDto(listadoDetalle);
+					}				
+					dto.setFacturaDto(facDto); 
+				}
+			
+			}
+				
+			dto.setNombreCliente(entity.getCliente().getNombre()+" "+entity.getCliente().getApellido());
+			dto.setDomicilioCliente(entity.getCliente().getDomicilio().getCalle()+" "+entity.getCliente().getDomicilio().getNumero()+", "
+					+entity.getCliente().getDomicilio().getLocalidad()+" - "+entity.getCliente().getDomicilio().getDepartamento());
+			dto.setTelCliente(entity.getCliente().getTelefono());
+			dto.setEmailCliente(entity.getCliente().getEmail());
+			dto.setIdEstadoPedido(entity.getEstadoPedido().getId());
+			dto.setStringEstadoPedido(entity.getEstadoPedido().getEstadoPedido());
+			dto.setFechaAnulado(entity.getFechaAnulado());
+			
+			String detallesConcatenados = "";
+			
+			for(DetallePedido entityDetalle : entity.getDetalles()) {
+				DetallePedidoDto dtoDetalle = new DetallePedidoDto();
+				dtoDetalle.setId(entityDetalle.getId());
+				dtoDetalle.setCantidad(entityDetalle.getCantidad());
+				
+				ArticuloDto ArticuloDto = new ArticuloDto();
+				
+				ArticuloDto.setDenominacion(entityDetalle.getArticulo().getDenominacion());
+				ArticuloDto.setPrecioCompra(entityDetalle.getArticulo().getPrecioCompra());
+				ArticuloDto.setPrecioVenta(entityDetalle.getArticulo().getPrecioVenta());
+				ArticuloDto.setEsManufacturado(entityDetalle.getArticulo().isEsManufacturado());	
+				ArticuloDto.setTiempoCocina(entityDetalle.getArticulo().getTiempoCocina());
+				dtoDetalle.setArticuloDto(ArticuloDto);
+				
+				detallesConcatenados += entityDetalle.getArticulo().getDenominacion()+" x "+ entityDetalle.getCantidad()+". ";
+	                			
+				dto.getDetalles().add(dtoDetalle);				
+			}				
+			dto.setStringDetallePedido(detallesConcatenados);	
+			
+		} catch (Exception e) {
+			System.out.println("Falla método 'convertEntidadAPedidoDTO': " +  e.getMessage());
+		}
+			
 		return dto;
 	}
 	
@@ -463,6 +530,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				}
 				
 			}
+			
 			return dtos;
 			
 		} catch (Exception e) {

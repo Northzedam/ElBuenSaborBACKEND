@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ import com.example.demo.repository.EstadoPedidoRepository;
 import com.example.demo.repository.FacturaRepository;
 import com.example.demo.repository.InsumoRepository;
 import com.example.demo.repository.PedidoRepository;
+import com.example.demo.dtos.ArticuloDto;
+import com.example.demo.dtos.DetalleFacturaDto;
 import com.example.demo.dtos.FacturaDto;
 
 @Service
@@ -33,7 +36,16 @@ public class FacturaServicio {
 	InsumoRepository insumoRepository;
 	DetalleFacturaRepository detalleFacturaRepository;
 	
-	PedidoServicio pedidoService = new PedidoServicio(pedidoRepository, articuloRepository, estadoPedidoRepository);
+	@Autowired (required = true)
+	PedidoServicio pedidoService;
+	
+	@Autowired (required = true)
+	DetalleFacturaServicio detFacServicio;
+	
+	@Autowired (required = true)
+	ArticuloServicio artConsService;
+	
+	//PedidoServicio pedidoService = new PedidoServicio(pedidoRepository, articuloRepository, estadoPedidoRepository);
 	
 	public FacturaServicio(FacturaRepository repository, 
 			PedidoRepository pedidoRepository,
@@ -121,10 +133,13 @@ public class FacturaServicio {
 			pedido.setFactura(entity);
 			pedidoRepository.save(pedido);
 			
-			this.pasarDetallePedidoADetalleFactura(entity, pedido);
+			List<DetalleFacturaDto> detTemp = this.pasarDetallePedidoADetalleFactura(entity, pedido);
+			
+			dto.setDetallesDto(detTemp);
 			
 			//por último le doy al dto de factura el id creado en la BD y devuelvo el dto al controlador
 			dto.setId(entity.getId());
+			
 			return dto;
 		} catch (Exception e) {
 			throw new Exception();	
@@ -133,23 +148,39 @@ public class FacturaServicio {
 			
 	}
     
-    public void pasarDetallePedidoADetalleFactura(Factura factura, Pedido pedido) {
+    public List<DetalleFacturaDto> pasarDetallePedidoADetalleFactura(Factura factura, Pedido pedido) {
     	
-    	if(pedido.getDetalles().size() > 0) {
-    		for(DetallePedido detallePedido : pedido.getDetalles()) {
-    			
-    			double subtotal = detallePedido.getCantidad() * detallePedido.getArticulo().getPrecioVenta();
-    			
-    			DetalleFactura detFactura = new DetalleFactura(
-    					detallePedido.getCantidad(),
-    					subtotal, 
-    					factura, 
-    					detallePedido.getArticulo());    
-    			
-    			this.detalleFacturaRepository.save(detFactura);
-    			
-    		}
-    	}    	
+    	List<DetalleFacturaDto> listadoDetalle = new ArrayList<DetalleFacturaDto>();
+    	
+    	try {
+    		if(pedido.getDetalles().size() > 0) {    		
+        		
+        		for(DetallePedido detallePedido : pedido.getDetalles()) {
+        			
+        			double subtotal = detallePedido.getCantidad() * detallePedido.getArticulo().getPrecioVenta();
+        			
+        			DetalleFactura detFactura = new DetalleFactura(
+        					detallePedido.getCantidad(),
+        					subtotal, 
+        					factura, 
+        					detallePedido.getArticulo());    
+        			
+        			detFactura = this.detalleFacturaRepository.save(detFactura);
+        			
+        			DetalleFacturaDto itemDto = this.detFacServicio.findById((int)detFactura.getId());				
+    				ArticuloDto art = this.artConsService.findSmallArticuloPorId((int)detFactura.getId()); 
+    				
+    				itemDto.setArticuloConsumoDto(art);
+    				
+    				listadoDetalle.add(itemDto);
+        			
+        		}
+        	} 
+		} catch (Exception e) {
+			System.out.println("Rompe método 'pasarDetallePedidoADetalleFactura' en FacturaServicio: " + e.getMessage());
+		}   	
+    	
+    	return listadoDetalle;
     }
 	
 	public FacturaDto update(int id, FacturaDto dto, boolean estado) throws Exception {

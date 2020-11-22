@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 	public class DetalleFactura extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
@@ -26,6 +28,7 @@ import javax.persistence.OneToOne;
 		@Column(name = "Subtotal")
 		private double subtotal;
 		
+		@JsonBackReference
 		@ManyToOne(cascade = CascadeType.PERSIST)
 		@JoinColumn(name = "id_factura")
 		private Factura factura;

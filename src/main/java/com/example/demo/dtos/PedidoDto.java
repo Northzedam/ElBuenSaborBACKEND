@@ -18,8 +18,6 @@ public class PedidoDto {
 		return horaFin;
 	}
 
-
-
 	public void setHoraFin(Date horaFin) {
 		this.horaFin = horaFin;
 	}
@@ -50,6 +48,8 @@ public class PedidoDto {
 	
 	
 	private Factura factura;
+	
+	private FacturaDto facturaDto;
 	
 	private Pedido pedido;
 	
@@ -84,7 +84,7 @@ public class PedidoDto {
 
 
 	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin ,int tiempoRequerido, boolean conEnvio,
-			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura) {
+			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura, FacturaDto facturaDto) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -96,6 +96,7 @@ public class PedidoDto {
 		this.detalles = detalles;
 		this.cliente = cliente;
 		this.factura = factura;
+		this.facturaDto = facturaDto;
 	}
 	
 	
@@ -126,6 +127,14 @@ public class PedidoDto {
 		this.fechaAnulado = fechaAnulado;
 	}
 
+
+	public FacturaDto getFacturaDto() {
+		return facturaDto;
+	}
+
+	public void setFacturaDto(FacturaDto facturaDto) {
+		this.facturaDto = facturaDto;
+	}
 
 	public long getId() {
 		return id;

@@ -137,6 +137,32 @@ public class ArticuloServicio {
 					dto.setDetalles(detallesReceta);
 				
 		} catch (Exception e) {
+			System.out.println("Rompe findById de ArticuloDto: " + e.getMessage());
+			throw new Exception();
+		}
+		
+		return dto;
+	}
+	
+	public ArticuloDto findSmallArticuloPorId(int id) throws Exception{
+		
+		Optional<Articulo>entityOptional = repository.findById((long) id);
+		
+		ArticuloDto dto = new ArticuloDto();
+		
+		try {
+			if(!entityOptional.isEmpty()) {
+				Articulo entity = entityOptional.get();
+				
+			 	dto.setId(entity.getId());
+				dto.setDenominacion(entity.getDenominacion());
+				dto.setPrecioCompra(entity.getPrecioCompra());
+				dto.setPrecioVenta(entity.getPrecioVenta());
+				dto.setEsManufacturado(entity.isEsManufacturado());
+			}	        
+				
+		} catch (Exception e) {
+			System.out.println("Rompe findSmallArticuloPorId de ArticuloDto: " + e.getMessage());
 			throw new Exception();
 		}
 		
