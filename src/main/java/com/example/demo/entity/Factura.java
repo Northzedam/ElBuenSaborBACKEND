@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 	public class Factura extends EntidadGenerica implements Serializable{
 		private static final long serialVersionUID = 1L;
@@ -35,7 +37,7 @@ import javax.persistence.OneToOne;
 		@Column(name = "NTarjeta")
 		private String nroTarjeta;
 
-
+		@JsonManagedReference
 		@OneToMany(mappedBy="factura" ,cascade = CascadeType.ALL, orphanRemoval=true)
 		@Column(name = "DetalleFactura")
 		private List<DetalleFactura> detalles = new ArrayList<DetalleFactura>();
