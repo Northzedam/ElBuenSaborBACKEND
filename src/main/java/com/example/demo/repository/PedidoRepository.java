@@ -44,7 +44,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 	
 	//---para reportes-------------
 	
-		@Query("SELECT p FROM Pedido p WHERE p.fecha > :fechaDesde AND p.fecha < :fechaHasta ")
+		@Query("SELECT p FROM Pedido p WHERE p.fecha >= :fechaDesde AND p.fecha <= :fechaHasta ")
 		public List<Pedido> findPedidosByFecha(Date fechaDesde, Date fechaHasta );
 		
 

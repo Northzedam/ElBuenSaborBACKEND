@@ -8,9 +8,9 @@ public class ReporteMasVendidosDto {
 	
 	private int cantidad;
 	
-	private Date fechaDesde;
+	private String fechaDesde;
 	
-	private Date fechaHasta;
+	private String fechaHasta;
 	
 	// agregar ganancias por articulo en rango de fecha
 	
@@ -23,7 +23,7 @@ public class ReporteMasVendidosDto {
 
 
 
-	public ReporteMasVendidosDto(String denominacion, int cantidad, Date fechaDesde, Date fechaHasta) {
+	public ReporteMasVendidosDto(String denominacion, int cantidad, String fechaDesde, String fechaHasta) {
 		super();
 		Denominacion = denominacion;
 		this.cantidad = cantidad;
@@ -57,25 +57,25 @@ public class ReporteMasVendidosDto {
 
 
 
-	public Date getFechaDesde() {
+	public String getFechaDesde() {
 		return fechaDesde;
 	}
 
 
 
-	public void setFechaDesde(Date fechaDesde) {
+	public void setFechaDesde(String fechaDesde) {
 		this.fechaDesde = fechaDesde;
 	}
 
 
 
-	public Date getFechaHasta() {
+	public String getFechaHasta() {
 		return fechaHasta;
 	}
 
 
 
-	public void setFechaHasta(Date fechaHasta) {
+	public void setFechaHasta(String fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
 	
