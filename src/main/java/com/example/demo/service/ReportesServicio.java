@@ -1,4 +1,5 @@
 package com.example.demo.service;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,7 +25,15 @@ public class ReportesServicio {
 	@Autowired
 	ArticuloRepository articuloRepository;
 	
-	public List<ReporteMasVendidosDto> findArticulosMasVendidos(Date fechaDesde, Date fechaHasta) throws Exception{
+	public List<ReporteMasVendidosDto> findArticulosMasVendidos(ReporteMasVendidosDto dto) throws Exception{
+		
+		Date dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dto.getFechaDesde());
+		Date dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dto.getFechaHasta());
+		
+		System.out.println("Fecha Desde convertida a tipo Date: " + dateFechaDesde);
+
+		System.out.println("Fecha Hasta convertida a tipo Date: " + dateFechaHasta);
+
 		
 		List<Articulo>articulos = new ArrayList<Articulo>();
 		try {
@@ -39,7 +48,7 @@ public class ReportesServicio {
 		List<ReporteMasVendidosDto>dtos = new ArrayList<ReporteMasVendidosDto>();
 		List<Pedido>pedidos = new ArrayList<Pedido>();
 		try {
-			pedidos = pedidoRepository.findPedidosByFecha(fechaDesde, fechaHasta);
+			pedidos = pedidoRepository.findPedidosByFecha(dateFechaDesde, dateFechaHasta);
 		} catch (Exception e) {
 			System.out.println("Error al obtener todos los pedidos por fecha");
 		}
@@ -77,8 +86,8 @@ public class ReportesServicio {
 			ReporteMasVendidosDto nuevoReporte = new ReporteMasVendidosDto();
 			nuevoReporte.setDenominacion(k);
 			nuevoReporte.setCantidad(v);
-			nuevoReporte.setFechaDesde(fechaDesde);
-			nuevoReporte.setFechaHasta(fechaHasta);
+			nuevoReporte.setFechaDesde(dto.getFechaDesde());
+			nuevoReporte.setFechaHasta(dto.getFechaHasta());
 			dtos.add(nuevoReporte);
 			
 		});
