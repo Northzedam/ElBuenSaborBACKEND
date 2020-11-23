@@ -25,10 +25,15 @@ public class ReportesServicio {
 	@Autowired
 	ArticuloRepository articuloRepository;
 	
-	public List<ReporteMasVendidosDto> findArticulosMasVendidos(ReporteMasVendidosDto dto) throws Exception{
+	public List<ReporteMasVendidosDto> findArticulosMasVendidos(String fechaDesdeHasta) throws Exception{
+		String fechaDedeHastaConEspacios = fechaDesdeHasta.replace('%',' ');
+		String fechaDesde = fechaDesdeHasta.substring(0,19);
+		String fechaHasta = fechaDesdeHasta.substring(20,39);
 		
-		Date dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dto.getFechaDesde());
-		Date dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dto.getFechaHasta());
+		System.out.println("Fecha Desde: " + fechaDesde + " --- Fecha Hasta: " + fechaHasta);
+		
+		Date dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaDesde);
+		Date dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);
 		
 		System.out.println("Fecha Desde convertida a tipo Date: " + dateFechaDesde);
 
@@ -86,8 +91,8 @@ public class ReportesServicio {
 			ReporteMasVendidosDto nuevoReporte = new ReporteMasVendidosDto();
 			nuevoReporte.setDenominacion(k);
 			nuevoReporte.setCantidad(v);
-			nuevoReporte.setFechaDesde(dto.getFechaDesde());
-			nuevoReporte.setFechaHasta(dto.getFechaHasta());
+			nuevoReporte.setFechaDesde(fechaDesde);
+			nuevoReporte.setFechaHasta(fechaHasta);
 			dtos.add(nuevoReporte);
 			
 		});

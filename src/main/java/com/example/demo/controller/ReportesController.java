@@ -34,10 +34,10 @@ public class ReportesController {
 		
 			@GetMapping("/")
 			@Transactional
-			public ResponseEntity getAll(@RequestBody ReporteMasVendidosDto dto){
+			public ResponseEntity getAll(@RequestParam String fechaDesdeHasta){
 				try {
 					//return ResponseEntity.status(HttpStatus.OK).body(service.findArticulosMasVendidos(fechaDesde, fechaHasta));
-					return ResponseEntity.status(HttpStatus.OK).body(service.findArticulosMasVendidos(dto));
+					return ResponseEntity.status(HttpStatus.OK).body(service.findArticulosMasVendidos(fechaDesdeHasta));
 
 					
 				}catch(Exception e) {
