@@ -421,7 +421,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				public PedidoDto apply(Pedido t) {
 					return convertEntidadAPedidoDTO(t);
 				}
-
+ 
 	        });	
 		}catch(Exception e){
 			System.out.println("MANSO ERROR: "+e.getMessage());
