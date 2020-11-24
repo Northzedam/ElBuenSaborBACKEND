@@ -1,4 +1,5 @@
 package com.example.demo.service;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.PedidoDto;
+import com.example.demo.dtos.ReporteGananciasDto;
 import com.example.demo.dtos.ReporteMasVendidosDto;
 import com.example.demo.entity.Articulo;
 import com.example.demo.entity.DetallePedido;
@@ -26,6 +28,7 @@ public class ReportesServicio {
 	ArticuloRepository articuloRepository;
 	
 	public List<ReporteMasVendidosDto> findArticulosMasVendidos(String fechaDesdeHasta) throws Exception{
+
 		String fechaDedeHastaConEspacios = fechaDesdeHasta.replace('%',' ');
 		String fechaDesde = fechaDesdeHasta.substring(0,19);
 		String fechaHasta = fechaDesdeHasta.substring(20,39);
@@ -101,5 +104,56 @@ public class ReportesServicio {
 			System.out.println("Denominacion: "+nuevoReporte.getDenominacion() + " - Cantidad: " + nuevoReporte.getCantidad());
 		}
 		return dtos;
-	}	
+	}
+	
+	public List<ReporteGananciasDto>findGanancias(String fechaDesdeHasta) throws Exception{
+		
+		String fechaDedeHastaConEspacios = fechaDesdeHasta.replace('%',' ');
+		String fechaDesde = fechaDesdeHasta.substring(0,19);
+		String fechaHasta = fechaDesdeHasta.substring(20,39);
+		
+		System.out.println("Fecha Desde: " + fechaDesde + " --- Fecha Hasta: " + fechaHasta);
+		
+		Date dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaDesde);
+		Date dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);
+		
+		List<Pedido>pedidos = new ArrayList<Pedido>();
+		
+		try {
+			pedidos = pedidoRepository.findPedidosByFecha(dateFechaDesde, dateFechaHasta);
+		} catch (Exception e) {
+			System.out.println("Error al obtener todos los pedidos por fecha");
+		}
+		
+		HashMap<String,Double>gananciasPorFecha = new HashMap<String,Double>();
+		
+		List<DetallePedido>detalles = new ArrayList<DetallePedido>();
+		for(Pedido pedido : pedidos) {
+			double totalGananciasPedido=0.0;
+			for(DetallePedido detallePedido : pedido.getDetalles()) {
+				totalGananciasPedido+= detallePedido.getArticulo().getPrecioVenta()-detallePedido.getArticulo().getPrecioCompra();
+			}
+			if(gananciasPorFecha.containsKey(pedido.getFecha().toString())) {
+				gananciasPorFecha.put(pedido.getFecha().toString()  ,  gananciasPorFecha.get(pedido.getFecha())+totalGananciasPedido );
+
+			}else {
+				gananciasPorFecha.put(pedido.getFecha().toString(), totalGananciasPedido);
+			}
+		}
+		
+		//ahora que obtuve todos los detalles de la fecha, y las ganancias por fecha calculadas en el map, seteamos el dto
+		
+		gananciasPorFecha.forEach((k,v) -> {
+			ReporteGananciasDto reporteGanancias = new ReporteGananciasDto(); 
+			try {
+				reporteGanancias.setFecha(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(k));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			reporteGanancias.setMonto(v);
+		});
+		
+		return null;
+		
+	}
 }
