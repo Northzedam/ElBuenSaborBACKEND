@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import com.example.demo.repository.ClienteRepository;
 public class ClienteServicio{
 	
 	ClienteRepository repository;
+	@Autowired (required = true)
 	protected DomicilioServicio domService;
 	protected PedidoServicio pedService;
 	protected DetallePedidoServicio detPedService;
@@ -77,13 +79,19 @@ public List<ClienteDto> findAll() throws Exception {
 				*/
 				
 				////////////////////////////////////////////////////////////////////7
+				
+				
 				DomicilioDto domicilioDto = new DomicilioDto();
 				Domicilio domicilioEntity = entity.getDomicilio();
-				domicilioDto.setId(domicilioEntity.getId());
-				domicilioDto.setCalle(domicilioEntity.getCalle());
-				domicilioDto.setNumero(domicilioEntity.getNumero());
-				domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
-				domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
+				
+				if(domicilioEntity != null) {
+					domicilioDto.setId(domicilioEntity.getId());
+					domicilioDto.setCalle(domicilioEntity.getCalle());
+					domicilioDto.setNumero(domicilioEntity.getNumero());
+					domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
+					domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
+				}
+				
 				
 				
 				for(Pedido entityPedido : entity.getPedidoList()) {
@@ -141,12 +149,14 @@ public ClienteDto findById(int id) throws Exception{
 			
 			DomicilioDto domicilioDto = new DomicilioDto();
 			Domicilio domicilioEntity = entity.getDomicilio();
-			domicilioDto.setId(domicilioEntity.getId());
-			domicilioDto.setCalle(domicilioEntity.getCalle());
-			domicilioDto.setNumero(domicilioEntity.getNumero());
-			domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
-			domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
-			
+			if(domicilioEntity != null) {
+				domicilioDto.setId(domicilioEntity.getId());
+				domicilioDto.setCalle(domicilioEntity.getCalle());
+				domicilioDto.setNumero(domicilioEntity.getNumero());
+				domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
+				domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
+				dto.setDomicilioDto(domicilioDto);
+			}
 			
 					
 	} catch (Exception e) {
@@ -158,20 +168,37 @@ public ClienteDto findById(int id) throws Exception{
 
 public ClienteDto save(ClienteDto dto, boolean estado) throws Exception {
 	
-	Cliente entity = new Cliente();
+	Optional<Cliente>entityOptional = repository.findByEmail(dto.getEmail());
 	
-	entity.setNombre(dto.getNombre());
-	entity.setApellido(dto.getApellido());
-	entity.setTelefono(dto.getTelefono());
-	entity.setEmail(dto.getEmail());
+	if(!entityOptional.isEmpty()) {
 	
+		Cliente entity = new Cliente();
 		
-	try {
-		entity = repository.save(entity);
-		dto.setId(entity.getId());
+		entity.setNombre(dto.getNombre());
+		entity.setApellido(dto.getApellido());
+		entity.setTelefono(dto.getTelefono());
+		entity.setEmail(dto.getEmail());
+		
+		Domicilio dom = new Domicilio();			
+		dom.setCalle(dto.getDomicilioDto().getCalle());
+		dom.setDepartamento(dto.getDomicilioDto().getDepartamento());
+		dom.setLocalidad(dto.getDomicilioDto().getLocalidad());
+		dom.setNumero(dto.getDomicilioDto().getNumero());
+		
+		entity.setDomicilio(dom);
+		
+		
+		try {
+			entity = repository.save(entity);
+			dto.setId(entity.getId());
+			return dto;
+		} catch (Exception e) {
+			throw new Exception();	
+		}
+		
+	}else {
+		System.out.println("El cliente que quiere guardar tiene un email ya existente en la Base de datos");
 		return dto;
-	} catch (Exception e) {
-		throw new Exception();	
 	}
 	
 		
@@ -188,13 +215,35 @@ public ClienteDto update(int id, ClienteDto dto, boolean estado) throws Exceptio
 			entity.setTelefono(dto.getTelefono());
 			entity.setEmail(dto.getEmail());
 			
+			
+			if(dto.getDomicilioDto().getId() > 0) {
+				Domicilio dom = new Domicilio();
+				dom = this.domService.getDomicilioEntityById(dto.getDomicilioDto().getId());
+				
+				if(dom != null) {
+					dom.setCalle(dto.getDomicilioDto().getCalle());
+					dom.setDepartamento(dto.getDomicilioDto().getDepartamento());
+					dom.setLocalidad(dto.getDomicilioDto().getLocalidad());
+					dom.setNumero(dto.getDomicilioDto().getNumero());
+					
+					this.domService.saveDomEntity(dom);
+				}
+			}else {
+				Domicilio dom = new Domicilio();			
+				dom.setCalle(dto.getDomicilioDto().getCalle());
+				dom.setDepartamento(dto.getDomicilioDto().getDepartamento());
+				dom.setLocalidad(dto.getDomicilioDto().getLocalidad());
+				dom.setNumero(dto.getDomicilioDto().getNumero());
+				
+				entity.setDomicilio(dom);
+			}			
 		 
 		 repository.save(entity);
 		 dto.setId(entity.getId());
 		 return dto;
 		 
 	} catch (Exception e) {
-		// TODO: handle exception
+		System.out.println("Error en ClienteServicio update" + e.getMessage());
 	}
 	return dto;
 }
@@ -220,5 +269,40 @@ public int countPages(int size) throws Exception {
 	} catch (Exception e) {
 		throw new Exception(e.getMessage());
 	}
+}
+
+public ClienteDto findByEmail(String email) throws Exception {
+	Optional<Cliente>entityOptional = repository.findByEmail(email);
+	
+	ClienteDto dto = new ClienteDto();
+	
+	try {
+		Cliente entity = entityOptional.get();
+		
+		if(entity != null) {
+			dto.setId(entity.getId());
+			dto.setNombre(entity.getNombre());
+			dto.setApellido(entity.getApellido());
+			dto.setTelefono(entity.getTelefono());
+			dto.setEmail(entity.getEmail());
+			
+			DomicilioDto domicilioDto = new DomicilioDto();
+			Domicilio domicilioEntity = entity.getDomicilio();
+			if(domicilioEntity != null) {
+				domicilioDto.setId(domicilioEntity.getId());
+				domicilioDto.setCalle(domicilioEntity.getCalle());
+				domicilioDto.setNumero(domicilioEntity.getNumero());
+				domicilioDto.setLocalidad(domicilioEntity.getLocalidad());
+				domicilioDto.setDepartamento(domicilioEntity.getDepartamento());
+				
+				dto.setDomicilioDto(domicilioDto);
+			}		
+		}		
+					
+	} catch (Exception e) {
+		throw new Exception();
+	}
+	
+	return dto;
 }
 }
