@@ -37,7 +37,7 @@ public class Cliente extends EntidadGenerica implements Serializable{
 	@Column(name = "email")
 	private String email;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="domicilio_id")
 	private Domicilio domicilio;
 

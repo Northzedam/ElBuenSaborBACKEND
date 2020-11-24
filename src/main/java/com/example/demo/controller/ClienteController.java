@@ -62,6 +62,23 @@ public class ClienteController{
 
 	}
 	
+	@GetMapping("/email/{email}")
+	@Transactional
+	public ResponseEntity getByEmail(@PathVariable String email) {
+
+		try {
+
+			return ResponseEntity.status(HttpStatus.OK).body(service.findByEmail(email));
+
+		} catch (Exception e) {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body("{\"Mi mensaje get uno\": \"" + e.getMessage() + "\"}");
+
+		}
+
+	}
+	
 	
 	//post-----------------------
 	

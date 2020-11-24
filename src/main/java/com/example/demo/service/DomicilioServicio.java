@@ -119,6 +119,19 @@ public class DomicilioServicio {
 		
 	}
 	
+	public Domicilio getDomicilioEntityById(long id) {
+		System.out.println("Entre");
+		Domicilio entity = new Domicilio();
+		try {
+			Optional<Domicilio>entityOptional = repository.findById(id);
+			entity = entityOptional.get();
+		} catch (Exception e) {
+			System.out.println("Error en getDomicilioEntityById: " + e.getMessage());
+		}
+		
+		return entity;
+	}
+	
 	
 	public int countPages(int size) throws Exception {
 		try {
@@ -128,6 +141,10 @@ public class DomicilioServicio {
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
+	}
+
+	public void saveDomEntity(Domicilio dom) {
+		this.repository.save(dom);		
 	}
 	
 	
