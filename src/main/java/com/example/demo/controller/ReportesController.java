@@ -45,7 +45,18 @@ public class ReportesController {
 				}
 			}
 			
-			//getOne-----------------------
+			@GetMapping("/ganancias")
+			@Transactional
+			public ResponseEntity getGananciasPorFecha(@RequestParam String fechaDesdeHasta){
+				try {
+					//return ResponseEntity.status(HttpStatus.OK).body(service.findArticulosMasVendidos(fechaDesde, fechaHasta));
+					return ResponseEntity.status(HttpStatus.OK).body(service.findGanancias(fechaDesdeHasta));
+
+					
+				}catch(Exception e) {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
+				}
+			}
 			
 		
 

@@ -107,7 +107,7 @@ public class ReportesServicio {
 	}
 	
 	public List<ReporteGananciasDto>findGanancias(String fechaDesdeHasta) throws Exception{
-		
+		List<ReporteGananciasDto>dtos = new ArrayList<ReporteGananciasDto>();
 		String fechaDedeHastaConEspacios = fechaDesdeHasta.replace('%',' ');
 		String fechaDesde = fechaDesdeHasta.substring(0,19);
 		String fechaHasta = fechaDesdeHasta.substring(20,39);
@@ -131,7 +131,7 @@ public class ReportesServicio {
 		for(Pedido pedido : pedidos) {
 			double totalGananciasPedido=0.0;
 			for(DetallePedido detallePedido : pedido.getDetalles()) {
-				totalGananciasPedido+= detallePedido.getArticulo().getPrecioVenta()-detallePedido.getArticulo().getPrecioCompra();
+				totalGananciasPedido+= (detallePedido.getArticulo().getPrecioVenta()-detallePedido.getArticulo().getPrecioCompra())*detallePedido.getCantidad();
 			}
 			if(gananciasPorFecha.containsKey(pedido.getFecha().toString())) {
 				gananciasPorFecha.put(pedido.getFecha().toString()  ,  gananciasPorFecha.get(pedido.getFecha())+totalGananciasPedido );
@@ -151,9 +151,10 @@ public class ReportesServicio {
 				e.printStackTrace();
 			}
 			reporteGanancias.setMonto(v);
+			dtos.add(reporteGanancias);
 		});
 		
-		return null;
+		return dtos;
 		
 	}
 }

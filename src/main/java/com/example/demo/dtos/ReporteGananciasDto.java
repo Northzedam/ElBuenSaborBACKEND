@@ -5,20 +5,23 @@ import java.util.Date;
 public class ReporteGananciasDto {
 	
 	private Date fecha;
-	
-	private String Mes;
-	
+		
 	private double monto;
+	
+    private String fechaDesde;
+	
+	private String fechaHasta;
 
 	public ReporteGananciasDto() {
 		super();
 	}
 
-	public ReporteGananciasDto(Date fecha, String mes, double monto) {
+	public ReporteGananciasDto(Date fecha, double monto, String fechaDesde, String fechaHasta) {
 		super();
 		this.fecha = fecha;
-		Mes = mes;
 		this.monto = monto;
+		this.fechaDesde = fechaDesde;
+		this.fechaHasta = fechaHasta;
 	}
 
 	public Date getFecha() {
@@ -29,14 +32,6 @@ public class ReporteGananciasDto {
 		this.fecha = fecha;
 	}
 
-	public String getMes() {
-		return Mes;
-	}
-
-	public void setMes(String mes) {
-		Mes = mes;
-	}
-
 	public double getMonto() {
 		return monto;
 	}
@@ -44,6 +39,23 @@ public class ReporteGananciasDto {
 	public void setMonto(double monto) {
 		this.monto = monto;
 	}
+
+	public String getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(String fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public String getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(String fechaHasta) {
+		this.fechaHasta = fechaHasta;
+	}
+
 	
 	
 
