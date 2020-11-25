@@ -12,10 +12,13 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dtos.PedidoDto;
 import com.example.demo.dtos.ReporteGananciasDto;
 import com.example.demo.dtos.ReporteMasVendidosDto;
+import com.example.demo.dtos.ReportePedidosPorClienteDto;
 import com.example.demo.entity.Articulo;
+import com.example.demo.entity.Cliente;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ArticuloRepository;
+import com.example.demo.repository.ClienteRepository;
 import com.example.demo.repository.PedidoRepository;
 
 @Service
@@ -27,21 +30,10 @@ public class ReportesServicio {
 	@Autowired
 	ArticuloRepository articuloRepository;
 	
+	@Autowired
+	ClienteRepository clienteRepository;
+	
 	public List<ReporteMasVendidosDto> findArticulosMasVendidos(String fechaDesdeHasta) throws Exception{
-
-		String fechaDedeHastaConEspacios = fechaDesdeHasta.replace('%',' ');
-		String fechaDesde = fechaDesdeHasta.substring(0,19);
-		String fechaHasta = fechaDesdeHasta.substring(20,39);
-		
-		System.out.println("Fecha Desde: " + fechaDesde + " --- Fecha Hasta: " + fechaHasta);
-		
-		Date dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaDesde);
-		Date dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);
-		
-		System.out.println("Fecha Desde convertida a tipo Date: " + dateFechaDesde);
-
-		System.out.println("Fecha Hasta convertida a tipo Date: " + dateFechaHasta);
-
 		
 		List<Articulo>articulos = new ArrayList<Articulo>();
 		try {
@@ -56,7 +48,7 @@ public class ReportesServicio {
 		List<ReporteMasVendidosDto>dtos = new ArrayList<ReporteMasVendidosDto>();
 		List<Pedido>pedidos = new ArrayList<Pedido>();
 		try {
-			pedidos = pedidoRepository.findPedidosByFecha(dateFechaDesde, dateFechaHasta);
+			pedidos = pedidoRepository.findPedidosByFecha(obtenerFechasDesdeHasta(fechaDesdeHasta)[0],obtenerFechasDesdeHasta(fechaDesdeHasta)[1]);
 		} catch (Exception e) {
 			System.out.println("Error al obtener todos los pedidos por fecha");
 		}
@@ -94,8 +86,13 @@ public class ReportesServicio {
 			ReporteMasVendidosDto nuevoReporte = new ReporteMasVendidosDto();
 			nuevoReporte.setDenominacion(k);
 			nuevoReporte.setCantidad(v);
-			nuevoReporte.setFechaDesde(fechaDesde);
-			nuevoReporte.setFechaHasta(fechaHasta);
+		try {
+			nuevoReporte.setFechaDesde(obtenerFechasDesdeHasta(fechaDesdeHasta)[0].toString());
+			nuevoReporte.setFechaHasta(obtenerFechasDesdeHasta(fechaDesdeHasta)[1].toString());
+		} catch (Exception e) {
+			System.out.println("no se pudo parsear las fechas a String");
+		}
+			
 			dtos.add(nuevoReporte);
 			
 		});
@@ -108,19 +105,11 @@ public class ReportesServicio {
 	
 	public List<ReporteGananciasDto>findGanancias(String fechaDesdeHasta) throws Exception{
 		List<ReporteGananciasDto>dtos = new ArrayList<ReporteGananciasDto>();
-		String fechaDedeHastaConEspacios = fechaDesdeHasta.replace('%',' ');
-		String fechaDesde = fechaDesdeHasta.substring(0,19);
-		String fechaHasta = fechaDesdeHasta.substring(20,39);
-		
-		System.out.println("Fecha Desde: " + fechaDesde + " --- Fecha Hasta: " + fechaHasta);
-		
-		Date dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaDesde);
-		Date dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);
 		
 		List<Pedido>pedidos = new ArrayList<Pedido>();
 		
 		try {
-			pedidos = pedidoRepository.findPedidosByFecha(dateFechaDesde, dateFechaHasta);
+			pedidos = pedidoRepository.findPedidosByFecha(obtenerFechasDesdeHasta(fechaDesdeHasta)[0],obtenerFechasDesdeHasta(fechaDesdeHasta)[1]);
 		} catch (Exception e) {
 			System.out.println("Error al obtener todos los pedidos por fecha");
 		}
@@ -142,11 +131,10 @@ public class ReportesServicio {
 		}
 		
 		//ahora que obtuve todos los detalles de la fecha, y las ganancias por fecha calculadas en el map, seteamos el dto
-		ReporteGananciasDto reporteGanancias = new ReporteGananciasDto(); 
 		HashMap<String,Double>gananciasPorMes = new HashMap<String,Double>();
 
 		gananciasPorFecha.forEach((k,v) -> {
-		
+			ReporteGananciasDto reporteGanancias = new ReporteGananciasDto(); 
 			//seteo el map de ganancias por mes que irá en el dto
 			
 			if(gananciasPorMes.containsKey(setMesPorFecha(k))) {
@@ -159,31 +147,24 @@ public class ReportesServicio {
 			// ahora seteo el dto
 			
 			
-			/*try {
+			try {
 				reporteGanancias.setFecha(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(k));
+				reporteGanancias.setFechaDesde(obtenerFechasDesdeHasta(fechaDesdeHasta)[0].toString());
+				reporteGanancias.setFechaHasta(obtenerFechasDesdeHasta(fechaDesdeHasta)[1].toString());
+
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			reporteGanancias.setMonto(v);*/
-			
+			reporteGanancias.setMonto(v);
+			dtos.add(reporteGanancias);
 		});
 		
-		reporteGanancias.setMapGananciasPorMes(gananciasPorMes);
-		reporteGanancias.setMapGananciasPorFecha(gananciasPorFecha);
-		dtos.add(reporteGanancias);
+		//reporteGanancias.setMapGananciasPorMes(gananciasPorMes);
+		//reporteGanancias.setMapGananciasPorFecha(gananciasPorFecha);
 		
-		
-		
-		
-		//monto por mes
-		
-		
-		
+	
 		return dtos;
-		
-		
-		
-		
+	
 	}
 	
 	public String setMesPorFecha(String fecha) {
@@ -220,4 +201,70 @@ public class ReportesServicio {
 		}
 		return nombreMes;
 	}
+	
+	public Date[] obtenerFechasDesdeHasta(String fechaDesdeHasta) throws ParseException {
+
+		String fechaDedeHastaConEspacios = fechaDesdeHasta.replace('%',' ');
+		String fechaDesde = fechaDesdeHasta.substring(0,19);
+		String fechaHasta = fechaDesdeHasta.substring(20,39);
+		
+		Date dateFechaDesde = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaDesde);
+		Date dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);
+		Date fechas[] = {dateFechaDesde,dateFechaHasta};
+		return fechas;
+	}
+	
+public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesdeHasta) throws Exception{
+		
+		List<Cliente>clientes = new ArrayList<Cliente>();
+		try {
+			clientes = clienteRepository.findAll();
+
+		} catch (Exception e) {
+			System.out.println("Error al obtener todos los clientes");
+		}
+		
+		HashMap<String,Integer>cantidadPedidosPorCliente = new HashMap<String,Integer>(); //almacena las clave-valor de articulo y cantidad vendida
+		
+		List<ReportePedidosPorClienteDto>dtos = new ArrayList<ReportePedidosPorClienteDto>();
+		List<Pedido>pedidos = new ArrayList<Pedido>();
+		try {
+			pedidos = pedidoRepository.findPedidosByFecha(obtenerFechasDesdeHasta(fechaDesdeHasta)[0],obtenerFechasDesdeHasta(fechaDesdeHasta)[1]);
+		} catch (Exception e) {
+			System.out.println("Error al obtener todos los pedidos por fecha");
+		}
+		
+		
+		
+		// ahora que ya obtuve toda la lista de clientes y todos los pedidos por fecha, calculo la cantidad de pedidos por cada cliente
+		
+		for(Cliente cliente : clientes) {
+			double montoTotalGastado=0.0;
+			for(Pedido pedido : pedidos) {
+				montoTotalGastado+=pedido.getFactura().getTotal();
+				if(pedido.getCliente().getEmail() == cliente.getEmail()) { // si coincide el nombre del articulo del detalle con el articulo en analisis
+					
+					if(cantidadPedidosPorCliente.containsKey(cliente.getEmail())) {
+						cantidadPedidosPorCliente.put(pedido.getCliente().getEmail(), cantidadPedidosPorCliente.get(cliente.getEmail())+1);
+					}else {
+						cantidadPedidosPorCliente.put(pedido.getCliente().getEmail(),1);
+					}
+			
+				}
+			}
+			ReportePedidosPorClienteDto nuevoReporte = new ReportePedidosPorClienteDto();
+			nuevoReporte.setNombre(cliente.getNombre());
+			nuevoReporte.setApellido(cliente.getApellido());
+			nuevoReporte.setCantidadPedidos(cantidadPedidosPorCliente.get(cliente.getEmail()));
+			nuevoReporte.setEmail(cliente.getEmail());
+			nuevoReporte.setTelefono(cliente.getTelefono());
+			nuevoReporte.setMontoTotalGastado(montoTotalGastado);
+			dtos.add(nuevoReporte);
+		}
+		
+		
+		return dtos;
+	}
+	
 }
+
