@@ -13,9 +13,9 @@ public class ReporteGananciasDto {
 	
 	private String fechaHasta;
 	
-	private HashMap<String, Double> mapGananciasPorFecha = new HashMap<String,Double>();
+	//private HashMap<String, Double> mapGananciasPorFecha = new HashMap<String,Double>();
 	
-	private HashMap<String, Double> mapGananciasPorMes = new HashMap<String,Double>();
+	//private HashMap<String, Double> mapGananciasPorMes = new HashMap<String,Double>();
 
 
 	public ReporteGananciasDto() {
@@ -30,8 +30,8 @@ public class ReporteGananciasDto {
 		this.monto = monto;
 		this.fechaDesde = fechaDesde;
 		this.fechaHasta = fechaHasta;
-		this.mapGananciasPorFecha = mapGananciasPorFecha;
-		this.mapGananciasPorMes = mapGananciasPorMes;
+		//this.mapGananciasPorFecha = mapGananciasPorFecha;
+		//this.mapGananciasPorMes = mapGananciasPorMes;
 	}
 
 
@@ -75,7 +75,7 @@ public class ReporteGananciasDto {
 	}
 
 
-	public HashMap<String, Double> getMapGananciasPorFecha() {
+	/*public HashMap<String, Double> getMapGananciasPorFecha() {
 		return mapGananciasPorFecha;
 	}
 
@@ -93,7 +93,7 @@ public class ReporteGananciasDto {
 	public void setMapGananciasPorMes(HashMap<String, Double> mapGananciasPorMes) {
 		this.mapGananciasPorMes = mapGananciasPorMes;
 	}
-
+*/
 	
 	
 	
