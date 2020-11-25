@@ -22,8 +22,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Cliente extends EntidadGenerica implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	@Column(name = "Id")
-	private long id;
+
 	
 	@Column(name = "nombre")
 	private String nombre;
@@ -55,9 +54,8 @@ public class Cliente extends EntidadGenerica implements Serializable{
 
 
 
-	public Cliente(long id,String nombre, String apellido, int telefono, String email, Domicilio domicilio) {
+	public Cliente(String nombre, String apellido, int telefono, String email, Domicilio domicilio) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
@@ -67,11 +65,7 @@ public class Cliente extends EntidadGenerica implements Serializable{
 
 	//Getter&Setters
 
-	public long getId() {
-		return id;
-	}
 	
-		
 	
 
 
