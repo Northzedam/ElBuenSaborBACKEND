@@ -142,19 +142,82 @@ public class ReportesServicio {
 		}
 		
 		//ahora que obtuve todos los detalles de la fecha, y las ganancias por fecha calculadas en el map, seteamos el dto
-		
+		ReporteGananciasDto reporteGanancias = new ReporteGananciasDto(); 
+		HashMap<String,Double>gananciasPorMes = new HashMap<String,Double>();
+
 		gananciasPorFecha.forEach((k,v) -> {
-			ReporteGananciasDto reporteGanancias = new ReporteGananciasDto(); 
-			try {
+		
+			//seteo el map de ganancias por mes que irá en el dto
+			
+			if(gananciasPorMes.containsKey(setMesPorFecha(k))) {
+				gananciasPorMes.put(setMesPorFecha(k), gananciasPorMes.get(setMesPorFecha(k))+v);
+			}else {
+				gananciasPorMes.put(setMesPorFecha(k), v);
+			}
+			
+			
+			// ahora seteo el dto
+			
+			
+			/*try {
 				reporteGanancias.setFecha(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(k));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			reporteGanancias.setMonto(v);
-			dtos.add(reporteGanancias);
+			reporteGanancias.setMonto(v);*/
+			
 		});
+		
+		reporteGanancias.setMapGananciasPorMes(gananciasPorMes);
+		reporteGanancias.setMapGananciasPorFecha(gananciasPorFecha);
+		dtos.add(reporteGanancias);
+		
+		
+		
+		
+		//monto por mes
+		
+		
 		
 		return dtos;
 		
+		
+		
+		
+	}
+	
+	public String setMesPorFecha(String fecha) {
+		String nombreMes;
+		System.out.println("NumeroDelMes: " + fecha.substring(5,7));
+
+		switch(fecha.substring(5,7)) {
+		case "01": nombreMes="Enero";
+		break;
+		case "02": nombreMes="Febrero";
+		break;
+		case "03": nombreMes="Marzo";
+		break;
+		case "04": nombreMes="Abril";
+		break;
+		case "05": nombreMes="Mayo";
+		break;
+		case "06": nombreMes="Junio";
+		break;
+		case "07": nombreMes="Julio";
+		break;
+		case "08": nombreMes="Agosto";
+		break;
+		case "09": nombreMes="Septiembre";
+		break;
+		case "10": nombreMes="Octubre";
+		break;
+		case "11": nombreMes="Noviembre";
+		break;
+		case "12": nombreMes="Diciembre";
+		break;
+		
+		default: nombreMes="Error";
+		}
+		return nombreMes;
 	}
 }
