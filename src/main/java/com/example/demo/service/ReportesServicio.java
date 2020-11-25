@@ -241,7 +241,8 @@ public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesde
 		for(Cliente cliente : clientes) {
 			double montoTotalGastado=0.0;
 			for(Pedido pedido : pedidos) {
-				montoTotalGastado+=pedido.getFactura().getTotal();
+				//montoTotalGastado+=pedido.getFactura().getTotal();
+				System.out.println("montoTotal: " + montoTotalGastado);
 				if(pedido.getCliente().getEmail() == cliente.getEmail()) { // si coincide el nombre del articulo del detalle con el articulo en analisis
 					
 					if(cantidadPedidosPorCliente.containsKey(cliente.getEmail())) {
@@ -258,7 +259,7 @@ public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesde
 			nuevoReporte.setCantidadPedidos(cantidadPedidosPorCliente.get(cliente.getEmail()));
 			nuevoReporte.setEmail(cliente.getEmail());
 			nuevoReporte.setTelefono(cliente.getTelefono());
-			nuevoReporte.setMontoTotalGastado(montoTotalGastado);
+			//nuevoReporte.setMontoTotalGastado(montoTotalGastado);
 			dtos.add(nuevoReporte);
 		}
 		
