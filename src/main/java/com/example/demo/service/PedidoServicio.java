@@ -15,11 +15,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Articulo;
+import com.example.demo.entity.Cliente;
 import com.example.demo.entity.DetalleFactura;
 import com.example.demo.entity.DetallePedido;
 import com.example.demo.entity.DetalleReceta;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ArticuloRepository;
+import com.example.demo.repository.ClienteRepository;
 import com.example.demo.repository.DetalleFacturaRepository;
 import com.example.demo.repository.InsumoRepository;
 import com.example.demo.entity.EstadoPedido;
@@ -49,6 +51,9 @@ public class PedidoServicio {
 	
 	@Autowired (required = true)
 	FacturaRepository facturaRepository;
+	
+	@Autowired (required = true)
+	ClienteRepository clienteRepository;
 	
 	@Autowired (required = true)
 	ArticuloServicio artConsService;
@@ -253,6 +258,22 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		entity.setHoraFin(dto.getHoraFin());
 		entity.setConEnvio(dto.getConEnvio());	
 		
+		EstadoPedido epTemp = new EstadoPedido();
+		if(estadoPedidoRepository.existsById(dto.getIdEstadoPedido())) {
+			Optional<EstadoPedido>epEntityOptional = estadoPedidoRepository.findById((long)dto.getIdEstadoPedido());
+			epTemp = epEntityOptional.get();
+			entity.setEstadoPedido(epTemp);
+		}
+		
+		if(clienteRepository.existsById(dto.getCliente().getId())) {
+			Cliente cliTemp = new Cliente();
+			Optional<Cliente> cliEntityOptional = clienteRepository.findById(dto.getCliente().getId());
+			cliTemp = cliEntityOptional.get();
+			entity.setCliente(cliTemp);
+		}		
+		
+		List<DetallePedido> listaDetalles = new ArrayList<DetallePedido>();
+		
 		for(DetallePedidoDto detalleDto : dto.getDetalles()) {
 			DetallePedido detalleEntity = new DetallePedido();
 			detalleEntity.setCantidad(detalleDto.getCantidad());
@@ -260,7 +281,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			Articulo articuloEntity = articuloRepository.getOne(detalleDto.getArticuloDto().getId());
 			// CONTROL DE STOCK
 			for(DetalleReceta detalle : articuloEntity.getDetallesReceta()) {
-				if((detalle.getInsumo().getStockActual() > detalle.getInsumo().getStockMinimo()) && (detalle.getInsumo().getStockActual() > detalle.getCantidad()*detalleDto.getCantidad() )) { // controla que el stock actual sea mayor que el minimo
+				if((detalle.getInsumo().getStockActual() > 0) && (detalle.getInsumo().getStockActual() > detalle.getCantidad()*detalleDto.getCantidad() )) { // controla que el stock actual sea mayor que el minimo
 						detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - (detalle.getCantidad()*detalleDto.getCantidad()));		
 				}else {
 					error = true;
@@ -270,8 +291,9 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			
 			tiempoRequerido+=(articuloEntity.getTiempoCocina()*detalleDto.getCantidad());
 			detalleEntity.setArticulo(articuloEntity);			
-			entity.getDetalles().add(detalleEntity);
+			listaDetalles.add(detalleEntity);
 		}
+		entity.setDetalles(listaDetalles);
 		entity.setTiempoRequerido(tiempoRequerido);
 		
 			try {
@@ -279,7 +301,8 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 						entity=null;
 					}
 					entity = repository.save(entity);	
-					dto.setId(entity.getId());	
+					dto.setId(entity.getId());
+					dto.setTiempoRequerido(tiempoRequerido);
 					
 				return dto;
 				
