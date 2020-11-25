@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dtos.ArticuloDto;
+import com.example.demo.dtos.InsumoDto;
 import com.example.demo.dtos.PedidoDto;
 import com.example.demo.dtos.ReporteGananciasDto;
 import com.example.demo.dtos.ReporteMasVendidosDto;
@@ -16,9 +18,11 @@ import com.example.demo.dtos.ReportePedidosPorClienteDto;
 import com.example.demo.entity.Articulo;
 import com.example.demo.entity.Cliente;
 import com.example.demo.entity.DetallePedido;
+import com.example.demo.entity.Insumo;
 import com.example.demo.entity.Pedido;
 import com.example.demo.repository.ArticuloRepository;
 import com.example.demo.repository.ClienteRepository;
+import com.example.demo.repository.InsumoRepository;
 import com.example.demo.repository.PedidoRepository;
 
 @Service
@@ -32,6 +36,9 @@ public class ReportesServicio {
 	
 	@Autowired
 	ClienteRepository clienteRepository;
+	
+	@Autowired
+	InsumoRepository insumoRepository;
 	
 	public List<ReporteMasVendidosDto> findArticulosMasVendidos(String fechaDesdeHasta) throws Exception{
 		
@@ -266,6 +273,21 @@ public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesde
 		
 		return dtos;
 	}
+
+public List<InsumoDto>findInsumosDebajoDeStockMinimo(){
 	
+	List<Insumo>insumosDebajoDeStockMinimo = new ArrayList<>();
+	List<InsumoDto>insumos = new ArrayList<InsumoDto>();
+	
+	insumosDebajoDeStockMinimo = insumoRepository.findInsumosStockDebajoDelMinimo();
+	for(Insumo i : insumosDebajoDeStockMinimo) {
+		System.out.println("InsumoObtenido: " + i.getDenominacion());
+		InsumoDto insumoDto = new InsumoDto();
+		insumoDto.setDenominacion(i.getDenominacion());
+		insumos.add(insumoDto);
+	}
+
+	return insumos;
+}
 }
 
