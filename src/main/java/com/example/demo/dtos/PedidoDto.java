@@ -46,6 +46,7 @@ public class PedidoDto {
 	
 	private Cliente cliente;
 	
+	private String formaDePago;
 	
 	private Factura factura;
 	
@@ -84,7 +85,7 @@ public class PedidoDto {
 
 
 	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin ,int tiempoRequerido, boolean conEnvio,
-			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura, FacturaDto facturaDto) {
+			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura, FacturaDto facturaDto, String formaDePago) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -97,6 +98,7 @@ public class PedidoDto {
 		this.cliente = cliente;
 		this.factura = factura;
 		this.facturaDto = facturaDto;
+		this.formaDePago = formaDePago;
 	}
 	
 	
@@ -106,7 +108,7 @@ public class PedidoDto {
 	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin, boolean conEnvio,
 			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura, Pedido pedido, long idEstadoPedido,
 			String nombreCliente, String stringDetallePedido, int telCliente, String domicilioCliente,
-			String stringEstadoPedido, Date fechaAnulado) {
+			String stringEstadoPedido, Date fechaAnulado, String formaDePago) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -125,8 +127,17 @@ public class PedidoDto {
 		this.domicilioCliente = domicilioCliente;
 		this.stringEstadoPedido = stringEstadoPedido;
 		this.fechaAnulado = fechaAnulado;
+		this.formaDePago = formaDePago;
 	}
 
+
+	public String getFormaDePago() {
+		return formaDePago;
+	}
+
+	public void setFormaDePago(String formaDePago) {
+		this.formaDePago = formaDePago;
+	}
 
 	public FacturaDto getFacturaDto() {
 		return facturaDto;
