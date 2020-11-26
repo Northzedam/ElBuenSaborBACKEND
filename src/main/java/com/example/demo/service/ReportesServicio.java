@@ -15,6 +15,7 @@ import com.example.demo.dtos.PedidoDto;
 import com.example.demo.dtos.ReporteGananciasDto;
 import com.example.demo.dtos.ReporteMasVendidosDto;
 import com.example.demo.dtos.ReportePedidosPorClienteDto;
+import com.example.demo.dtos.UnidadMedidaDto;
 import com.example.demo.entity.Articulo;
 import com.example.demo.entity.Cliente;
 import com.example.demo.entity.DetallePedido;
@@ -284,6 +285,11 @@ public List<InsumoDto>findInsumosDebajoDeStockMinimo(){
 		System.out.println("InsumoObtenido: " + i.getDenominacion());
 		InsumoDto insumoDto = new InsumoDto();
 		insumoDto.setDenominacion(i.getDenominacion());
+		insumoDto.setStockActual(i.getStockActual());
+		insumoDto.setStockMinimo(i.getStockMinimo());
+		insumoDto.setPrecioCompra(i.getPrecioCompra());
+		UnidadMedidaDto unidadMedidaDto = new UnidadMedidaDto();
+		unidadMedidaDto.setUnidadMedida(i.getUnidadMedida().getUnidadMedida());
 		insumos.add(insumoDto);
 	}
 
