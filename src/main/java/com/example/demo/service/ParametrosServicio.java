@@ -117,5 +117,24 @@ public class ParametrosServicio {
 			throw new Exception();
 		}
 	}
+	
+	public int getNumeroCocineros() {
+		int numCocineros = 1;
+		List<Parametros> lista = new ArrayList<Parametros>();
+		
+		try {
+			lista = repository.findAll();
+			
+			if(lista.size() > 0) {
+				numCocineros = lista.get(0).getCantidadCocineros();
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Conflicto en método 'numeroCocineros' en ParametrosService: " + e.getMessage());;
+		}
+		
+		
+		return numCocineros;		
+	}
 
 }

@@ -24,6 +24,7 @@ import com.example.demo.repository.ArticuloRepository;
 import com.example.demo.repository.ClienteRepository;
 import com.example.demo.repository.DetalleFacturaRepository;
 import com.example.demo.repository.InsumoRepository;
+import com.example.demo.repository.ParametrosRepository;
 import com.example.demo.entity.EstadoPedido;
 import com.example.demo.entity.Factura;
 import com.example.demo.repository.EstadoPedidoRepository;
@@ -51,6 +52,9 @@ public class PedidoServicio {
 	
 	@Autowired (required = true)
 	FacturaRepository facturaRepository;
+	
+	@Autowired (required = true)
+	ParametrosServicio paramServicio;
 	
 	@Autowired (required = true)
 	ClienteRepository clienteRepository;
@@ -143,7 +147,7 @@ public class PedidoServicio {
 		}
 	}
 	
-public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
+	public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		
 		List<Pedido>entities = repository.findPedidosNoFinalizados();
 		List<PedidoDto>dtos = new ArrayList<PedidoDto>();
@@ -251,12 +255,15 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
     public PedidoDto save(PedidoDto dto, boolean estado) throws Exception {
     	boolean error=false;
 		Pedido entity = new Pedido();
-		int tiempoRequerido=0;
+		int tiempoRequerido = 0;
+		int tiempoOtrosPedidos = 0;
+		int tiempoDelivery = 0;
 		entity.setFecha(dto.getFecha());
 		entity.setNumero(dto.getNumero());
 		entity.setEstado(dto.getEstado());
 		entity.setHoraFin(dto.getHoraFin());
 		entity.setConEnvio(dto.getConEnvio());	
+		entity.setFormaDePago(dto.getFormaDePago());
 		
 		EstadoPedido epTemp = new EstadoPedido();
 		if(estadoPedidoRepository.existsById(dto.getIdEstadoPedido())) {
@@ -287,13 +294,19 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 					error = true;
 					throw new Exception("Stock insuficiente");
 				}
-			}
+			}			
 			
 			tiempoRequerido+=(articuloEntity.getTiempoCocina()*detalleDto.getCantidad());
+			
 			detalleEntity.setArticulo(articuloEntity);			
 			listaDetalles.add(detalleEntity);
 		}
 		entity.setDetalles(listaDetalles);
+		
+		tiempoOtrosPedidos = this.getTiempoTodosLosPedidos();		
+		tiempoDelivery = dto.getConEnvio() ? 10 : 0;
+		tiempoRequerido += (tiempoOtrosPedidos + tiempoDelivery);
+		
 		entity.setTiempoRequerido(tiempoRequerido);
 		
 			try {
@@ -341,6 +354,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 				entity.setHoraFin(dto.getHoraFin());
 				entity.setConEnvio(dto.getConEnvio());
 				entity.setFechaAnulado(dto.getFechaAnulado());
+				entity.setFormaDePago(dto.getFormaDePago());
 
 				EstadoPedido epTemp = new EstadoPedido();
 				Optional<EstadoPedido>epEntityOptional = estadoPedidoRepository.findById((long)dto.getIdEstadoPedido());
@@ -369,8 +383,6 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		}
 		return dto;
 	}
-	
-	
 	
 	protected void restaurarStock(Pedido pedido) {
 		
@@ -403,11 +415,34 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		
 	}
 	
-	
-	
-	
-	
+	protected int getTiempoTodosLosPedidos() {
+		
+		int idEstadoPedidoEnProceso = 2;
+		int minutosDemora = 0;
+		
+		try {
+			List<Pedido> lista = new ArrayList<Pedido>();
+			lista = this.findEntityByIdEstadoPedido(idEstadoPedidoEnProceso);
 			
+			for(Pedido item : lista) {
+				if(item.getDetalles().size() > 0) {
+					for(DetallePedido det : item.getDetalles()) {
+						minutosDemora += (det.getArticulo().getTiempoCocina() * det.getCantidad());
+					}
+				}
+			}
+			
+			int numCocineros = paramServicio.getNumeroCocineros();
+			
+			minutosDemora = minutosDemora / numCocineros;
+			
+		} catch (Exception e) {
+			System.out.println("Conflicto en método 'tiempoTodosLosPedidos' en PedidoServicio: " + e.getMessage());;
+		}
+		
+		return minutosDemora;
+	}
+	
 	public boolean delete(int id) throws Exception {
 		try {
 			if(repository.existsById((long) id)) {
@@ -466,6 +501,7 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 			dto.setTiempoRequerido(entity.getTiempoRequerido());
 			dto.setHoraFin(entity.getHoraFin());
 			dto.setConEnvio(entity.getConEnvio());
+			dto.setFormaDePago(entity.getFormaDePago());
 			
 			if(entity.getFactura() != null) {
 				FacturaDto facDto = this.facServicio.findById((int)entity.getFactura().getId());
@@ -562,6 +598,24 @@ public List<PedidoDto> findPedidosNoFinalizados() throws Exception {
 		}
 		
 		
+	}
+	
+	public List <Pedido> findEntityByIdEstadoPedido(int idEstadoPedido) throws Exception{
+		List<Pedido> entities = repository.findAll();
+		List<Pedido> pedidosConEstadoCorrespondiente = new ArrayList<Pedido>();
+		try {			
+			for(Pedido entity : entities) {
+				if(entity.getEstadoPedido().getId() == (long)idEstadoPedido) {
+					pedidosConEstadoCorrespondiente.add(entity);
+				}
+				
+			}		
+			
+		} catch (Exception e) {
+			System.out.println("Conflicto en método 'findEntityByIdEstadoPedido' de PedidoServicio: " + e.getMessage());
+		}
+		
+		return pedidosConEstadoCorrespondiente;
 	}
 	
 	

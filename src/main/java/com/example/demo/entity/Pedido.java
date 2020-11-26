@@ -31,6 +31,9 @@ public class Pedido extends EntidadGenerica implements Serializable{
 	
 	@Column(name = "Estado")
 	private String estado;
+	
+	@Column(name = "FormaDePago")
+	private String formaDePago;
 
 	@Column(name = "tiempoRequerido")
 	private int tiempoRequerido;
@@ -69,7 +72,7 @@ public class Pedido extends EntidadGenerica implements Serializable{
 
 
 
-	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tiempoRequerido, boolean conEnvio) {
+	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, int tiempoRequerido, boolean conEnvio, String formaDePago) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -78,13 +81,14 @@ public class Pedido extends EntidadGenerica implements Serializable{
 		this.tiempoRequerido = tiempoRequerido;
 		this.horaFin = horaFin;
 		this.conEnvio = conEnvio;
+		this.formaDePago = formaDePago;
 	}
 	
 	
 
 
 
-	public Pedido(long id, Date fecha, int numero, String estado, int tiempoRequerido, Date horaFin, boolean conEnvio, List<DetallePedido> detalles) {
+	public Pedido(long id, Date fecha, int numero, String estado, int tiempoRequerido, Date horaFin, boolean conEnvio, List<DetallePedido> detalles, String formaDePago) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -94,11 +98,12 @@ public class Pedido extends EntidadGenerica implements Serializable{
 		this.horaFin = horaFin;
 		this.conEnvio = conEnvio;
 		this.detalles = detalles;
+		this.formaDePago = formaDePago;
 	}
 	
 	
 	public Pedido(long id, Date fecha, int numero, String estado, Date horaFin, boolean conEnvio, Date fechaAnulado,
-			List<DetallePedido> detalles, Cliente cliente, Factura factura, EstadoPedido estadoPedido) {
+			List<DetallePedido> detalles, Cliente cliente, Factura factura, EstadoPedido estadoPedido, String formaDePago) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -111,10 +116,23 @@ public class Pedido extends EntidadGenerica implements Serializable{
 		this.cliente = cliente;
 		this.factura = factura;
 		this.estadoPedido = estadoPedido;
+		this.formaDePago = formaDePago;
 	}
 
 
 	//SETTERS Y GETTERS
+
+
+	public String getFormaDePago() {
+		return formaDePago;
+	}
+
+
+
+	public void setFormaDePago(String formaDePago) {
+		this.formaDePago = formaDePago;
+	}
+
 
 
 	public Factura getFactura() {
