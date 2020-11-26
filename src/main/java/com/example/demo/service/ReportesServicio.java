@@ -282,7 +282,7 @@ public List<InsumoDto>findInsumosDebajoDeStockMinimo(){
 	
 	insumosDebajoDeStockMinimo = insumoRepository.findInsumosStockDebajoDelMinimo();
 	for(Insumo i : insumosDebajoDeStockMinimo) {
-		System.out.println("InsumoObtenido: " + i.getDenominacion());
+		System.out.println("InsumoObtenido: " + i.getDenominacion() + "UnidadMedidaObtenida: " + i.getUnidadMedida().getUnidadMedida());
 		InsumoDto insumoDto = new InsumoDto();
 		insumoDto.setDenominacion(i.getDenominacion());
 		insumoDto.setStockActual(i.getStockActual());
@@ -290,6 +290,7 @@ public List<InsumoDto>findInsumosDebajoDeStockMinimo(){
 		insumoDto.setPrecioCompra(i.getPrecioCompra());
 		UnidadMedidaDto unidadMedidaDto = new UnidadMedidaDto();
 		unidadMedidaDto.setUnidadMedida(i.getUnidadMedida().getUnidadMedida());
+		insumoDto.setUnidadMedida(unidadMedidaDto);
 		insumos.add(insumoDto);
 	}
 
