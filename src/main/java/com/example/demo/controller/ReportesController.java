@@ -58,6 +58,31 @@ public class ReportesController {
 				}
 			}
 			
+			@GetMapping("/pedidosPorCliente")
+			@Transactional
+			public ResponseEntity getPedidosPorCliente(@RequestParam String fechaDesdeHasta){
+				try {
+					//return ResponseEntity.status(HttpStatus.OK).body(service.findArticulosMasVendidos(fechaDesde, fechaHasta));
+					return ResponseEntity.status(HttpStatus.OK).body(service.findPedidosPorCliente(fechaDesdeHasta));
+
+					
+				}catch(Exception e) {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
+				}
+			}
 		
+			@GetMapping("/insumosStockMinimo")
+			@Transactional
+			public ResponseEntity getInsumosDebajoDeStockMinimo(){
+				try {
+					//return ResponseEntity.status(HttpStatus.OK).body(service.findArticulosMasVendidos(fechaDesde, fechaHasta));
+					return ResponseEntity.status(HttpStatus.OK).body(service.findInsumosDebajoDeStockMinimo());
+
+					
+				}catch(Exception e) {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
+				}
+			}
+			
 
 }
