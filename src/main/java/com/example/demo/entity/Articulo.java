@@ -35,7 +35,7 @@ import javax.persistence.OneToMany;
 		@Column(name = "TiempoEstimadoCocina")
 		private int tiempoCocina;
 		
-		@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+		@OneToMany(cascade = CascadeType.ALL)
 		@JoinColumn(name = "id_articulo")
 		List<DetalleReceta>detallesReceta = new ArrayList<DetalleReceta>();
 		
