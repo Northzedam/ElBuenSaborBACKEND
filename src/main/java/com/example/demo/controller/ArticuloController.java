@@ -143,7 +143,7 @@ public class ArticuloController{
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity delete(@PathVariable int id) {
+	public ResponseEntity delete(@PathVariable long id) {
 
 		try {
 

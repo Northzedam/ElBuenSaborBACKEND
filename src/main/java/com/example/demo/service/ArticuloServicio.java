@@ -296,7 +296,7 @@ public class ArticuloServicio {
 		
 	}
 			
-	public boolean delete(int id) throws Exception {
+	public boolean delete(long id) throws Exception {
 		try {
 			if(repository.existsById((long) id)) {
 				repository.deleteById((long) id);
