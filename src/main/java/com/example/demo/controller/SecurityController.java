@@ -47,11 +47,11 @@ public class SecurityController {
 		
 		@GetMapping("/{uid}")
 		@Transactional
-		public ResponseEntity getOne(@PathVariable String email) {
+		public ResponseEntity getOne(@PathVariable String uid) {
 
 			try {
 
-				return ResponseEntity.status(HttpStatus.OK).body(service.findByEmail(email));
+				return ResponseEntity.status(HttpStatus.OK).body(service.findByUid(uid));
 
 			} catch (Exception e) {
 
