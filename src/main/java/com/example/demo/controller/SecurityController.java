@@ -47,7 +47,7 @@ public class SecurityController {
 		
 		@GetMapping("/{uid}")
 		@Transactional
-		public ResponseEntity getOne(@PathVariable long uid) {
+		public ResponseEntity getOne(@PathVariable String uid) {
 
 			try {
 
@@ -89,7 +89,7 @@ public class SecurityController {
 		@PutMapping("/{id}")
 
 		@Transactional
-		public ResponseEntity put(@PathVariable long uid, @RequestBody UserDto dto) {
+		public ResponseEntity put(@PathVariable String uid, @RequestBody UserDto dto) {
 			
 			try {
 				
