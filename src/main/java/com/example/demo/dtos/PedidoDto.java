@@ -28,6 +28,8 @@ public class PedidoDto {
 	
 	private Date fecha;
 	
+	private Date fechaLlegadaAprox;
+	
 	
 	private int numero;
 	
@@ -85,7 +87,8 @@ public class PedidoDto {
 
 
 	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin ,int tiempoRequerido, boolean conEnvio,
-			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura, FacturaDto facturaDto, String formaDePago) {
+			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura, FacturaDto facturaDto, String formaDePago,
+			Date fechaLlegadaAprox) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -99,6 +102,7 @@ public class PedidoDto {
 		this.factura = factura;
 		this.facturaDto = facturaDto;
 		this.formaDePago = formaDePago;
+		this.fechaLlegadaAprox = fechaLlegadaAprox;
 	}
 	
 	
@@ -108,7 +112,7 @@ public class PedidoDto {
 	public PedidoDto(long id, Date fecha, int numero, String estado, Date horaFin, boolean conEnvio,
 			List<DetallePedidoDto> detalles, Cliente cliente, Factura factura, Pedido pedido, long idEstadoPedido,
 			String nombreCliente, String stringDetallePedido, int telCliente, String domicilioCliente,
-			String stringEstadoPedido, Date fechaAnulado, String formaDePago) {
+			String stringEstadoPedido, Date fechaAnulado, String formaDePago, Date fechaLlegadaAprox) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -128,6 +132,7 @@ public class PedidoDto {
 		this.stringEstadoPedido = stringEstadoPedido;
 		this.fechaAnulado = fechaAnulado;
 		this.formaDePago = formaDePago;
+		this.fechaLlegadaAprox = fechaLlegadaAprox;
 	}
 
 
@@ -326,6 +331,14 @@ public class PedidoDto {
 
 	public void setEmailCliente(String emailCliente) {
 		this.emailCliente = emailCliente;
+	}
+
+	public Date getFechaLlegadaAprox() {
+		return fechaLlegadaAprox;
+	}
+
+	public void setFechaLlegadaAprox(Date fechaLlegadaAprox) {
+		this.fechaLlegadaAprox = fechaLlegadaAprox;
 	}
 	
 	

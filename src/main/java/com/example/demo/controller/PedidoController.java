@@ -200,7 +200,9 @@ public class PedidoController {
 		@RequestParam(defaultValue = "false") boolean conEnvio,
 		@RequestParam(defaultValue = "0") long idEstadoPedido,
 		@RequestParam(defaultValue = "false") boolean esFacturado,
-		@RequestParam(defaultValue = "false") boolean tieneFechaAnulado) throws Exception{
+		@RequestParam(defaultValue = "false") boolean tieneFechaAnulado,
+		@RequestParam(defaultValue = "0") long idCliente
+		) throws Exception{
 		
 		System.out.println("HOLA PEBETE: "+idEstadoPedido);
 		
@@ -211,11 +213,13 @@ public class PedidoController {
 		dateFechaHasta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(fechaHasta);			
 			        
 		if(!asc) {
-			Page<PedidoDto> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, dateFechaDesde, dateFechaHasta, esFacturado, tieneFechaAnulado,
+			Page<PedidoDto> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, 
+					dateFechaDesde, dateFechaHasta, esFacturado, tieneFechaAnulado, idCliente,
 					  PageRequest.of(page, size, Sort.by(order).descending()));
 			return new ResponseEntity(pedidos, HttpStatus.OK);
 		}else {
-			Page<PedidoDto> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, dateFechaDesde, dateFechaHasta, esFacturado, tieneFechaAnulado,
+			Page<PedidoDto> pedidos = service.findByFrase(usarParamConEnvio, conEnvio, idEstadoPedido, frase, 
+					dateFechaDesde, dateFechaHasta, esFacturado, tieneFechaAnulado, idCliente,
 					  PageRequest.of(page, size, Sort.by(order)));
 			return new ResponseEntity(pedidos, HttpStatus.OK);
 		}
