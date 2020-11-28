@@ -11,5 +11,5 @@ import com.sun.el.stream.Optional;
 public interface SecurityRepository extends JpaRepository<User, Long> {
 
 	@Query("SELECT u FROM User u WHERE u.uid = :uid")
-	public User findByUid(long uid);
+	public User findByUid(String uid);
 }

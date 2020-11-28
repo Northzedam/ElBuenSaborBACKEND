@@ -63,7 +63,7 @@ public class SecurityService {
 				
 		}
 		
-		public UserDto findByUid(long uid) throws Exception {
+		public UserDto findByUid(String uid) throws Exception {
 			
 				
 			UserDto dto = new UserDto();
@@ -101,7 +101,7 @@ public class SecurityService {
 					
 		}
 		 
-		 public UserDto update(long uid, UserDto dto, boolean estado) throws Exception {
+		 public UserDto update(String uid, UserDto dto, boolean estado) throws Exception {
 				
 				
 				try {
