@@ -100,7 +100,7 @@ public class ArticuloServicio {
 		}
 	}
 	
-	public ArticuloDto findById(int id) throws Exception{
+	public ArticuloDto findById(long id) throws Exception{
 		
 		Optional<Articulo>entityOptional = repository.findById((long) id);
 		
@@ -127,11 +127,13 @@ public class ArticuloServicio {
 						DetalleRecetaDto detalleRecetaDto = new DetalleRecetaDto();
 						detalleRecetaDto.setId(detalleReceta.getId());
 						detalleRecetaDto.setCantidad(detalleReceta.getCantidad());
-						detalleRecetaDto.getInsumo().setId(detalleReceta.getInsumo().getId());
-						detalleRecetaDto.getInsumo().setDenominacion(detalleReceta.getInsumo().getDenominacion());
-						detalleRecetaDto.getInsumo().setPrecioCompra(detalleReceta.getInsumo().getPrecioCompra());
-						detalleRecetaDto.getInsumo().setStockActual(detalleReceta.getInsumo().getStockActual());
-						detalleRecetaDto.getInsumo().setStockMinimo(detalleReceta.getInsumo().getStockMinimo());
+						InsumoDto insumoDto = new InsumoDto();
+						insumoDto.setId(detalleReceta.getInsumo().getId());
+						insumoDto.setDenominacion(detalleReceta.getInsumo().getDenominacion());
+						insumoDto.setPrecioCompra(detalleReceta.getInsumo().getPrecioCompra());
+						insumoDto.setStockActual(detalleReceta.getInsumo().getStockActual());
+						insumoDto.setStockMinimo(detalleReceta.getInsumo().getStockMinimo());
+						detalleRecetaDto.setInsumo(insumoDto);
 						detallesReceta.add(detalleRecetaDto);
 					}
 					dto.setDetalles(detallesReceta);
