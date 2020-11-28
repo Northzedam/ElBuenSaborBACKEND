@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dtos.UnidadMedidaDto;
-import com.example.demo.service.UnidadMedidaServicio;
+import com.example.demo.dtos.UserDto;
+import com.example.demo.service.SecurityService;
 
 @RestController
 public class SecurityController {
@@ -28,7 +28,7 @@ public class SecurityController {
 	public class UnidadMedidaController{
 		
 		@Autowired (required = true)
-		protected UnidadMedidaServicio service;
+		protected SecurityService service;
 		
 		//getAll-----------------------
 		
@@ -45,13 +45,13 @@ public class SecurityController {
 		
 		//getOne-----------------------
 		
-		@GetMapping("/{id}")
+		@GetMapping("/{uid}")
 		@Transactional
-		public ResponseEntity getOne(@PathVariable int id) {
+		public ResponseEntity getOne(@PathVariable long uid) {
 
 			try {
 
-				return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
+				return ResponseEntity.status(HttpStatus.OK).body(service.findByUid(uid));
 
 			} catch (Exception e) {
 
@@ -68,7 +68,7 @@ public class SecurityController {
 		@PostMapping("/")
 
 		@Transactional
-		public ResponseEntity post(@RequestBody UnidadMedidaDto dto) {
+		public ResponseEntity post(@RequestBody UserDto dto) {
 			
 			try {
 				
@@ -89,12 +89,12 @@ public class SecurityController {
 		@PutMapping("/{id}")
 
 		@Transactional
-		public ResponseEntity put(@PathVariable int id, @RequestBody UnidadMedidaDto dto) {
+		public ResponseEntity put(@PathVariable long uid, @RequestBody UserDto dto) {
 			
 			try {
 				
 				
-				return ResponseEntity.status(HttpStatus.OK).body(service.update(id, dto, true));
+				return ResponseEntity.status(HttpStatus.OK).body(service.update(uid, dto, true));
 				
 			} catch (Exception e) {
 				
