@@ -47,7 +47,7 @@ public class ArticuloController{
 	
 	@GetMapping("/{id}")
 	@Transactional
-	public ResponseEntity getOne(@PathVariable int id) {
+	public ResponseEntity getOne(@PathVariable long id) {
 
 		try {
 
