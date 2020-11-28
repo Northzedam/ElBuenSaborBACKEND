@@ -63,14 +63,14 @@ public class SecurityService {
 				
 		}
 		
-		public UserDto findByUid(String uid) throws Exception {
+		public UserDto findByEmail(String email) throws Exception {
 			
 				
 			UserDto dto = new UserDto();
 			
 			try {
 				 
-				 User entity = repository.findByUid(uid);
+				 User entity = repository.findByEmail(email);
 				 dto.setRole(entity.getRole());
 				 dto.setUid(entity.getUid());
 				 
@@ -101,11 +101,11 @@ public class SecurityService {
 					
 		}
 		 
-		 public UserDto update(String uid, UserDto dto, boolean estado) throws Exception {
+		 public UserDto update(String email, UserDto dto, boolean estado) throws Exception {
 				
 				
 				try {
-					User entity = repository.findByUid(uid);
+					User entity = repository.findByEmail(email);
 					 entity.setUid(dto.getUid());
 					 entity.setRole(dto.getRole());		
 					 entity.setEmail(dto.getEmail());
