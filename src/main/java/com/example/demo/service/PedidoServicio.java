@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -469,9 +470,9 @@ public class PedidoServicio {
 	}
 	
 	//FindByFrase
-	public Page<PedidoDto> findByFrase(boolean usarParamConEnvio, boolean conEnvio, long idEstadoPedido, String frase, Date  fechaDesde, Date fechaHasta, boolean esFacturado, boolean tieneFechaAnulado, Pageable pageable){
+	public Page<PedidoDto> findByFrase(boolean usarParamConEnvio, boolean conEnvio, long idEstadoPedido, String frase, Date  fechaDesde, Date fechaHasta, boolean esFacturado, boolean tieneFechaAnulado, long idCliente, Pageable pageable){
 		
-		Page<Pedido> pedidosEntity = repository.findByNombre(usarParamConEnvio, conEnvio, idEstadoPedido, frase, fechaDesde, fechaHasta, esFacturado, tieneFechaAnulado, pageable);
+		Page<Pedido> pedidosEntity = repository.findByNombre(usarParamConEnvio, conEnvio, idEstadoPedido, frase, fechaDesde, fechaHasta, esFacturado, tieneFechaAnulado, idCliente, pageable);
 		Page<PedidoDto> pedidosDto = null;
 		try {
 			pedidosDto = pedidosEntity.map(new Function<Pedido, PedidoDto>() {
@@ -567,11 +568,23 @@ public class PedidoServicio {
 			}				
 			dto.setStringDetallePedido(detallesConcatenados);	
 			
+			Date fechaHoraAproxLlegada = calcularHoraLlegadaDePedido(entity.getFecha(), entity.getTiempoRequerido());
+			dto.setFechaLlegadaAprox(fechaHoraAproxLlegada);
+			
 		} catch (Exception e) {
 			System.out.println("Falla método 'convertEntidadAPedidoDTO': " +  e.getMessage());
 		}
 			
 		return dto;
+	}
+	
+	protected Date calcularHoraLlegadaDePedido(Date fecha, int minutos) {
+		Calendar c = Calendar.getInstance();
+        c.setTime(fecha);
+        
+        c.add(Calendar.MINUTE, minutos);
+        
+        return c.getTime();
 	}
 	
 	public List <PedidoDto> findByIdEstadoPedido(int idEstadoPedido) throws Exception{
