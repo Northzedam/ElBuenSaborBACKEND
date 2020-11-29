@@ -170,7 +170,7 @@ public ClienteDto save(ClienteDto dto, boolean estado) throws Exception {
 	
 	Optional<Cliente>entityOptional = repository.findByEmail(dto.getEmail());
 	
-	if(!entityOptional.isEmpty()) {
+	if(entityOptional.isEmpty()) {
 	
 		Cliente entity = new Cliente();
 		

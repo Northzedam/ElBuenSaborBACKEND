@@ -86,7 +86,7 @@ public class SecurityController {
 		
 	
 		
-		@PutMapping("/{id}")
+		@PutMapping("/{uid}")
 
 		@Transactional
 		public ResponseEntity put(@PathVariable String uid, @RequestBody UserDto dto) {

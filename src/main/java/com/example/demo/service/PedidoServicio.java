@@ -289,7 +289,7 @@ public class PedidoServicio {
 			Articulo articuloEntity = articuloRepository.getOne(detalleDto.getArticuloDto().getId());
 			// CONTROL DE STOCK
 			for(DetalleReceta detalle : articuloEntity.getDetallesReceta()) {
-				if((detalle.getInsumo().getStockActual() > 0) && (detalle.getInsumo().getStockActual() > detalle.getCantidad()*detalleDto.getCantidad() )) { // controla que el stock actual sea mayor que el minimo
+				if((detalle.getInsumo().getStockActual() > 0) && (detalle.getInsumo().getStockActual() >= detalle.getCantidad()*detalleDto.getCantidad() )) { // controla que el stock actual sea mayor que el minimo
 						detalle.getInsumo().setStockActual(detalle.getInsumo().getStockActual() - (detalle.getCantidad()*detalleDto.getCantidad()));		
 				}else {
 					error = true;
