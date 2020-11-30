@@ -28,6 +28,7 @@ public class SecurityService {
 				
 				for(User entity : entities) {
 					UserDto dto = new UserDto();
+					dto.setId(entity.getId());
 					dto.setRole(entity.getRole());
 					dto.setUid(entity.getUid());
 					dto.setEmail(entity.getEmail());
