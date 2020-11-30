@@ -2,6 +2,8 @@ package com.example.demo.dtos;
 
 public class UserDto {
 	
+	private long id;
+	
 	private String uid;
 	
 	private String email;
@@ -13,12 +15,29 @@ public class UserDto {
 		super();
 	}
 
-	public UserDto(String uid, String email, String role) {
+	
+
+	public UserDto(long id, String uid, String email, String role) {
 		super();
+		this.id = id;
 		this.uid = uid;
 		this.email = email;
 		this.role = role;
 	}
+
+	
+
+	public long getId() {
+		return id;
+	}
+
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
 
 	public String getUid() {
 		return uid;
