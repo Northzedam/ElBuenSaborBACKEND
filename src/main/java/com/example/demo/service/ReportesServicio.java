@@ -233,7 +233,7 @@ public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesde
 		List<Cliente>clientes = new ArrayList<Cliente>();
 		try {
 			clientes = clienteRepository.findAll();
-
+			clientes.forEach(k -> System.out.println(k.getNombre() + " " + k.getApellido()));
 		} catch (Exception e) {
 			System.out.println("Error al obtener todos los clientes");
 		}
@@ -256,7 +256,7 @@ public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesde
 			//double montoTotalGastado=0.0;
 			for(Pedido pedido : pedidos) {
 				//montoTotalGastado+=pedido.getFactura().getTotal();
-				//System.out.println("montoTotallll: " + montoTotalGastado);
+				
 				if(pedido.getCliente().getEmail().equals(cliente.getEmail())) { // si coincide el nombre del articulo del detalle con el articulo en analisis
 					
 					if(cantidadPedidosPorCliente.containsKey(cliente.getEmail())) {
@@ -267,22 +267,20 @@ public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesde
 			
 				}
 			}
+			
 			ReportePedidosPorClienteDto nuevoReporte = new ReportePedidosPorClienteDto();
 			nuevoReporte.setNombre(cliente.getNombre());
 			nuevoReporte.setApellido(cliente.getApellido());
-			nuevoReporte.setCantidadPedidos(cantidadPedidosPorCliente.get(cliente.getEmail()));
+			if(cantidadPedidosPorCliente.get(cliente.getEmail()) != null) {
+				nuevoReporte.setCantidadPedidos(cantidadPedidosPorCliente.get(cliente.getEmail()));
+			}
 			nuevoReporte.setEmail(cliente.getEmail());
 			nuevoReporte.setTelefono(cliente.getTelefono());
 			//nuevoReporte.setMontoTotalGastado(montoTotalGastado);
 			
 
 			dtos.add(nuevoReporte);
-			for (ReportePedidosPorClienteDto nuevoReporte1 : dtos) {
-				System.out.println("cliente: " + nuevoReporte1.getNombre() + " " + nuevoReporte.getApellido());
-				System.out.println("cantidad de pedidos: " + nuevoReporte1.getCantidadPedidos());
-				System.out.println("email: " + nuevoReporte1.getEmail());
-				System.out.println("telefono: " + nuevoReporte1.getTelefono());
-			}
+			
 		}
 		
 		

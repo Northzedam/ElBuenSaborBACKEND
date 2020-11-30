@@ -62,7 +62,6 @@ public class ReportesController {
 			@Transactional
 			public ResponseEntity getPedidosPorCliente(@RequestParam String fechaDesdeHasta){
 				try {
-					//return ResponseEntity.status(HttpStatus.OK).body(service.findArticulosMasVendidos(fechaDesde, fechaHasta));
 					return ResponseEntity.status(HttpStatus.OK).body(service.findPedidosPorCliente(fechaDesdeHasta));
 
 					
