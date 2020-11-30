@@ -4,7 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,7 +93,13 @@ public class ReportesServicio {
 		
 		statsArticulo.forEach((k,v) -> System.out.println("Clave: "+k + "Valor: "+v));
 		
-		statsArticulo.forEach((k,v) -> {
+		//ordenamiento del hashMap en orden descendente:
+		final Map<String, Integer> statsArticuloOrdenadasDesc = statsArticulo.entrySet()
+                .stream()
+                .sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+		
+		statsArticuloOrdenadasDesc.forEach((k,v) -> {
 			ReporteMasVendidosDto nuevoReporte = new ReporteMasVendidosDto();
 			nuevoReporte.setDenominacion(k);
 			nuevoReporte.setCantidad(v);
@@ -104,10 +113,7 @@ public class ReportesServicio {
 			dtos.add(nuevoReporte);
 			
 		});
-		for(ReporteMasVendidosDto nuevoReporte : dtos) {
-			System.out.println("Reporte:");
-			System.out.println("Denominacion: "+nuevoReporte.getDenominacion() + " - Cantidad: " + nuevoReporte.getCantidad());
-		}
+		
 		return dtos;
 	}
 	
@@ -247,11 +253,11 @@ public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesde
 		// ahora que ya obtuve toda la lista de clientes y todos los pedidos por fecha, calculo la cantidad de pedidos por cada cliente
 		
 		for(Cliente cliente : clientes) {
-			double montoTotalGastado=0.0;
+			//double montoTotalGastado=0.0;
 			for(Pedido pedido : pedidos) {
 				//montoTotalGastado+=pedido.getFactura().getTotal();
-				System.out.println("montoTotal: " + montoTotalGastado);
-				if(pedido.getCliente().getEmail() == cliente.getEmail()) { // si coincide el nombre del articulo del detalle con el articulo en analisis
+				//System.out.println("montoTotallll: " + montoTotalGastado);
+				if(pedido.getCliente().getEmail().equals(cliente.getEmail())) { // si coincide el nombre del articulo del detalle con el articulo en analisis
 					
 					if(cantidadPedidosPorCliente.containsKey(cliente.getEmail())) {
 						cantidadPedidosPorCliente.put(pedido.getCliente().getEmail(), cantidadPedidosPorCliente.get(cliente.getEmail())+1);
@@ -268,7 +274,15 @@ public List<ReportePedidosPorClienteDto> findPedidosPorCliente(String fechaDesde
 			nuevoReporte.setEmail(cliente.getEmail());
 			nuevoReporte.setTelefono(cliente.getTelefono());
 			//nuevoReporte.setMontoTotalGastado(montoTotalGastado);
+			
+
 			dtos.add(nuevoReporte);
+			for (ReportePedidosPorClienteDto nuevoReporte1 : dtos) {
+				System.out.println("cliente: " + nuevoReporte1.getNombre() + " " + nuevoReporte.getApellido());
+				System.out.println("cantidad de pedidos: " + nuevoReporte1.getCantidadPedidos());
+				System.out.println("email: " + nuevoReporte1.getEmail());
+				System.out.println("telefono: " + nuevoReporte1.getTelefono());
+			}
 		}
 		
 		

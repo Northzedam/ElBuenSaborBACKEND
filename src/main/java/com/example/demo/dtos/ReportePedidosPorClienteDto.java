@@ -6,13 +6,13 @@ public class ReportePedidosPorClienteDto {
 	
 	private String apellido;
 	
-	private int telefono;
+	private int telefono=0;
 	
 	private String email;
 
-	private int cantidadPedidos;
+	private int cantidadPedidos=0;
 	
-	private double montoTotalGastado;
+	private double montoTotalGastado=0.0;
 	
 	
 
