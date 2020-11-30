@@ -71,6 +71,7 @@ public class SecurityService {
 			try {
 				 
 				 User entity = repository.findByUid(uid);
+				 dto.setId(entity.getId());
 				 dto.setRole(entity.getRole());
 				 dto.setUid(entity.getUid());
 				 
