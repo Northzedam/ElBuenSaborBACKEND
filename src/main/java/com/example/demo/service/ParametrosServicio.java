@@ -33,6 +33,10 @@ public class ParametrosServicio {
 				ParametrosDto dto = new ParametrosDto();
 				dto.setId(entity.getId());
 				dto.setCantidadCocineros(entity.getCantidadCocineros());
+				dto.setHorarioAperturaDiurno(entity.getHorarioAperturaDiurno());
+				dto.setHorarioClausuraDiurno(entity.getHorarioClausuraDiurno());
+				dto.setHorarioAperturaNocturno(entity.getHorarioAperturaNocturno());
+				dto.setHorarioClausuraNocturno(entity.getHorarioClausuraNocturno());
 				
 				dtos.add(dto);
 			}
@@ -57,6 +61,10 @@ public class ParametrosServicio {
 			Parametros entity = entityOptional.get();
 			dto.setId(entity.getId());
 			dto.setCantidadCocineros(entity.getCantidadCocineros());
+			dto.setHorarioAperturaDiurno(entity.getHorarioAperturaDiurno());
+			dto.setHorarioClausuraDiurno(entity.getHorarioClausuraDiurno());
+			dto.setHorarioAperturaNocturno(entity.getHorarioAperturaNocturno());
+			dto.setHorarioClausuraNocturno(entity.getHorarioClausuraNocturno());
 			
 		} catch (Exception e) {
 			
@@ -71,6 +79,10 @@ public class ParametrosServicio {
 		
 		Parametros entity = new Parametros();
 		entity.setCantidadCocineros(dto.getCantidadCocineros());
+		entity.setHorarioAperturaDiurno(dto.getHorarioAperturaDiurno());
+		entity.setHorarioClausuraDiurno(dto.getHorarioClausuraDiurno());
+		entity.setHorarioAperturaNocturno(dto.getHorarioAperturaNocturno());
+		entity.setHorarioClausuraNocturno(dto.getHorarioClausuraNocturno());
 		
 		try {
 			entity = repository.save(entity);
@@ -92,6 +104,10 @@ public class ParametrosServicio {
 			Parametros entity = optionalEntity.get();
 			entity.setId(id);
 			entity.setCantidadCocineros(dto.getCantidadCocineros());
+			entity.setHorarioAperturaDiurno(dto.getHorarioAperturaDiurno());
+			entity.setHorarioClausuraDiurno(dto.getHorarioClausuraDiurno());
+			entity.setHorarioAperturaNocturno(dto.getHorarioAperturaNocturno());
+			entity.setHorarioClausuraNocturno(dto.getHorarioClausuraNocturno());
 			
 			 repository.save(entity);
 			 dto.setId(entity.getId());
